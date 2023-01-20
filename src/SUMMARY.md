@@ -4,8 +4,8 @@
 
 # Learn through Tutorials
 
-- [A Simple Service Provider](learn-through-tutorials/simple-service-provider.md)
-- [Mixnet Client with a IPFS Service Provider](learn-through-tutorials/mixnet-client-ipfs-sp.md)
+- [Simple Service Provider](learn-through-tutorials/simple-service-provider.md)
+- [Mixnet Client with a IPFS Service Provider (COMING SOON)](learn-through-tutorials/mixnet-client-ipfs-sp.md)
 
 # Learn about the Infrastructure
 
@@ -18,6 +18,7 @@
 
 # Integrations
 
+- [Integration Options](integrations/integration-options.md)
 - [Mixnet Integration](integrations/mixnet-integration.md)
 - [Payment Integration](integrations/payment-integration.md)
 
