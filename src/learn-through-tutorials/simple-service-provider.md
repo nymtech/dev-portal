@@ -1,18 +1,14 @@
 # Building a Simple Service Provider
 
-:::note
-You can find the full code for this tutorial [here](https://github.com/nymtech/developer-tutorials). Feel free to cross-reference your code as you build or just pull it and follow along as you go through the tutorial.
-:::
-
-In this tutorial, you'll get a taste of the technology that Nym has to offer for developers who wish to create applications provide their users with the privacy features of the mixnet.
+In this guide, developers will learn about the powerful technology offered by Nym, which allows for the creation of applications that prioritize user privacy through the use of mixnet technology.
 
 #### What are we building?
 
-You will be building two pieces of application code with which you can send messages through the mixnet: 
-- A Typescript 'User Client' that can send messages to the mixnet. This allows us to access the mixnet through a browser on our local machine. 
-- A Typescript Service Provider that can receive messages from the mixnet. 
+In this tutorial, you will learn how to build two essential components for sending messages through the mixnet:
 
-You will also learn how to set up a pair of Nym Websocket Clients, which our application code will use to connect to the mixnet.
+- A User Client written in TypeScript, which allows for accessing the mixnet through a browser on a local machine.
+- A Service Provider also written in TypeScript, which can receive messages from the mixnet.
+- Additionally, you will be guided on how to configure a pair of Nym Websocket Clients, which are necessary for connecting to the mixnet with your application.
 
 :::note
 In production, Service Providers should generally be deployed on a remote server in order to take action on our behalf without leaking metadata such as our IP. For this tutorial through, it will also run on our local machine - we will just be looping messages through the mixnet and then back to ourselves to demonstrate how to send messages through, and listen to messages from, the mixnet. 
@@ -22,18 +18,13 @@ Subsequent tutorials will look at deploying to servers, and creating more produc
 
 <img src="/img/tutorials/simple-websocket/nym-websocket-demo-2.png"/>
 
-We'll be learning:
-- How to build a Typescript application from Scratch.
-- How to initialize a Nym Websocket Client and connect it to the mixnet.
-- How to send a message through the mixnet in a format that the Service Provider can parse. 
+We'll dive into the process of creating a Typescript application from the ground up. We'll cover how to set up a Nym Websocket Client and connect it to the mixnet, as well as the necessary steps to send a properly formatted message through the mixnet to the Service Provider. Don't fret if your skills in Javascript or Typescript are a bit rusty, there will be plenty of code snippets to copy and paste along the way.
 
-Don’t worry if you are rusty with Javascript or Typescript, there will be plenty to copy and paste here!
-
+To assist in your learning, the complete code for this tutorial is available on [Github](https://github.com/nymtech/developer-tutorials). You can use it as a reference while building or simply download it and follow along as you progress through the tutorial."
 
 #### What do we want to achieve?
 
-We want to be able to have our User Client present us a simple form (in the web browser) which we can enter data into. Then, once we have filled the form out, press a 'Send' button that will then send that data straight to our Service Provider, via the mixnet. We will then be able to see the data we sent within the UI of the Service Provider in the web browser.
-
+We aim to create a user-friendly experience for sending data through the mixnet. The User Client will present a simple form accessible through a web browser, where users can enter their data. Once the form is completed, users can press a 'Send' button which will transmit the data straight to the Service Provider via the mixnet. The sent data will be visible within the user interface of the Service Provider, which can also be accessed through a web browser.
 
 #### What is a Service Provider
 'Service Providers' are the name given to any type of app that can communicate with the mixnet via a Nym Client. The [Network Requester]() is an app that takes an outbound network request from the mixnet, performs that request (e.g. authenticating with a message server and recieving new messages) and then passes the response back to the user who requested it, sheilding their metadata from the message server. 
