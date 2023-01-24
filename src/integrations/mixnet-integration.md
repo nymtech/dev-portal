@@ -47,3 +47,4 @@ Messages are end-to-end encrypted. Although the gateway knows our app's IP when 
 The process for sending messages to other apps is exactly the same, you simply specify a different recipient address. Address discovery happens outside the Nym system: in the case of a Service Provider app, the service provider has presumably advertised its own address. If you're sending to a friend of yours, you'll need to get a hold of their address out of band, maybe through a private messaging app such as Signal.
 
 ![image]()
+

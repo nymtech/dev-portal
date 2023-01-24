@@ -26,4 +26,3 @@ For command help, run:
 We recommend that users wanting to integrate with Nyx for cryptocurrency payments set up their own RPC Node, in order to be able to reliably query the blockchain and send transactions without having to worry about relying on 3rd party validators. 
 
 The guide to setting up an RPC node can be found [here](https://nymtech.net/docs/stable/run-nym-nodes/nodes/rpc-node). 
-

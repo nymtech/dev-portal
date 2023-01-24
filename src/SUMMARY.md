@@ -28,6 +28,7 @@
 - [Forums (TBC)](community-resources/forums.md)
 - [Community Applications (TBC)](community-resources/community-applications.md)
 - [Community Guides (TBC)](community-resources/community-guides.md)
+- [Change Service Grantee Information](info-request.md)
 
 # Misc.
 - [Code of Conduct](coc.md)

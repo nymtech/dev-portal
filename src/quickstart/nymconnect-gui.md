@@ -14,3 +14,5 @@ Install NymConnect and select an application that you want to privacy-enhance fr
 * Go to your app settings and look for the network/proxy settings. Select `running via SOCKS5 proxy` and paste the IP and Port values given by NymConnect.
 
 Your traffic from that application will now run through the mixnet for privacy and unlinkability!
+
+

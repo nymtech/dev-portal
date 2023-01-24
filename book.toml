@@ -111,7 +111,7 @@ git-repository-icon = "fa-github"
 # edit-url-template = "https://github.com/rust-lang/mdBook/edit/master/guide/{path}"
 # site-url = "/example-book/"
 # cname = "myproject.rs"
-# input-404 = "not-found.md" # todo make custom 404 page 
+# input-404 = "not-found.md" # todo make custom 404 page
 
 [output.html.fold]
 enable = true    # whether or not to enable section folding
