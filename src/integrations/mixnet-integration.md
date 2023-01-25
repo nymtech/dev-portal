@@ -8,7 +8,7 @@ Before looking at the technical details of the various Nym clients avaliable to 
 
 First, we need to initalise an app and connect it to Nym.
 
-![image]()
+![image](/images/send-to-gateway-dark.png)
 
 At the bottom we have an app. It consists of two parts:
 
@@ -30,7 +30,7 @@ The Nym client part of the app (in blue) accepts messages from your code (in yel
 
 The app has now connected to the Gateway, but we haven't sent a message to ourselves yet. Let's do that now.
 
-![image]()
+![image](/images/send-to-gateway-dark.png)
 
 Let's say your code code pokes a message `hello world` into the Nym client. The Nym client automatically wraps that message up into a layer encrypted Sphinx packet, adds some routing information and encryption, and sends it to its own gateway. The gateway strips the first layer of encryption, ending up with the address of the first mixnode it should forward to, and a Sphinx packet.
 
@@ -46,5 +46,5 @@ Messages are end-to-end encrypted. Although the gateway knows our app's IP when 
 
 The process for sending messages to other apps is exactly the same, you simply specify a different recipient address. Address discovery happens outside the Nym system: in the case of a Service Provider app, the service provider has presumably advertised its own address. If you're sending to a friend of yours, you'll need to get a hold of their address out of band, maybe through a private messaging app such as Signal.
 
-![image]()
+![image](/images/sp-request-dark.png)
 

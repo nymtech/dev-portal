@@ -10,13 +10,9 @@ In this tutorial, you will learn how to build two essential components for sendi
 - A Service Provider also written in TypeScript, which can receive messages from the mixnet.
 - Additionally, you will be guided on how to configure a pair of Nym Websocket Clients, which are necessary for connecting to the mixnet with your application.
 
-:::note
-In production, Service Providers should generally be deployed on a remote server in order to take action on our behalf without leaking metadata such as our IP. For this tutorial through, it will also run on our local machine - we will just be looping messages through the mixnet and then back to ourselves to demonstrate how to send messages through, and listen to messages from, the mixnet. 
+>Service providers are usually run on remote servers to keep metadata private, but for demonstration purposes, this tutorial will show how to run it on a local machine using looped messages through the mixnet.
 
-Subsequent tutorials will look at deploying to servers, and creating more production-ready code. 
-:::
-
-<img src="/img/tutorials/simple-websocket/nym-websocket-demo-2.png"/>
+<img src="/images/ssp_image.png"/>
 
 We'll dive into the process of creating a Typescript application from the ground up. We'll cover how to set up a Nym Websocket Client and connect it to the mixnet, as well as the necessary steps to send a properly formatted message through the mixnet to the Service Provider. Don't fret if your skills in Javascript or Typescript are a bit rusty, there will be plenty of code snippets to copy and paste along the way.
 
@@ -40,77 +36,65 @@ The Service Provider covered in this tutorial is far more simple than this, as i
 
 #### Preparing your Typescript environment  
 
-Create a new directory to start your project inside of. For this tutorial we are naming ours `Service Provider Tutorial`.  
-
-Inside here, create another directory named `User Client`. This is the first application we're going to build.
-
-:::note
-    Our Folder Structure (so far)
-
-    Simple Service Provider Tutorial/
-    ├─ User Client/
-:::
+Make a new directory called `service-provider-tutorial` and inside it create another folder named `user-client`.
 
 Continue to then do the following:
 
-1. Open your terminal in the `User Client` folder you created (or by `cd`'ing to the directory), type and enter:
+1. Path into the `user-client` folder you created, and run:
 
     ```
     npm init
     ```
-    The following chunk of output (seen below) will then be presented to you. The terminal will prompt your to provide some input for the the sections name to  license. You can simply just press enter `↵` after each prompt (like the example below) and it will work just fine.
+Continue just press enter after each prompt to confirm the configuration.
 
-    <details>
+<details>
     <summary>console output</summary>
-    
-    This utility will walk you through creating a `package.json` file.
-    It only covers the most common items, and tries to guess sensible defaults.
+       
+        This utility will walk you through creating a `package.json` file.
+        It only covers the most common items, and tries to guess sensible defaults.
 
-    See `npm help init` for definitive documentation on these fields
-    and exactly what they do.
+        See `npm help init` for definitive documentation on these fields
+        and exactly what they do.
 
-    Use `npm install <pkg>` afterwards to install a package and
-    save it as a dependency in the package.json file.
+        Use `npm install <pkg>` afterwards to install a package and
+        save it as a dependency in the package.json file.
 
-    Press ^C at any time to quit.<br/>
-    package name: (user-client)<br/> 
-    version: (1.0.0)<br/> 
-    description:<br/> 
-    entry point: (index.js)<br/> 
-    test command:<br/> 
-    git repository:<br/> 
-    keywords:<br/> 
-    author:<br/> 
-    license: (ISC)<br/> 
-    About to write to /Users/josephiacono/Desktop/Workspace/practice/Tutorial Reps/Simple Service Provider Tutorial/User Client/package.json:
+        Press ^C at any time to quit.
+        package name: (user-client)
+        version: (1.0.0)<br/> 
+        description:
+        entry point: (index.js)
+        test command:
+        git repository: 
+        keywords:
+        author: 
+        license: (ISC) 
+        About to write to path/to/directory/user-client/package.json:
 
-    {<br/>
-        "name": "user-client",<br/>
-        "version": "1.0.0",<br/>
-        "description": "",<br/>
-        "main": "index.js",<br/>
-        "scripts": {<br/>
-            "test": "echo \"Error: no test specified\" && exit 1"<br/>
-        },<br/>
-        "author": "",<br/>
-        "license": "ISC"<br/>
-    }
+        {
+            "name": "user-client",
+            "version": "1.0.0",
+            "description": "",
+            "main": "index.js",
+            "scripts": {
+                "test": "echo \"Error: no test specified\" && exit 1"
+            },<br/>
+            "author": "",
+            "license": "ISC"
+        }
 
-    Is this OK? (yes) 
-    
-    </details>
+        Is this OK? (yes) 
+</details>
 
-    You will then notice a `package.json` file has been created in the folder.
+A `package.json` file has been created in the folder.
 
- 2. Continuing with our terminal, type and enter:
+ 2. Then in the same terminal, run:
     
     ```
     npm install typescript
     ```
-    After this point , we should open up our chosen IDE (VSCode, Sublime Text, etc) and open up the folder we are working in (User Client).
-    Check the contents of the `package.json` file, it should look something like this:
+After the installation has been completed, check to see that the typescript dependencies have been added. The `package.json` file should look like this:
 
-    ```
     {
         "name": "user-client",
         "version": "1.0.0",
@@ -126,19 +110,15 @@ Continue to then do the following:
         }
     }
     
-    ```
 
-    We can see that typescript has been added to our `dependencies`. Typescript is now in our project.
-
-
- 3. Back in our terminal, type and enter:
+ 3. Also in the terminal, run:
     
     ```
     npm install ts-node --save-dev
     ```
-    This package (`ts-node`) allows us to build a typescript application in a node environment.
+    The package (`ts-node`) allows us to build a typescript application in a node environment.
 
- 4. Create a new file in the 'User Client' folder (same level as `package.json`) called `tsconfig.json` Inside that file , copy and paste the code below into it.
+ 4. Create a new file in the `user-cllient` folder called `tsconfig.json`. Paste the following code into the file:
 
     ```
     {

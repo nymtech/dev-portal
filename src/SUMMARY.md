@@ -2,13 +2,12 @@
 
 [Introduction](introduction.md)
 
+[Learn about the Infrastructure (COMING SOON)](learn-infrastructure.md)
+
 # Learn through Tutorials
 
-- [Simple Service Provider (TBC)](learn-through-tutorials/simple-service-provider.md)
-- [Mixnet Client with a IPFS Service Provider (TBC)](learn-through-tutorials/mixnet-client-ipfs-sp.md)
-
-# Learn about the Infrastructure
-
+- [Simple Service Provider (COMING SOON)](learn-through-tutorials/simple-service-provider.md)
+- [Mixnet Client with a IPFS Service Provider (COMING SOON)](learn-through-tutorials/mixnet-client-ipfs-sp.md)
 
 # Quickstart
 
@@ -24,10 +23,10 @@
 
 # Community Resources
 
-- [AMAs with Nym Developer Relations (TBC)](community-resources/ama.md)
+- [AMAs with Nym Developer Relations (COMING SOON)](community-resources/ama.md)
 - [Forums (TBC)](community-resources/forums.md)
-- [Community Applications (TBC)](community-resources/community-applications.md)
-- [Community Guides (TBC)](community-resources/community-guides.md)
+- [Community Applications (COMING SOON)](community-resources/community-applications.md)
+- [Community Guides (COMING SOON)](community-resources/community-guides.md)
 - [Change Service Grantee Information](info-request.md)
 
 # Misc.
