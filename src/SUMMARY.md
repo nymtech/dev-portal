@@ -21,6 +21,7 @@
 - [Integration Options](integrations/integration-options.md)
 - [Mixnet Integration](integrations/mixnet-integration.md)
 - [Payment Integration](integrations/payment-integration.md)
+- [Integration FAQ](integrations/faq.md)
 
 # Community Resources
 
