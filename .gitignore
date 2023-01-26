@@ -14,3 +14,7 @@ book
 
 # OSX
 .DS_Store
+
+theme/
+theme
+theme/* 
