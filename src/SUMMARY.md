@@ -2,12 +2,13 @@
 
 [Introduction](introduction.md)
 
-[Learn about the Infrastructure (COMING SOON)](learn-infrastructure.md)
+# Infrastructure
+- [Learn about the Infrastructure](infrastructure/overview.md)
 
-# Learn through Tutorials
+# Tutorials
 
-- [Simple Service Provider (COMING SOON)](learn-through-tutorials/simple-service-provider.md)
-- [Mixnet Client with a IPFS Service Provider (COMING SOON)](learn-through-tutorials/mixnet-client-ipfs-sp.md)
+- [Simple Service Provider](tutorials/simple-service-provider.md)
+- [IPFS Service Provider (coming soon)](tutorials/ipfs-service-provider.md)
 
 # Quickstart
 
@@ -23,12 +24,16 @@
 
 # Community Resources
 
-- [AMAs with Nym Developer Relations (COMING SOON)](community-resources/ama.md)
+- [AMAs with Nym Developer Relations](community-resources/ama.md)
 - [Forums (TBC)](community-resources/forums.md)
-- [Community Applications (COMING SOON)](community-resources/community-applications.md)
-- [Community Guides (COMING SOON)](community-resources/community-guides.md)
+- [Community Applications](community-resources/community-applications.md)
+- [Community Guides](community-resources/community-guides.md)
 - [Change Service Grantee Information](info-request.md)
+
+--- 
 
 # Misc.
 - [Code of Conduct](coc.md)
 - [Licensing](licensing.md)
+
+--- 
