@@ -1,5 +1,5 @@
 [book]
-authors = ["Oliver Anyanwu"]
+authors = ["Oliver Anyanwu", "Max Hampshire"]
 language = "en"
 multilingual = false
 src = "src"
@@ -8,49 +8,36 @@ src = "src"
 # PREPROCESSORS #
 ################# 
 
-# todo remove in place of preprocessor.theme 
-[preprocessor.pagetoc]
-additional-css = ["theme/pagetoc.css"]
-additional-js  = ["theme/pagetoc.js"]
+# Note if changing these fields: 
+# - make sure you aren't running `mdbook serve` 
+# - change value of `turn-off = true` to `false`. This is set to `true` usually to avoid a known constant-reload bug with `mdbook serve` and this preprocessor
+# - delete `./theme/` dir 
+# - change the preprocessor values that you want to edit 
+# - run `mdbook build`: this will rebuild the `./theme` directory 
+# - change value of `turn-off` back to `true` 
+[preprocessor.theme]
+pagetoc        = true
+# some variables related (defined in theme/css/variables.css)
+# `content-max-width` + `pagetoc-width` = 95% seems the best
+pagetoc-width            = "13%"
+content-max-width        = "70%" # 82
+pagetoc-fontsize         = "14.5px"
+sidebar-width            = "300px"
+menu-bar-height          = "40px"   # memu-bar = the bar on the top
+page-padding             = "20px"
+mobile-content-max-width = "98%"
 
-# NOTE for adding this in: delete the theme directory, uninstall mdbook-pagetoc, and then run mdbook build so it creates the theme directory again 
-# [preprocessor.theme]
-# pagetoc        = true
-# # some variables related (defined in theme/css/variables.css)
-# # `content-max-width` + `pagetoc-width` = 95% seems the best
-# pagetoc-width            = "13%"
-# content-max-width        = "82%"
-# pagetoc-fontsize         = "14.5px"
-# sidebar-width            = "300px"
-# menu-bar-height          = "40px"   # memu-bar = the bar on the top
-# page-padding             = "20px"
-# mobile-content-max-width = "98%"
-
-# # layout
-# content-padding           = "0 10px"
-# content-main-margin-left  = "10%"
-# content-main-margin-right = "10%"
-# nav-chapters-max-width    = "auto"
-# nav-chapters-min-width    = "auto"
-# chapter-line-height       = "2em"
-# section-line-height       = "1.5em"
-
-# # modify some fontsizes
-# root-font-size    = "70%"    # control the main font-size
-# body-font-size    = "1.5rem"
-# code-font-size    = "0.9em"
-# sidebar-font-size = "1em"    # sidebar = toc on the left
-
-# # modify some colors under ayu/coal/light/navy/rust theme
-# coal-inline-code-color  = "#ffb454"
-# light-inline-code-color = "#F42C4C"
-# navy-inline-code-color  = "#ffb454"
-# rust-inline-code-color  = "#F42C4C"
-# light-links             = "#1f1fff"
-# rust-links              = "#1f1fff"
+# layout
+content-padding           = "0 10px"
+content-main-margin-left  = "10%"
+content-main-margin-right = "10%"
+nav-chapters-max-width    = "auto"
+nav-chapters-min-width    = "auto"
+chapter-line-height       = "2em"
+section-line-height       = "1.5em"
 
 # # if true, never read and touch the files in theme dir
-# turn-off = false
+turn-off = true 
 
 [preprocessor.admonish]
 command = "mdbook-admonish"
@@ -59,29 +46,19 @@ assets_version = "2.0.0" # do not edit: managed by `mdbook-admonish install`
 # variables preprocessor: import variables into files 
 # https://gitlab.com/tglman/mdbook-variables/
 [preprocessor.variables.variables]
-# Code prerequisites versions
+# code prerequisites versions
 minimum_rust_version = "1.66"
 # minimum_node_version = ""
-# Nym binary versions 
+# nym platform code most recent release 
 platform_release_version = "v1.1.6"
-# sdk_version = ""
-# mixnet_contract_version = ""
-# vesting_contract_version = ""
-# wallet_version = ""
-# nym_connect_version = "" 
-# network_explorer_version = "" 
 
 [preprocessor.last-changed]
 command = "mdbook-last-changed"
 renderer = ["html"]
 
-# look into getting this to work properly... might be out of date? 
-# [preprocessor.extended-markdown-table]
-
 # more pre-processor plugins to look into from https://github.com/rust-lang/mdBook/wiki/Third-party-plugins & https://lib.rs/keywords/mdbook-preprocessor
 # mdbook-mermaid - use mermaid to make diagrams from text!
 # mdbook-i18n
-# mdbook-theme - we might have to remove the existing pagetoc preprocessor as its bundled in it 
 
 #########
 # BUILD #
