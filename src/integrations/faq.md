@@ -16,89 +16,114 @@ On this page, you'll find links and frequently asked questions on how to get sta
 * [Documentation](https://nymtech.net/docs/) 
 * Developer Portal - you are currently viewing the Developer Portal 
 
-## Wallet Installation
-The Nym wallet can be downloaded here. You can select your operating system and continue from there. You can find all the instructions related to setting up your Nym Wallet here: [https://nymtech.net/docs/stable/wallet](https://nymtech.net/docs/stable/wallet).
+## Wallet Installation 
+The Nym wallet can be downloaded [here](https://nymtech.net/download/). 
 
-* What are the machine hardware requirements for Nym Wallet?
-About 16GB of RAM had been recommended as a benchmark for the wallet. However you can expect its average memory usage of 100MB.
+You can find all the instructions related to setting up your wallet in the [docs](https://nymtech.net/docs/wallet.html), as well as instructions on how to build the wallet if there is not a downloadable version built for your operating system. 
 
-* What are the installation steps for installing Nym Wallet?
-Follow the instructions in the link at the top of this section. If using Ubuntu, you will need to `chmod +X` the AppImage in your terminal before attempting to run it after downloading it.
+### What are the machine hardware requirements for Nym Wallet?
+About 16GB of RAM is recommended for the wallet. However you can expect an average memory usage of ~100MB.
 
-If you want to compile the Wallet yourself as a developer, you can follow [these instructions](https://nymtech.net/docs/stable/wallet/) to achieve your desired result.
 
-* What are the installation steps for interacting with Nyx Blockchain via `nyxd`?
-To interact with the Nyx blockchain you have to use the `nyxd` binary. Instructions for compiling the binary can be found here: [https://nymtech.net/docs/stable/run-nym-nodes/nodes/rpc-node](https://nymtech.net/docs/stable/run-nym-nodes/nodes/rpc-node).
-
-## Nyx blockchain RPC methods
+## Interacting with the Nyx blockchain 
 ### How can I use `JSON-RPC` methods to interact with the Nyx blockchain?
 There are multiple ways to use `JSON-RPC` methods to interact with the Nyx blockchain. Which method you use will depend on the type of application you are integrating Nyx interactions into. 
 
-1. the standalone `nyxd` binary, which is used for CLI wallets, RPC nodes, and validators. This binary is written in `Go`. Instructions on setting up the `nyxd` binary can be found [here](https://nymtech.net/docs/stable/run-nym-nodes/nodes/rpc-node).This is recommended for more complex commands. For full documentation check the [`gaiad documentation`]() **TODO ADD LINK** 
+1. The standalone `nyxd` binary can be used for CLI wallets, interacting with smart contracts via the CLI, setting up RPC nodes, and even running validators. This is a version of the Cosmos Hub's `gaiad` binary compiled with Nyx chain configuration, and is written in `Go`. Instructions on setting up the `nyxd` binary can be found [here](https://nymtech.net/docs/). **TODO FILL LINK**. This is recommended for more complex commands. For full documentation check the [`gaiad documentation`]() **TODO ADD LINK** 
 
-2. `cosmJS` **TODO** 
+2. `CosmJS` is a Typescript library allowing for developers to interact with CosmosSDK blockchains from a Javascript or Typescript project. You can find it on Github [here](https://github.com/cosmos/cosmjs) and an explainer of its functionality [in the Cosmos Developer Portal](https://tutorials.cosmos.network/tutorials/7-cosmjs/1-cosmjs-intro.html). You can find a list of example apps which use CosmJS [here](https://codesandbox.io/examples/package/@cosmjs/stargate). 
 
-3. The `NymCLI` tool, a standalone rust binary which can be built and used according to the [docs](https://nymtech.net/docs/tools/nym-cli.html).It is a bit simpler to use than the `nyxd` binary, but is not recommended for complex queries, and not all commands are currently implemented.
-
+3. The `Nym-CLI` tool, a standalone rust binary which can be built and used according to the [docs](https://nymtech.net/docs/tools/nym-cli.html) can be used in much the same way as `nyxd`. It is a bit simpler to use than the `nyxd` binary, but is not recommended for complex queries, and not all commands are currently implemented. A list of Nym CLI commands and example usage can be found [here](https://nymtech.net/docs/tools/nym-cli.html) 
 
 ### How do I generate an address/mnemonic for users to interact with?
-**nyxd**
-Use the following command, replacing `your_id` with the ID you want to use for your keypair eg:
+**Nyxd**
+
+Use the following command, replacing `your_id` with the ID you want to use for your keypair:
 ```
 ./nyxd keys add your_id --chain-id=nyx --gas=auto --gas-adjustment=1.4 --fees=7000unym
 ```
 
-**NymCLI**
+**Nym-CLI**
 ```
 ./nym-cli account create
 ```
 
-Both methods will generate a keypair and log the mnemonic.
+Both methods will generate a keypair and log the mnemonic in the console.
 
-### How to get block information like block height, block hash, block time as so on from the genesis block? 
-**nyxd**
+**CosmJS** 
+
+You can find example code for keypair generation [here](https://tutorials.cosmos.network/tutorials/7-cosmjs/2-first-steps.html#testnet-preparation). 
+
+### How to get block information like block height, block hash, block time as so on? 
+**Nyxd**
+
 You would use one of the subcommands returned by this command:
 ```
 ./nyxd query tx --chain-id=nyx --gas=auto --gas-adjustment=1.4 --fees=7000unym
 ```
 
-**NymCLI**
+**Nym-CLI**
 ```
 ./nym-cli block current-height
 ```
-A list of other Nym CLI commands and the example usage can be found [here](https://nymtech.net/docs/stable/nym-cli).
+
+**CosmJS** 
+
+`CosmJS` documentation can be found [here](https://cosmos.github.io/cosmjs/). We will be working on example code blocks soon. 
 
 ### How to get account/address balance to check there is enough coins to withdraw?
-**nyxd**
+**Nyxd**
 ```
 ./nyxd query bank balances <address> --chain-id=nyx --gas=auto --gas-adjustment=1.4 --fees=7000unym
 ```
 
-**NymCLI**
+**Nym-CLI**
 ```
 ./nym-cli account balance
 ```
 
+**CosmJS** 
+
+`CosmJS` documentation can be found [here](https://cosmos.github.io/cosmjs/). We will be working on example code blocks soon. 
+
 ### How do I transfer tokens to another address? 
-**nyxd**
+**Nyxd**
 ```
 ./nyxd tx bank send [from_key_or_address] [to_address] [amount] --chain-id=nyx --gas=auto --gas-adjustment=1.4 --fees=7000unym
 ```
-**NymCLI**
+
+**Nym-CLI**
 ```
 ./nym-cli account send TARGET_ADDRESS AMOUNT
 ```
+**CosmJS** 
+
+`CosmJS` documentation can be found [here](https://cosmos.github.io/cosmjs/). We will be working on example code blocks soon. 
 
 ### Does the address support the inclusion of a `memo` or `destinationTag` when doing the transfer?
 Yes, it is supported.
 
-## Nym Token 
-**TODO** 
+### Can I use my Ledger hardware wallet to interact with the Nyx blockchain? 
+Yes. Follow the instructions in the [Ledger support for Nyx documentation](nyx/ledger-live.html). 
 
-* It is similar to the existing popular cryptocurrency, such as BTC, ETH, etc?
+### Where can I find network details such as deployed smart contract addresses? 
+In the [`network defaults`](https://github.com/nymtech/nym/blob/release/{{platform_release_version}}/common/network-defaults/src/mainnet.rs) file. 
 
-Nym’s cryptocurrency relates to its use within its incentivised mixnet; the mixnet makes use of Smart Contracts. You can read the [Smart Contracts section](https://nymtech.net/docs/stable/smart-contracts/overview/) of our docs on how they are used.
+## `NYM` Token 
+The token used to reward mixnet infrastructure operators - `NYM` - is one of the native tokens of the Nyx blockchain. The other token is `NYX`. 
 
-## Nym mixnet integration 
+`NYM` is used to incentivise the mixnet, whereas `NYX` is used to secure the Nyx blockchain via Validator staking. 
 
-**TODO** 
+> Integration with Nym's technology stack will most likely involve using `NYM` if you do need to interact with the Nyx blockchain and transfer tokens. 
+
+### I've seen an ERC20 representation of `NYM` on Ethereum - what's this and how do I use it? 
+
+We use the [Gravity Bridge](https://github.com/Gravity-Bridge) blockchain to bridge an ERC20 representation of `NYM` between the Cosmos ecosystem of IBC-enabled chains and Ethereum mainnet. Gravity Bridge is its own IBC-enabled CosmosSDK chain, which interacts with a smart contract deployed on Ethereum mainnet. 
+
+> The ERC20 representation of `NYM` **cannot** be used with the mixnet; only the native Cosmos representation is usable for staking or bonding nodes.
+
+If you need to transfer tokens across the bridge, we recommend users use Cosmostation's [spacestation.zone](https://spacestation.zone/) dApp with Metamask and Keplr. 
+
+## Sending traffic through the mixnet  
+
+🚧 coming soon 🚧 
