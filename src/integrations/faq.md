@@ -30,7 +30,7 @@ If you want to compile the Wallet yourself as a developer, you can follow [these
 * What are the installation steps for interacting with Nyx Blockchain via `nyxd`?
 To interact with the Nyx blockchain you have to use the `nyxd` binary. Instructions for compiling the binary can be found here: [https://nymtech.net/docs/stable/run-nym-nodes/nodes/rpc-node](https://nymtech.net/docs/stable/run-nym-nodes/nodes/rpc-node).
 
-## RPC Methods
+## Nyx blockchain RPC methods
 ### How can I use `JSON-RPC` methods to interact with the Nyx blockchain?
 There are multiple ways to use `JSON-RPC` methods to interact with the Nyx blockchain. Which method you use will depend on the type of application you are integrating Nyx interactions into. 
 
@@ -99,3 +99,6 @@ Yes, it is supported.
 
 Nym’s cryptocurrency relates to its use within its incentivised mixnet; the mixnet makes use of Smart Contracts. You can read the [Smart Contracts section](https://nymtech.net/docs/stable/smart-contracts/overview/) of our docs on how they are used.
 
+## Nym mixnet integration 
+
+**TODO** 
