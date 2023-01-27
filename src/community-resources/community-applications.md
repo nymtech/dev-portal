@@ -1,6 +1,6 @@
 # Community Applications
 
-We love seeing our developer community create innovative applications using Nym and our technology. If you would like to share your application with the community, please submit a pull request to the `main` branch of the `nymtech/dev-portal` [repository](https://github.com/nymtech/dev-portal).
+We love seeing our developer community create applications using Nym. If you would like to share your application with the community, please submit a pull request to the `main` branch of the `nymtech/dev-portal` [repository](https://github.com/nymtech/dev-portal).
 
 <!--Pastenym *start-->
 
