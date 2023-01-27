@@ -1,6 +1,6 @@
 # Integration FAQ
 
-On this page, you'll find links and frequently asked questions on how to get started on integrating your project with Nym's Mixnet and its blockchain, Nyx.
+On this page, you'll find links and frequently asked questions on how to get started on integrating your project with Nym's Mixnet and its blockchain, Nyx. 
 
 ## Links
 ### General Info 
@@ -124,6 +124,12 @@ We use the [Gravity Bridge](https://github.com/Gravity-Bridge) blockchain to bri
 
 If you need to transfer tokens across the bridge, we recommend users use Cosmostation's [spacestation.zone](https://spacestation.zone/) dApp with Metamask and Keplr. 
 
-## Sending traffic through the mixnet  
+## Sending traffic through the Nym mixnet  
+### Is the mixnet free to use? 
+For the moment then yes, the mixnet is free to use. There are no limits on the amount of traffic that an app can send through the mixnet. 
 
-🚧 coming soon 🚧 
+### Do I need to run my own gateway to send application traffic through the mixnet? 
+No, although we do recommend that apps that wish to integrate look into running some of their own infrastructure such as gateways in order to assure uptime. 
+
+### How can I find out if an application is already supported by network requester services? 
+You can check the [default allowed list](https://nymtech.net/.wellknown/network-requester/standard-allowed-list.txt) file to see which application traffic is whitelisted by default. If the domain is present on that list, it means that existing [network requesters](https://nymtech.net/docs/nodes/network-requester-setup.html) can be used to privacy-protect your application traffic. Simply use [NymConnect](../quickstart/nymconnect-gui.md) to connect to this service through the mixnet.  
