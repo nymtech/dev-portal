@@ -104,7 +104,7 @@ You would use one of the subcommands returned by this command:
 Yes, it is supported.
 
 ### Can I use my Ledger hardware wallet to interact with the Nyx blockchain? 
-Yes. Follow the instructions in the [Ledger support for Nyx documentation](nyx/ledger-live.html). 
+Yes. Follow the instructions in the [Ledger support for Nyx documentation](https://nymtech.net/docs/nyx/ledger-live.html). 
 
 ### Where can I find network details such as deployed smart contract addresses? 
 In the [`network defaults`](https://github.com/nymtech/nym/blob/release/{{platform_release_version}}/common/network-defaults/src/mainnet.rs) file. 
