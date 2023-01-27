@@ -4,7 +4,7 @@ If you've already gone through the different [Quick Start](/quickstart/overview.
 
 This section assumes you wish to integrate with Nym into your application code. 
 
-The [integrations FAQ] has a list of common questions regarding integrating with Nym and Nyx, as well as commonly required links. This is a good place to start. 
+The [integrations FAQ] has a list of common questions regarding integrating with Nym and Nyx, as well as commonly required links. This is a good place to start to get an overall idea of the tools and software avaliable to you. 
 
 If you wish to integrate with Nym to use the mixnet for application traffic, start with the [mixnet integration](/integrations/mixnet-integration.md) page. 
 
