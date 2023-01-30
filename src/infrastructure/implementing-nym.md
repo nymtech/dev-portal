@@ -41,7 +41,7 @@ This client is useful for allowing existing applications to use the Nym mixnet w
 
 For more information and guidance on how to implement the Nym SOCKS5 client, please visit [here](https://nymtech.net/docs/stable/integrations/socks5-client).
 
-### Webassembly client
+#### Webassembly client
 
 The Nym WebAssembly (WASM) client is a software tool that runs in a user's web browser and allows for secure, encrypted communication with a Nym mixnet node. The WASM Client is implemented as a WebAssembly module, allowing it to run efficiently and natively within the user's browser, without the need for additional software installations. The Nym WASM Client provides a secure connection to the Nym network, allowing users to send and receive data in a private and anonymous manner while browsing the web. By utilizing WebAssembly, the Nym WASM client enables users to benefit from the privacy and security offered by the Nym network directly within their web browser, providing a convenient and user-friendly solution for online privacy and security.
 

@@ -18,7 +18,7 @@ Mix nodes anonymously relay encrypted Sphinx packets between each other, adding 
 
 With the ability to hide, reorder and add a delay to network traffic, mix nodes make it difficult for attackers to perform time-based correlation attacks and deanonymize users. By consistently delivering high-quality service, mix nodes are rewarded with NYM tokens, reinforcing the integrity of the Nym network.
 
-### Gateways
+#### Gateways
 
 Gateways serve as the point of entry for user data into the mixnet, verifying that users have acquired sufficient NYM-based bandwidth credentials before allowing encrypted packets to be forwarded to mixnodes. They are also responsible for safeguarding against denial of service attacks and act as a message storage for users who may go offline.
 
@@ -26,10 +26,29 @@ Gateways receive bandwidth credentials from users, which are periodically redeem
 
 In addition, gateways also cache messages, functioning as an inbox for users who are offline. By providing secure, reliable access to the mixnet and ensuring that data remains protected, gateways play a crucial role in maintaining the integrity of the Nym network.
 
-### Validators
+#### Validators
 
 Validators are essential to the security and integrity of the Nym network, tasked with several key responsibilities. They utilize proof-of-stake Sybil defense measures to secure the network and determine which nodes are included within it. Through their collaborative efforts, validators create Coconut threshold credentials which provide anonymous access to network data and resources.
 
 Validators also play a critical role in maintaining the Nym Cosmos blockchain, a secure, public ledger that records network-wide information such as node public information and keys, network configuration parameters, CosmWasm smart contracts, and `NYM` and credential transactions.
 
+#### Service Provider
+
+Service Providers are a crucial aspect of the Nym infrastructure that support the application layer of the Nym network. Any application built with Nym will require a Service Provider, which can be created by anyone. TService Providers run a piece of binary code that enables them to handle requests from Nym users or other services, and then make requests to external servers on behalf of the users.
+
+For example, a Service Provider could receive a request to check a mail server and then forward the response to the user. Importantly, Service Providers are not open proxies and have a domain whitelist, which ensures that they only communicate with trusted domains. 
+
+Service Providers earn credentials by facilitating the flow of information in and out of the mixnet, and these credentials can be redeemed for `NYM` tokens as a reward for providing services. The presence of Service Providers in the Nym network enhances its security and privacy, making it a reliable and robust platform for anonymous communication and data exchange.
+
+### Where do I go from here? 💭
+
+> Maybe you would like to concentrate on building a application that uses the mixnet.
+
+* Explore the Tutorials section of the Developer Portal. Our in-depth tutorial on [Building a Simple Service Provider](/tutorials/simple-service-provider.md) give a good understanding of building User Clients and Service Providers in TypeScript, and how to configure Nym Websocket Clients for seamless communication with the mixnet.
+
+* Get started with using the Nym Mixnet quickly and easily by exploring the [Quickstart](/quickstart/overview.md) options, such a NymConnect, proxying traffic through the Nym Socks5 client, or dive into integrating Nym into your existing application with the [Integrations](/integrations/integration-options.md) section.
+
+> Or perhaps you a developer that would like to run a infrastructure node such as a Gateway, Mix node or Network Requestor.
+
+* Take a look at our [Node Setup Guide](https://nymte.ch/docs/nodes/setup-guides.html) with our Nym Docs, containing setup guides for setting up you own infrastructure node.
 

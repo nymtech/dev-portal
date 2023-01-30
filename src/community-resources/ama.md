@@ -20,3 +20,9 @@ Checkout out our playlist below:
 #### Episode 1: 21st December 
 
 🚧 coming soon 🚧
+
+{
+	{
+		> footer
+	}
+}
