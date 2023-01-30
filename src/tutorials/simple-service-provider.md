@@ -2,6 +2,10 @@
 
 In this guide, developers will learn about the powerful technology offered by Nym, which allows for the creation of applications that prioritize user privacy through the use of mixnet technology.
 
+You can watch the step-by-step guide on creating your own Simple Service Provider:
+
+<iframe width="700" height="400"  src="https://www.youtube.com/embed/y0i4Sk3_NoI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 #### What are we building?
 
 In this tutorial, you will learn how to build two essential components for sending messages through the mixnet:
@@ -10,7 +14,7 @@ In this tutorial, you will learn how to build two essential components for sendi
 - A Service Provider also written in TypeScript, which can receive messages from the mixnet.
 - Additionally, you will be guided on how to configure a pair of Nym Websocket Clients, which are necessary for connecting to the mixnet with your application.
 
->Service providers are usually run on remote servers to keep metadata private, but for demonstration purposes, this tutorial will show how to run it on a local machine using looped messages through the mixnet.
+> ⚠️ Service providers are usually run on remote servers to keep metadata private, but for demonstration purposes, this tutorial will show how to run it on a local machine using looped messages through the mixnet.
 
 <img src="/images/ssp_image.png"/>
 
@@ -34,13 +38,13 @@ The Service Provider covered in this tutorial is far more simple than this, as i
 * `node` & `npm` 
 * `Typescript` 
 
-#### Preparing your Typescript environment  
+#### Preparing your TypeScript environment  
 
-Make a new directory called `service-provider-tutorial` and inside it create another folder named `user-client`.
+Make a new directory called `simple-service-provider-tutorial` and inside it create another folder named `user-client`.
 
 Continue to then do the following:
 
-1. Path into the `user-client` folder you created, and run:
+1.  `path/to/the/user-client` folder you created, and run:
 
     ```
     npm init
@@ -48,7 +52,7 @@ Continue to then do the following:
 Continue just press enter after each prompt to confirm the configuration.
 
 <details>
-    <summary>console output</summary>
+    <summary>Console Output</summary>
        
         This utility will walk you through creating a `package.json` file.
         It only covers the most common items, and tries to guess sensible defaults.
@@ -61,7 +65,7 @@ Continue just press enter after each prompt to confirm the configuration.
 
         Press ^C at any time to quit.
         package name: (user-client)
-        version: (1.0.0)<br/> 
+        version: (1.0.0)
         description:
         entry point: (index.js)
         test command:
@@ -78,7 +82,7 @@ Continue just press enter after each prompt to confirm the configuration.
             "main": "index.js",
             "scripts": {
                 "test": "echo \"Error: no test specified\" && exit 1"
-            },<br/>
+            },
             "author": "",
             "license": "ISC"
         }
@@ -111,14 +115,14 @@ After the installation has been completed, check to see that the typescript depe
     }
     
 
- 3. Also in the terminal, run:
+ 3. Now run in your terminal:
     
-    ```
-    npm install ts-node --save-dev
-    ```
-    The package (`ts-node`) allows us to build a typescript application in a node environment.
+```
+npm install ts-node --save-dev
+```
+The package (`ts-node`) allows us to build a typescript application in a node environment.
 
- 4. Create a new file in the `user-cllient` folder called `tsconfig.json`. Paste the following code into the file:
+ 4. Create a new file in the `user-client` folder called `tsconfig.json`. Paste the following code into the file:
 
     ```
     {
@@ -134,33 +138,23 @@ After the installation has been completed, check to see that the typescript depe
     }
     ```
 
-#### Bundling our Application
+#### Bundling the Application
 
- 1. Now that we have got to this point, we want to be able to run our application on localhost to make sure everything is working okay. 
-    We also want to be able to work on our application while its running and make sure it automatically picks up any saved changes when we view it on the browser. To do this , we are going to use the Parcel bundler.
+ To build and run our application locally, we require a tool that allows us to work on it while it's running and instantly reflects saved changes on the browser.
 
-    Back in your terminal, type and enter:
+1. This can be achieved through the installation of Parcel bundler using the following command in your terminal window:
 
-    ```
-    npm install --global parcel-bundler
-    ```
+```
+npm install --global parcel-bundler
+```
 
-    After the npm install has finished, create a new folder called `src` in the same level as our `tsconfig.json` and `package.json` (User Client). Inside there , create 2 new files. One called `index.html` and one called `index.ts`.
-
-    :::note
-        Our Folder Structure (so far)
-
-        Simple Service Provider Tutorial/
-        ├─ User Client/
-        │  ├─ src/
-        │  │  ├─ index.html
-        │  │  ├─ index.ts
-        │  ├─ package.json
-        │  ├─ tsconfig.json
-    :::
+After completing the installation process, start by creating a `src` folder within the `user-client` folder. Within this `src` folder, create two new files:
+* `index.html` 
+* `index.ts`
 
 
- 2. In our `index.html`, paste in the following code:
+
+ 2. Paste the following the `index.html`:
     
     ```
     <!DOCTYPE html>
@@ -178,42 +172,43 @@ After the installation has been completed, check to see that the typescript depe
 
     ```
 
-    And in our `index.ts`, paste the following code:
+    And in the `index.ts`:
 
     ```
     console.log('test log')
     ```
 
-    We're just looking to make sure we have our typescript file working when we run the application in the browser. We'll check this is just a moment.
+This will ensure that our TypeScript file is functional when the application is launched in the browser.
     
-    Once we have done that , navigate into our `package.json` and in the "scripts" section, just above the test command,  paste the following:
+3. Navigate to the `package.json` file and in the `"scripts"` array, add the following above `"test"`:
 
-    ```
-    "start": "parcel src/index.html"
-    ```
+```
+"start": "parcel src/index.html"
+```
 
-    Now back in our terminal , type `npm start` and press enter.
+Now back in our terminal , run `npm start`.
 
-    <img src="/img/tutorials/simple-websocket/image4.png"/>
+<img src="/images/tutorial_image_1.png"/>
 
-    This will result in the above output. Open your browser to see the results [(localhost:1234)](http://localhost:1234/). You should now have a running web application with 'Test' printed on the browser window!
+Open your browser at [localhost:1234](http://localhost:1234/). 
 
-    The `console.log` statement in the above code can be checked by right clicking ⇧ on the browser and selecting 'Inspect' and navigating to the 'Console' section of the pane that appears. You should see 'test log' printed there. 
+Your web application is now up and running with `Test` displayed on the browser window.
+
+Checking the `console.log` output is done by right-clicking on the browser and selecting __Inspect__, then navigating to the __Console__ section of the resulting panel. You should see the message `test log` displayed there.
 
     
 ### Building the User Client
 
-We will focus mainly on the logic of the `index.ts` file in this section. It is where we want to establish our logic which connects our application to the mixnet, construct messages that we want to send and then send it to the mixnet for a service provider to receive.
+Building our __User Client__ focuses mainly on configuring and adding functions to `index.ts` file, in the `user-client` folder. It's where we establish the connection between our application and the mixnet, create the messages we want to send, and then send them to a service provider through the mixnet. 
 
- Remember that our aim is to get two Typescript applications running, represented by the blue boxes in the diagram [above](#what-are-we-building). Everything in the middle (the mixnet) has already been taken care of for us. The first place to to start will be implementing the code that connects our Typescript Client to our Nym Websocket Client (the orange box to the right of our 'User Client').
+Therefore we must implement the functions that connects our Typescript Client to our Nym Websocket client.
 
- 1. In our `index.ts`, remove the existing `console.log` statement an paste or type in the following code : 
+ 1. Replace the existing content of the `index.ts` file in the `user-client` folder with this function: 
     
     ```
     async function main() {
     }
 
-    /* Connect to a websocket. */
     function connectWebsocket(url) {
         return new Promise(function (resolve, reject) {
             var server = new WebSocket(url);
@@ -230,26 +225,19 @@ We will focus mainly on the logic of the `index.ts` file in this section. It is 
     
     main();
     ```
-    * `main()` - This function will be the first function that we will want to declare in our file. It is where the main bulk of logic is 'queued up to run' within the application. This is exactly where we will want to try to make a connection with the Nym Websocket Client. We also want to call this at the bottom of the file so it is executed when we launch the application.
+* `main()` - This first function will hold the majority of the logic and initiate the connection with the Nym Websocket Client. It's best to declare it at the start of the file and call it at the end to run when launching the application.
 
-     * `connectWebsocket(url)` - In this function, we return a Promise which attempts to establish a websocket connection to the url value that we pass into it as our parameter. If its successful , we will be notified in our application and our websocket client, If not successful, we will receive an error in our application. We are going to write the code for this further in the tutorial.
+* `connectWebsocket(url)` - In this function, we return a Promise that tries to set up a websocket connection to the url we provide as a parameter. If the connection is successful, we will get a notification in our application and websocket client. If it fails, we'll receive an error in our app. 
 
- 2. Next, we will implement the functions that will handle DOM manipulation (code which will alter our UI depending on 
-    how we are interacting with our application).
+ 2. Next, implement the functions that will handle DOM (Document Object Model) manipulation allowing the alteration of the UI depending on our interaction with the application.
     
-    Underneath our `main()` declaration function in the editor, lets paste or type the following:
+Before the `main()` declaration at the end of the file, add the following:
  
-    ```
-    /*
-        Display messages that relates to initializing our client and client status (appearing in our activity log).
-    */
+```
     function displayClientMessage(message) {
         document.getElementById("output").innerHTML += "<p>" + message + "</p >";
     }
     
-    /*
-        Handle any messages that come back down the websocket.
-    */
     function handleResponse(resp) {
         try {
             let response = JSON.parse(resp.data);
@@ -267,17 +255,11 @@ We will focus mainly on the logic of the `index.ts` file in this section. It is 
         }
     }
     
-    /*
-        Handle any string message values that are received through messages sent back to us.
-    */
     function handleReceivedTextMessage(message) {
         const text = message.message
         displayJsonResponse(text)
     }
     
-    /*
-        Display websocket responses in the Activity Log.
-    */
     function displayJsonResponse(message) {
         let receivedDiv = document.createElement("div")
         let paragraph = document.createElement("p")
@@ -289,45 +271,35 @@ We will focus mainly on the logic of the `index.ts` file in this section. It is 
         document.getElementById("output").appendChild(receivedDiv)
     }
 
-    ```
+```
 
-    This may look like a big chunk of code, but dont worry, the majority of it relates to adjusting HTML elements of our `index.html`. The next thing we then want to do is define some key variables that we will want to utilize in our application.
+The majority of this code is required for adjusting the elements of the `index.html`. 
 
-3.  Above our `main()` declaration function , paste or type the following code:
+3.  Above our `main()` function, add the following code:
 
-    ```
-    /*
-        The address that is given to us from our mixnet client.
-    */
-    var ourAddress : string;
-    
-    /*
-        Address we want to send our messages to.
-    */
-    var targetAddress: string;
-    
-    /*
-        Variable that holds our websocket connection data.
-    */
-    var websocketConnection: any;
-    ```
+```
+var ourAddress : string;
 
-    These three variables will be the three main global variables of our application.
+var targetAddress: string;
 
-    * `ourAddress` will be populated once we get a response from the initialization of our Nym Websocket Client (which we will cover later).
+var websocketConnection: any;
+```
 
-    * `targetAddress` will be set by us later in the tutorial, once we boot up the Service Providers nym client.
+These variables are the main global variables of our application.
 
-    * `websocketConnection` will be populated once we get a successful response from our Promise within the `connectWebsocket()` function.
+* `ourAddress` - Automatically filled in upon receipt of a reply from the Nym Websocket client's initialization.
 
-4.  Lets go back up to our `main()` function and continue with filling it out. Paste or type out the following code :
+* `targetAddress` - A manually set parameter for the Service Provider's Nym client.
+
+* `websocketConnection` - Populated upon a successful response from our Promise within the `connectWebsocket()` function.
+
+4.  Back inside the `main()` function, add the following:
   
-    ```
+```
     async function main() {
         var port = '1977' // client websocket listens on 1977 by default.
         var localClientUrl = "ws://127.0.0.1:" + port;
         
-        // Set up and handle websocket connection to our desktop client.
         websocketConnection = await connectWebsocket(localClientUrl).then(function (c) {
             return c;
         }).catch(function (err) {
@@ -340,7 +312,6 @@ We will focus mainly on the logic of the `index.ts` file in this section. It is 
         
         sendSelfAddressRequest();
         
-        // Set up the send button
         const sendButton = document.querySelector('#send-button');
         
         sendButton?.addEventListener('click', function handleClick(event) {
@@ -348,15 +319,11 @@ We will focus mainly on the logic of the `index.ts` file in this section. It is 
         });
     }
 
-    ```
+```
 
-    Accompanying this, lets provide it with the function that we currently have not defined yet - `sendSelfAddressRequest()`. Lets paste  it under our `main()`function, above the `displayClientMessage()` function that we declared earlier:
+5. Currently the `sendSelfAddressRequest()` has not been defined. Add the following under between the `main()` and `displayClientMessage()` functions:
 
-    ```
-    /*
-        Get out address to log in the activity log so we know what our address is in the mixnet via our application UI
-    */
-
+```
     function sendSelfAddressRequest() {
         var selfAddress = {
             type: "selfAddress"
@@ -365,72 +332,56 @@ We will focus mainly on the logic of the `index.ts` file in this section. It is 
         websocketConnection.send(JSON.stringify(selfAddress));
     }
 
-    ```
+```
 
-    * `sendSelfAddressRequest()` - Function that is called after connecting to the websocket which will attempt to retrieve the websocklet address and display it for us on the applications UI in the browser. 
+* `sendSelfAddressRequest()` - Function that retrieves the websocket address and displays it on the browser's UI after connecting to the websocket.
 
-    So far, our added logic into our `main()` function will do the following:
+Recap: So far, our added logic into our `main()` function will do the following:
 
-    - State the port (set to `1977`, which our Websocket Client listens to by default) and local client url (which we point to `localhost` (`127.0.0.1`)).
-    - Call our `connectWebsocket()` function and assign the value it returns to `websocketConnection`, the global variable which we created earlier.
-    - Handle any responses which come back from our websocket and handle it accoredinlgy depending what value is present in its type attribute within the `handleResponse()` function.
-    - Call our newly added function , `sendSelfAddressRequest()` where we send a object with an attribute, `type : selfAddress`to get the address of our  Websocket Client.
-    - Listen to a Send button on your `index.html` (which we will implement soon) that when its pressed, it will grab whatever data we want to send and send it through the mixnet. This will be done in a new function we will now create, `sendMessageToMixnet()`.
+* State the port (set to `1977`, which our Websocket Client listens to by default) and local client url (which we point to `localhost` (`127.0.0.1`)).
+* Called our `connectWebsocket()` function and assign the value it returns to `websocketConnection`.
+* Implemented the handling of any responses retrieved from the websocket, dependent of the value in the type attribute within the `handleResponse()` function.
+* Added the `sendSelfAddressRequest()` function which sends a object with an attribute type of `selfAddress` that retrieves the address of the Websocket Client.
+* Initially built `Send` button function which will purposely grab the sent data.
 
-5.  Its time to write our next important function. Underneath our `sendSelfAddressRequest()` function in the editor, paste 
-    or type out  the  code below:
+6. Underneath the `sendSelfAddressRequest()` function, add the following:
 
-    ```
-    /*
-        Function that gets the form data and sends that to the mixnet in a stringified JSON format.
-    */
+```
     function sendMessageToMixnet() {
     
-        //Access our form elements current values
         var nameInput = (<HTMLInputElement>document.getElementById("nameInput")).value;
         var serviceSelect = (<HTMLInputElement>document.getElementById("serviceSelect")).value;
         var textInput = (<HTMLInputElement>document.getElementById("textInput")).value;
         var freebieCheck = (<HTMLInputElement>document.getElementById("freebieCheck")).checked;
         
-        //Place each of the form values into a single object to be sent.
+ 
         const messageContentToSend = {
             name : nameInput,
             service : serviceSelect,
             comment : textInput,
             gift : freebieCheck
         }
-        
-        /*We have to send a string to the mixnet for it to be a valid message , so we use JSON.stringify to make our object into a string.*/
+
         const message = {
             type: "send",
             message: JSON.stringify(messageContentToSend),
             recipient: targetAddress,
             withReplySurb: false,
         }
-        
-        //Display our json data to ber sent
         displayJsonSend(message);
         
-        //Send our message object via out via our websocket connection.
         websocketConnection.send(JSON.stringify(message));
     }
 
-    ```
+```
 
-    * `sendMessageToMixnet()` - The key function the we need to send our message to our future Service Provider.
+* `sendMessageToMixnet()` - The key function that will allow our Service Provider messages to receive messages. Firstly, it will gets the values from a form in the `index.html` and assign them to local variables within the function, inserting the local variables into one object to be sent to the mixnet. Secondly, calling the `displayJsonSend()` function to render the sent message on to the UI. Lastly, the `websocketConnection` global variable will send our message to the websocket. 
 
-    The `sendMessageToMixnet()` function will do a few things for us:
-    - Get the values from a form in the index.html (which we will create soon) and assign them to local variables within the function.
-    - We insert our local variables into one object to be send to the mixnet.
-    - Call a function, `displayJsonSend()`, (implemented in our next step) which will render our sent message on to the UI.
-    - Use our `websocketConnection` global variable to send our message to the websocket. You'll notice that we JSON.stringify our data when passing it into the `send()` function. This is because our Nym Websocket Client will only accept messages in string format (for now) and will throw an error if the value it receives is not a string.
+The JSON.stringify our the data when passing to the `send()` function, because the Nym Websocket client only accepts messages in string format and will throw an error if it receives a non-string value.
 
-    Below our `sendMessageToMixnet()` function  in the editor , paste or type out the code below for our next function :
+7. Below our `sendMessageToMixnet()` function, add the following:
 
-    ```
-    /*
-        Functions that will display responses into our activity log.
-    */
+```
     function displayJsonSend(message) {
         let sendDiv = document.createElement("div")
         let paragraph = document.createElement("p")
@@ -441,16 +392,13 @@ We will focus mainly on the logic of the `index.ts` file in this section. It is 
         sendDiv.appendChild(paragraph)
         document.getElementById("output").appendChild(sendDiv)
     }
-    ```
+```
 
-    * `displayJsonSend(message)` - Will display the message we sent within the 'Activity Log' section of our UI code (implemented in our next step).
+* `displayJsonSend(message)` - Will show the message in the "Activity Log" section of the UI.
 
-6.  Lets finally get our HTML file filled out with some UI that will accompany what we have in our `index.ts`.
-    Replace the contents of `index.html` with the following code:
+8. Replace the current `index.html` with the following, to reflect our output on the UI:
 
-    <details>
-    <summary>index.html Code</summary>
-
+```
         <!doctype html>
         <html>
             <head>
@@ -531,249 +479,126 @@ We will focus mainly on the logic of the `index.ts` file in this section. It is 
         </html>
 
     </details>
+```
 
-    Save the file in the editor and lets go back to our console window. Lets go ahead and type :
+> ⚠️ Make sure to save all files before proceeding!
 
-    ```
-    npm start
-    ```
-    Then, lets go back to [localhost:1234](http://localhost:1234/) and check the result. We should now have a new UI for our application!
+9. Return back to your terminal and run:
 
-### Connecting our Nym Websocket Client
+```
+npm start
+```
 
-At this point, we should have all our code at this point be able to make the first simple websocket connection that we are looking for. 
-Lets go ahead and get ourselves a copy of the Websocket Client (the orange boxes that we see in our initial [diagram](#what-are-we-building), to the right of the blue 'User Client' box).
+Return to your open browser and you should see a new UI has been created for your User Client application.
 
+### Connecting the Nym Websocket Client
 
-Go to [the Github releases page](https://github.com/nymtech/nym/releases), find the latest binaries release , expand the ▶ Assets section and click on the ❒ `nym-client` option (Ubuntu or macOS).
+This far into the tutorial, we should have functioning User Client to make the initial websocket connection that we're looking for. To connect our Nym Websocket client, go to [releases page](https://github.com/nymtech/nym/releases) to doewnload the latest binaries release of the `nym-client`. Alternatively, download [here](https://nymtech.net/docs/stable/run-nym-nodes/build-nym/) and follow instructions to build the binaries from the monorepo. Once the `nym-client` latest binaries has been downloaded, we can begin connecting and executing of our websocket functionality.  
 
-Alternatively if your having issues (or using a different operating system), go [here]() and follow instructions to build the binaries from the monorepo. 
-
-Once we have this up and running, we can get to the real nitty gritty of connecting and executing of our websocket functionality. For ease of showing the folder structure, we are placing the `nym-client` in the 'Simple Mixnet Websocket' folder for this demo. Place it wherever you want on your computer, and execute it by running the following commands from that directory. 
-
-:::note
-    Our Folder Structure (so far)
-
-    Simple Service Provider Tutorial/
-    ├─ User Client/
-    │  ├─ src/
-    │  │  ├─ index.html
-    │  │  ├─ index.ts
-    │  ├─ package.json
-    │  ├─ tsconfig.json
-    ├─ nym-client
-:::
-
-Over in your terminal, `cd` to the folder you placed your `nym-client` binary and execute the following command:
+1. Open a new terminal window, and `path/to/the/release` folder, and run the following to initialize your first `nym-client`:
 
 ```
 ./nym-client init --id websocket-client
 ```
-The resulting output will look something like this:
+<details>
+    <summary>Console Output</summary>
+       
+          _ __  _   _ _ __ ___
+         | '_ \| | | | '_ \ _ \
+         | | | | |_| | | | | | |
+         |_| |_|\__, |_| |_| |_|
+                |___/
 
-<img src="/img/tutorials/simple-websocket/image7.png"/>
+                 (client - version 1.1.4)
 
-<br/>
-<br/>
+        
+    Initialising client...
+    Client "websocket-client" was already initialised before! Config information will be overwritten (but keys will be kept)!
+    Not registering gateway, will reuse existing config and keys
+     2023-01-30T09:22:11.446Z INFO  config > Configuration file will be saved to "/Users/oliveranyanwu_nym_tech/.nym/clients/websocket-client/config/config.toml"
+    Saved configuration file to "/Users/oliveranyanwu_nym_tech/.nym/clients/websocket-client/config/config.toml"
+    Using gateway: 5Ao1J38frnU9Rx5YVeF5BWExcnDTcW8etNe9W2sRASXD
+    Client configuration completed.
 
-:::note
-This address you see in the screenshots (along with the other addresses in this tutorial) will be different to the one you have when you execute this command. Each address generated by each client will be different.
-:::
+    Version: 1.1.4
+    ID: websocket-client
+    Identity key: 5hjx1NGdGfd4rGDPfB2r8E85dEVZ6vgy135fP3nMuWWM
+    Encryption: LwnvsnVzwUCMxxLM8e6HZ395pSPc9NDdmCXtHHVMfCG
+    Gateway ID: 5Ao1J38frnU9Rx5YVeF5BWExcnDTcW8etNe9W2sRASXD
+    Gateway: ws://178.18.240.56:9001
+    Client listening port: 1977
 
-We can see from this output that this command does the following:
-- Starts using a gateway on the mixnet.
-- Generates and address for our Websocket Client.
+    The address of this client is: 5hjx1NGdGfd4rGDPfB2r8E85dEVZ6vgy135fP3nMuWWM.LwnvsnVzwUCMxxLM8e6HZ395pSPc9NDdmCXtHHVMfCG@5Ao1J38frnU9Rx5YVeF5BWExcnDTcW8etNe9W2sRASXD
 
-Next, within the same terminal, lets run the following command:
+</details>
+
+> ⚠️ The client address generated by executing a command in a terminal will always be unique and distinct from the address generated by any other client executing the same command.
+
+2. Run the `nym-client` using:
 
 ```
 ./nym-client run --id websocket-client 
 ```
+<details>
+    <summary>Console Output</summary>
 
-Our Websocket Client for our Typescript Script is now up and running! Let's have a look at what is happening in our 
-application on [localhost:1234](http://localhost:1234/) in the browser. Give the page a refresh. 
+          _ __  _   _ _ __ ___
+         | '_ \| | | | '_ \ _ \
+         | | | | |_| | | | | | |
+         |_| |_|\__, |_| |_| |_|
+                |___/
 
-<img src="/img/tutorials/simple-websocket/image9.png"/>
+                 (client - version 1.1.4)
 
-We have a response in our 'Activity Log' section at the bottom of our application UI. We can see that we got a successful response from our websocket, hence we were able to get back the address we saw in the above terminal output. Lets try something here. Terminate the terminal process by holding `CTRL + C`.  After that, lets tgo back to [localhost:1234](http://localhost:1234/).
+        
+     2023-01-30T09:28:52.773Z INFO  client_core::client::base_client::non_wasm_helpers > loading existing surb database
+     2023-01-30T09:28:52.775Z INFO  client_core::client::replies::reply_storage::backend::fs_backend::manager > Database migration finished!
+     2023-01-30T09:28:52.776Z ERROR client_core::client::replies::reply_storage::backend::fs_backend          > the client hasn't undergone through graceful shutdown the last time it's gone down - we can't trust its reply surbs or stored encryption keys. They shall get purged
+     2023-01-30T09:28:52.777Z INFO  client_core::client::replies::reply_storage::backend::fs_backend          > it's been over 6 days and 163 hours since we last used our data store. our reply surbs are already outdated - we're going to purge them now.
+     2023-01-30T09:28:52.778Z INFO  client_core::client::replies::reply_storage::backend::fs_backend          > it's been over 6 days and 163 hours since we last used our data store. our reply keys are already outdated - we're going to purge them now.
+     2023-01-30T09:28:52.778Z INFO  client_core::client::replies::reply_storage::backend::fs_backend          > it's been over 6 days and 163 hours since we last used our data store. our used sender tags are already outdated - we're going to purge them now.
+     2023-01-30T09:28:52.779Z INFO  client_core::client::base_client                                          > Starting nym client
+     2023-01-30T09:28:52.956Z INFO  gateway_client::client                                                    > the gateway is using exactly the same protocol version as we are. We're good to continue!
+     2023-01-30T09:28:52.960Z INFO  client_core::client::base_client                                          > Obtaining initial network topology
+     2023-01-30T09:28:54.077Z INFO  client_core::client::base_client                                          > Starting topology refresher...
+     2023-01-30T09:28:54.077Z INFO  client_core::client::base_client                                          > Starting received messages buffer controller...
+     2023-01-30T09:28:54.077Z INFO  client_core::client::base_client                                          > Starting mix traffic controller...
+     2023-01-30T09:28:54.077Z INFO  client_core::client::base_client                                          > Starting real traffic stream...
+     2023-01-30T09:28:54.077Z INFO  client_core::client::base_client                                          > Starting loop cover traffic stream...
+     2023-01-30T09:28:54.077Z INFO  nym_client::client                                                        > Starting websocket listener...
+     2023-01-30T09:28:54.077Z INFO  nym_client::websocket::listener                                           > Running websocket on "127.0.0.1:1977"
+     2023-01-30T09:28:54.077Z INFO  nym_client::client                                                        > Client startup finished!
+     2023-01-30T09:28:54.077Z INFO  nym_client::client                                                        > The address of this client is: 5hjx1NGdGfd4rGDPfB2r8E85dEVZ6vgy135fP3nMuWWM.LwnvsnVzwUCMxxLM8e6HZ395pSPc9NDdmCXtHHVMfCG@5Ao1J38frnU9Rx5YVeF5BWExcnDTcW8etNe9W2sRASXD
 
-<img src="/img/tutorials/simple-websocket/image10.png"/>
+</details>
 
-Excellent, so we also know that our error code for a missing websocket connection is also working for us. Lets get that client back up and running by using:
+The Websocket Client for our Typescript Script is now up and running, and we can refresh the browser application to see the changes. In the 'Activity Log' of the UI, there's a successful response from our websocket, thus we're able to see the same address from our terminal. If we were to terminate our `nym-client`, we can an error on the browser UI stating a missing websocket connection. This is a good sign of error handling.
 
-```
- ./nym-client run --id websocket-client 
-```
-
-So now we can get on to connecting it to a Service Provider.
+We can now rerun the same `nym-client`.
 
 ### Adding our Service Provider
 
-Its time to get a full circle of websocket functionality up and running. Like our User Client, the Service Provider is a Typescript application, bundled using Parcel, and has the same npm dependencies. Lets re-iterate the same steps we went through earlier.
+To completing the full cycle of the websocket functionality, we must create the Service Provider. 
 
-Lets go ahead back to our root folder 'Simple Service Provider Tutorial' and create a new directory, 'Service Provider'
+From the [Preparing your Typescript environment](#preparing-your-typescript-environment) section of tutorial guide, repeat the steps `1-4` and step `1` of [Bundling the Application](#bundling-the-application) for adding the __Service Provider__.
 
-:::note
-    Our Folder Structure (so far)
+> ⚠️ Remember to reference this section of the tutorial to the `service-provider`, instead of `user-client`.  
 
-    Simple Service Provider Tutorial/
-    ├─ User Client/
-    │  ├─ src/
-    │  │  ├─ index.html
-    │  │  ├─ index.ts
-    │  ├─ package.json
-    │  ├─ tsconfig.json
-    ├─ nym-client
-    ├─ Service Provider/
+Begin by creating a `service-provider` folder in the `simple-service-provider-tutorial` root directory.
 
-:::
+Navigate to the `package.json` file and in the `"scripts"` array, add the following above `"test"`:
 
-Continue to then do the following:
+```
+"start": "parcel src/index.html --port 1235",
+```
 
-1. Open up a second terminal on your screen, working in the 'Service Provider' directory you created (or by `cd`'ing to the directory), type and enter:
-
-    ```
-    npm init
-    ```
-    The following chunk of output (seen below) will then be presented to you. The terminal will prompt your to provide some input for the the sections name to  license. You can simply just press enter `↵` after each prompt (like the example below) and it will work just fine.
-
-    <details>
-    <summary>console output</summary>
-    
-    This utility will walk you through creating a `package.json` file.
-    It only covers the most common items, and tries to guess sensible defaults.
-
-    See `npm help init` for definitive documentation on these fields
-    and exactly what they do.
-
-    Use `npm install <pkg>` afterwards to install a package and
-    save it as a dependency in the package.json file.
-
-    Press ^C at any time to quit.<br/>
-    package name: (service-provider)<br/> 
-    version: (1.0.0)<br/> 
-    description:<br/> 
-    entry point: (index.js)<br/> 
-    test command:<br/> 
-    git repository:<br/> 
-    keywords:<br/> 
-    author:<br/> 
-    license: (ISC)<br/> 
-    About to write to /Users/josephiacono/Desktop/Workspace/practice/Tutorial Reps/Simple Service Provider Tutorial/Service Provider/package.json:
-
-    {<br/>
-        "name": "service-provider",<br/>
-        "version": "1.0.0",<br/>
-        "description": "",<br/>
-        "main": "index.js",<br/>
-        "scripts": {<br/>
-            "test": "echo \"Error: no test specified\" && exit 1"<br/>
-        },<br/>
-        "author": "",<br/>
-        "license": "ISC"<br/>
-    }
-
-    Is this OK? (yes) 
-    
-    </details>
-
-    You will then notice a `package.json` file has been created in the folder.
-
-2. Continuing with our terminal, type and enter:
-    
-    ```
-    npm install typescript
-    ```
-    After this point , we should open up our chosen IDE (VSCode, Sublime Text, etc) and open up the folder we are working in (Service Provider).
-    Check the contents of the `package.json` file, it should look something like this:
-
-    ```
-    {
-        "name": "service-provider",
-        "version": "1.0.0",
-        "description": "",
-        "main": "index.js",
-        "scripts": {
-            "test": "echo \"Error: no test specified\" && exit 1"
-        },
-        "author": "",
-        "license": "ISC",
-        "dependencies": {
-            "typescript": "^4.9.3"
-        }
-    }
-    
-    ```
-
-    We can see that typescript has been added to our `dependencies`. Typescript is now in our project.
-
-3. Back in our terminal, type and enter:
-    
-    ```
-    npm install ts-node --save-dev
-    ```
-    This package (`ts-node`) allows us to build a typescript application in a node environment.
-
-4. Create a new file in the 'Service Provider' folder (same level as `package.json`) called `tsconfig.json` Inside that file , copy and paste the code below into it.
-
-    ```
-    {
-        "compilerOptions": {
-            "module": "commonjs",
-            "esModuleInterop": true,
-            "target": "es6",
-            "moduleResolution": "node",
-            "sourceMap": true,
-            "outDir": "dist"
-        },
-        "lib": ["es2015"]
-    }
-    ```
-5. Now that we have got to this point, we want to be able to run our application on localhost to make sure everything is working okay. 
-    We also want to be able to work on our application while its running and make sure it automatically picks up any saved changes when we view it on the browser. To do this , we are going to use the Parcel bundler.
-
-    Back in your terminal, type and enter:
-
-    ```
-    npm install --global parcel-bundler
-    ```
-
-    After the npm install has finished, create a new folder called `src` in the same level as our `tsconfig.json` and `package.json` (Service Provider folder). Inside there , create 2 new files. One called `index.html` and one called `index.ts`.
-
-    :::note
-        Our Folder Structure (so far)
-
-        Simple Service Provider Tutorial/
-        ├─ User Client/
-        │  ├─ src/
-        │  │  ├─ index.html
-        │  │  ├─ index.ts
-        │  ├─ package.json
-        │  ├─ tsconfig.json
-        ├─ Service Provider/
-        │  ├─ src/
-        │  │  ├─ index.ts
-        │  │  ├─ index.html
-        │  ├─ package.json
-        │  ├─ tsconfig.json
-        ├─ nym-client
-    :::
-
-6. Then, in your `package.json` in your 'Service Provider' folder, within the `“scripts”` section. Check that the `“start” `line looks    like this:
-
-    ```
-    "start": "parcel src/index.html --port 1235",
-    ```
-    With the addition on this line, we have ensured that the application will run on localhost:1235, so it wont conflict with our User Client application running in the browser, which as we have seen previously runs on port 1234.
+By stating the `--port 1235`, it ensures it runs on `localhost:1235` instead of the its User Clients `localhost:1234`, to prevent any conflicting errors.
 
 #### Service Provider Typescript Code
 
-So lets fill out our code for our `index.ts`. Below you'll find the entire logic for the file. You'll notice that we share similar functions to the 'User Client' code apart from a few distinctions regarding the purposes of a few functions. Type or paste out the below code into our `index.ts`:
+Add the following block of functions and variable into the `index.ts`:
 
-<details>
-    <summary>index.ts Code</summary>      
-
-    
+```
     interface MessageData {
         name : string;
         service : string;
@@ -781,9 +606,6 @@ So lets fill out our code for our `index.ts`. Below you'll find the entire logic
         gift : boolean;
     }
 
-    /*
-        Comprehensive name as opposed to 'Message' for purposed related to understanding the mixnet.
-    */
     interface MixnetMessage {
         message : string;
         replySurb : boolean; // Marked when we want to use a 'Single Use Reply Block', a distinct piece of functionality on the mixnet.
@@ -797,10 +619,6 @@ So lets fill out our code for our `index.ts`. Below you'll find the entire logic
     async function main() {
         var port = '1978' // client websocket listens on 1977 by default, change if yours is different
         var localClientUrl = "ws://127.0.0.1:" + port;
-
-        /*
-            Set up and handle websocket connection to our desktop client.
-        */
 
         websocketConnection = await connectWebsocket(localClientUrl).then(function (c) {
             return c;
@@ -818,13 +636,11 @@ So lets fill out our code for our `index.ts`. Below you'll find the entire logic
     function decodeStringifiedMessage(message : string){
         let parsedMessage : MessageData;
         
-        // We need to decode the message that we have received from our client, where it was JSON.stringify'd before it was sent to our service provider.
         message = message.replace(/\//g,"");
 
-        // After using 'string.replace()' as above, we can turn our data back into an object. This will make it match our attributes defined in the MessageData interface
+        interface
         parsedMessage = JSON.parse(message);
 
-        // Make a new string value which we can pass into the UI (Received Message Data section).
         return '<b>Name: </b>' + parsedMessage.name + ' , <b>Service: </b>' + parsedMessage.service + ' ,<b> Personal Comment: </b>' + parsedMessage.comment + ' , <b>Wants Free Stuff?: </b>' + translateYesOrNo(parsedMessage.gift)
     }
 
@@ -833,9 +649,6 @@ So lets fill out our code for our `index.ts`. Below you'll find the entire logic
         return 'No';
     }
 
-    /*
-        Function that renders the contents of our recievedMessageData array in the Received Message Data section of our UI.
-    */
     function renderMessageList(){
 
         var str = '<ul>'
@@ -848,9 +661,6 @@ So lets fill out our code for our `index.ts`. Below you'll find the entire logic
         document.getElementById("slideContainer").innerHTML = str;
     }
 
-    /*
-         Handle any messages that come back down the websocket. 
-    */
     function handleResponse(responseMessageEvent : MessageEvent) {
         try {
             let response = JSON.parse(responseMessageEvent.data);
@@ -871,19 +681,13 @@ So lets fill out our code for our `index.ts`. Below you'll find the entire logic
     function handleReceivedMessage(message : MixnetMessage) {
         const text = message.message
         
-        //Make the message that we receive appear in the Activity Log.
         displayJsonResponseWithoutReply(text)
 
-        //Remove slashes , convert message back into json object and add it to our received messages data section.
         recievedMessageData.push(decodeStringifiedMessage(text));
 
-        //Re-render our UI to display our updated received message data.
         renderMessageList();
     }
 
-    /*
-        Send a message to the mixnet client, asking what our own address is. 
-    */
     function sendSelfAddressRequest() {
         var selfAddress = {
             type: "selfAddress"
@@ -891,18 +695,12 @@ So lets fill out our code for our `index.ts`. Below you'll find the entire logic
         websocketConnection.send(JSON.stringify(selfAddress));
     }
 
-    /*
-        Set up and handle websocket connection to our desktop client.
-    */
     function display(message : string) {
         console.log('in display');
         console.log(message);
         document.getElementById("output").innerHTML += "<p>" + message + "</p >";
     }
 
-    /*
-        Function that takes a the incoming message (as sting) as a parameter and displays it as a new entry in the Activity Log.
-    */
     function displayJsonResponseWithoutReply(message : string) {
         let receivedDiv = document.createElement("div")
         let paragraph = document.createElement("p")
@@ -915,9 +713,6 @@ So lets fill out our code for our `index.ts`. Below you'll find the entire logic
         document.getElementById("output").appendChild(receivedDiv)
     }
 
-    /*
-        Function that connects our application to the mixnet Websocket. We want to call this first in our main function.
-    */
     function connectWebsocket(url) {
         return new Promise(function (resolve, reject) {
             var server = new WebSocket(url);
@@ -933,40 +728,31 @@ So lets fill out our code for our `index.ts`. Below you'll find the entire logic
     }
 
     main();
+```
 
-    
-    
-</details>
+> You may observe that we possess similar functions to the User Client code, with only a few differences in the objectives of a few functions.
 
-Lets go over the functions presented in the above chunk of code and what they do:
+* `decodeStringifiedMessage(message)` - To display the message from the User Client as an object on our Service Provider UI in the browser, we need to first "decode" the stringified message. The function accomplishes this by filtering out any slashes `/` using `string.replace` to undo the stringification process done by the User Client. Then, we use `JSON.parse` to convert the message back to its original data structure and return a string that will be used in the `handleReceivedMessage()` function.
 
-* `decodeStringifiedMessage(message)` - Since our message coming from the User Client will come through as a stringified message (as per our implementation earlier), we will need to 'decode' the message to then display it as an object on our Service Provider UI in the browser. This function takes in the incoming data and filters any slashes ('/\') by using the `string.replace`method to reverse the formatting done by the 'stringification' of our objet that was done by the User Client. We then call `JSON.parse` to then get our data back it its original form (the data structure we created our message in when we filled out and submitted the form in the User Client) and then return a string that we will utilize in our `handleReceivedMessage()` function. 
+* `translateYesOrNo(result)` - Implemented in the previous function, `decodeStringifiedMessage(message)`, we handle a boolean result parameter by converting `false` to __No__ and `true` to __Yes__. This contributes to the UI presented in `index.html`.
 
-* `translateYesOrNo(result)` - Implemented in our previous function, `decodeStringifiedMessage(message)`, we take in a boolean value as our result parameter and translate `false` to 'No' and `true` to 'Yes'. This helps make up part of the UI implemented in the `index.html` (coming up in our next step).
+* `renderMessageList()` - Updates the UI in `index.html` when a new, valid message is received, decoded, and added to the `receivedMessageData array`. The 'Received Message Data' section in `index.html` displays each item in the `receivedMessageData` array.
 
-* `renderMessageList()` - A function that re-renders a UI element in our `index.html` when a new valid message is received, decoded and added to our `recievedMessageData` array. In our `index.html`, we will have a 'Received Message Data' section which will render each element of our `recievedMessageData` array.
-
-* `handleReceivedMessage(message)` - When the message is recieved, we want to display it in our 'Activity Log' section, similar to the method we implemented in our 'User Client'. In this function, we'll call `recievedMessageData.push(decodeStringifiedMessage(text))`. This will add the result of the message that passes through our `decodeStringifiedMessage(message)` to the `recievedMessageData` array. We then call `renderMessageList()` so we can see then newly recieved data in the 'Received Message Data' of our UI.
+* `handleReceivedMessage(message)` - Displays the received message in the 'Activity Log' section, (similar to the approach in the 'User Client'). It adds the result of the `decodeStringifiedMessage(message)` function to the `receivedMessageData` array using `receivedMessageData.push(decodeStringifiedMessage(text))`. The `renderMessageList()` function is then called to display the newly received data in the 'Received Message Data' section of the UI.
 
 * `main()` - Just like our 'User Client', our `main()` function will still be the function in charge of our initializing and executing our application. We connect to our websocket in the exact same way as we do in our 'User Client' code except we want to set our `port` local variable to '1978'. This is so we don't have a conflict with the other Nym Websocket Client (the one that we are running for our User Client on `port` 1977). So when we launch our second Nym Websocket Client, we will set the `--port` to 1978 when we get to initializing it (coming up further in the tutorial).
 
-The good news is that we can re-use the remaining functions from our 'User Client':
-- `sendSelfAddressRequest()`
-- `display(message)`
-- `displayJsonResponse(message)`
-- `connectWebsocket(url)`
-
-We're going to be connecting to a Nym Websocket Client in the exact same way as we did with our 'User Client', so we can don't have to change these functions.
+We'll be connecting to the Nym Websocket Client in the exact same way as the 'User Client', so we can reuse the following functions for the Service Provider: 
+* `sendSelfAddressRequest()`,
+* `display(message)`
+* `displayJsonResponse(message)`
+* `connectWebsocket(url)`
 
 #### Service Provider HTML Code
 
-Its time to fill out our `index.html` code for our Service Provider so we can get a UI up and running on our browser when we eventually start out application. Copy and paste the below code into our Service Providers `index.html`.
+Replace the current `index.html` with the following, to reflect our output on the UI for the Service Provider:
 
-
-<details>
-    <summary>index.html Code</summary>    
-
-    
+```
     <!doctype html>
     <html>
         <head>
@@ -1021,110 +807,82 @@ Its time to fill out our `index.html` code for our Service Provider so we can ge
             <script src="index.ts"></script>
         </body>
     </html>
-    
-</details>
+```
 
-Save the file and lets continue to get our websocket websocket connection up and running.
+> ⚠️ Make sure to save all files before proceeding!
+
+The following is the desired directory structure of the `simple-service-provider-tutorial`:
+
+```
+    simple-service-provider-tutorial/
+    ├─ user-client/
+    │  ├─ src/
+    │  │  ├─ index.html
+    │  │  ├─ index.ts
+    │  ├─ package.json
+    │  ├─ tsconfig.json
+    ├─ service-provider/
+    │  ├─ src/
+    │  │  ├─ index.ts
+    │  │  ├─ index.html
+    │  ├─ package.json
+    │  ├─ tsconfig.json
+```
 
 #### Getting the Service Provider connected.
 
-Lets get get our Service Provider's Websocket Client up and running.
+Lets get get our Service Provider's Websocket Client running.
 
-In our `Service Provider` folder, open up a second terminal and execute the following command
-
+1. To get the Service Provider's Websocket Client running, `path/to/the/service-provider` folder, and in your terminal run:
 
 ```
 npm start
 ```
-:::note
-    Our Folder Structure (Recap)
 
-    Simple Service Provider Tutorial/
-    ├─ User Client/
-    │  ├─ src/
-    │  │  ├─ index.html
-    │  │  ├─ index.ts
-    │  ├─ package.json
-    │  ├─ tsconfig.json
-    ├─ Service Provider/
-    │  ├─ src/
-    │  │  ├─ index.ts
-    │  │  ├─ index.html
-    │  ├─ package.json
-    │  ├─ tsconfig.json
-    ├─ nym-client
-:::
+Open your browser at [localhost:1235](http://localhost:1235/). 
 
+<img src="/images/tutorial_image_2.png"/>
 
-We should then have the following screen appear when we open a new tab in the web browser on url : [localhost:1235](http://localhost:1235/).
+The Service Provider is seeking a websocket connection on port `1978` but currently it cannot find it. 
 
-<img src="/img/tutorials/simple-websocket/image11.png"/>
-
-So we can see that the Service Provider is wanting to listen to a websocket connection on port `1978` but currently it cant find one. 
-
-That's our cue to open up another terminal window in our project root folder (Simple Service Provider Tutorial) and get ourselves a second instance of our Nym Websocket Client running. Once again, will be executing the same commands as last time with the `nym-client` file, but this time with a different `--port` and `--id`.
-
-Go back to the folder where you placed your `nym-client` file and open up a new terminal window there.
-Type and enter the following
+2. Open a new terminal window, and `path/to/the/release` folder, and run the following to initialize your first `nym-client`: 
 
 ```
 ./nym-client init --id service-provider --port 1978
+```
+
+3. Then run:
+```
 ./nym-client run --id service-provider
 ```
-We then have our second Nym Websocket Client up and running. Lets go back to our browser back to our Service Provider tab and look at what's changed. Give the browser window a refresh:
 
-<img src="/img/tutorials/simple-websocket/image12.png"/>
+The second Nym Websocket Client is now running, so if you return to the Service Provider tab in your browser and refresh, you'll see the following:
 
-Same as our User Client, we got a successful response from the websocket. All good so far.
+<img src="/images/tutorial_image_3.png"/>
 
-We now want to send messages to from our User Client to our Service provider. We have just this one step left to do. Back in the `index.ts` of our User Client code, we need to do the following:
+Similar to the User Client, in the 'Activity Log' of the UI, there's a successful response from our websocket, thus we're able to see the same address from our terminal. If we were to terminate our `nym-client`, we can an error on the browser UI stating a missing websocket connection. This is a good sign of error handling.
 
-Assign the global variable `targetAddress` that we initialized at the top of our code file to the value of our Service Providers websocket client address (the address stated in the screenshot above).
+4. The final step of this tutorial is to update the `targetAddress` in the User Client's `index.ts`. Assign the global variable `targetAddress` we initialized, with the address of the Service Provider's Nym Websocket client.
 
 ```
-/*
-   Address we want to send our messages to.
-*/
-var targetAddress = 'FR2dKwFTFDPN1DSBUehbWea5RXTEf2tQGUz1L7RsxGHT.QndBs9qMtNH5s3RXmnP96FgzAeFV6nwLNB6hrGGvUN2@62F81C9GrHDRja9WCqozemRFSzFPMecY85MbGwn6efve';
+var targetAddress = '<service-provider-websocket-client-addresss>';
 ```
 
-:::note
-As mentioned earlier, your address will be different to the one seen here in this tutorial. Use the one that you generated for your Service Provider via the second instance of your Nym Websocket Client.
-:::
+> ⚠️ Reminder that the client address produced from running this command in your terminal will always be different to the one you have when you execute this command. Each address generated by each client will be different.
 
-Save that and refresh both of our web applications in the browser. At this point, we should have the following set up:
+> ⚠️ Make sure to save all files and refresh browsers before proceeding! 
 
-4 Terminals Open 
-- 1 User Client Web App running,
-- 1 Service Provider App running, 
-- 2 Nym Websocket Clients for each of those two web applications.
+We should have the following set up:
 
-<img src="/img/tutorials/simple-websocket/image13.png"/>
+* A Single 'User Client' Web App running in the terminal
+* A Single 'Service Provider' Web App running in the terminal 
+* Two Nym Websocket Clients for each App in the terminal
+* Two browser Apps for both the User Client and Service Provider
 
-<br/>
-<br/>
+We can now attempt to send a message by completing the fields on the 'User Client' browser app and pressing __'Send'__.
 
-2 Applications (UI) running in the browser 
-- 1 User Client.
-- 1 Service Provider.
 
-Now , let's send a message from one to the other!
-
-Go to our Client Application and fill out the form that we constructed with our HTML Code earlier in the tutorial:
-
-<img src="/img/tutorials/simple-websocket/image14.png"/>
-
-<br/>
-<br/>
-
-When you are ready, Go ahead and hot that send button. Once you have done that have a look at your Service Provider application in your browser:
-
-<img src="/img/tutorials/simple-websocket/image15.png"/>
-
-<br/>
-<br/>
-
-There you have it, a message sent from a User Client to a Service Provider over the mixnet, creating a simple web application solution in the process.
+After clicking __'Send'__, you can observe a message sent from the 'User Client' to the 'Service Provider' via the mixnet in the Service Provider browser app, thus creating a basic web application solution in the process.
 
 
 
