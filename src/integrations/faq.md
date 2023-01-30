@@ -26,6 +26,9 @@ About 16GB of RAM is recommended for the wallet. However you can expect an avera
 
 
 ## Interacting with the Nyx blockchain 
+### Where can I find information on the blockchain, such as RPC endpoints? 
+You can find most information required for integration in the [Cosmos Chain Registry](https://github.com/cosmos/chain-registry/blob/master/nyx/chain.json) and [Keplr Chain Registry](https://github.com/chainapsis/keplr-chain-registry/blob/main/cosmos/nyx.json) repositories. 
+
 ### How can I use `JSON-RPC` methods to interact with the Nyx blockchain?
 There are multiple ways to use `JSON-RPC` methods to interact with the Nyx blockchain. Which method you use will depend on the type of application you are integrating Nyx interactions into. 
 
