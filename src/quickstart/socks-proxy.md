@@ -15,11 +15,10 @@ If you are using a different operating system, head over to the [Building Nym](h
 Use the following command to initialise your socks5 client with the address of a Nym-operated [Network Requester](https://nymtech.net/docs/stable/run-nym-nodes/nodes/requester) as a provider (the endpoint that will be proxying your traffic out of the mixnet) for ease: 
 
 ```
-./nym-socks5-client init --id quickstart --provider 74cfBD1hkozPUrhcZksrwHucq2Hkn6f2S5LBcnDSPa6L.4QsA5Epmf1fhrnKPNPs545QiLmwpLGRk4oZ7z136PD6L@EEyq16v63aotPBCepxUpCgAojrNasZ6Hk1PjpRyBAdEp 
+./nym-socks5-client init --id quickstart --provider Entztfv6Uaz2hpYHQJ6JKoaCTpDL5dja18SuQWVJAmmx.Cvhn9rBJw5Ay9wgHcbgCnVg89MPSV5s2muPV2YF1BXYu@Fo4f4SQLdoyoGkFae5TpVhRVoXCF8UiypLVGtGjujVPf
 ```
 
 ### Start your socks5 client 
-
 Now your client is initialised, start it with the following: 
 
 ```
@@ -27,7 +26,6 @@ Now your client is initialised, start it with the following:
 ```
 
 ### Proxying traffic
-
 After completing the steps above, your local socks5 Client will be listening on `localhost:1080` ready to proxy traffic to the Network Requester set as the `--provider` when initialising. 
 
 When trying to connect your app, generally the proxy settings are found in `settings->advanced` or `settings->connection`. 
@@ -41,8 +39,7 @@ Most wallets and other applications will work basically the same way: find the n
 In some other applications, this might be written as **localhost:1080** if there's only one proxy entry field.
 
 ## Further reading 
-
-If you want to dig more into the architecture and use of the socks5 client check out its documentation [here](https://nymtech.net/docs/stable/integrations/socks5-client).
+If you want to dig more into the architecture and use of the socks5 client check out its documentation [here](https://nymtech.net/docs/clients/socks5-client.html).
 
 
 
