@@ -43,7 +43,7 @@ Nym is a pioneering mixnet solution that sets itself apart from other mixnets by
 
 Nym sets itself apart from other privacy-focused networks by implementing a unique incentivization model. This incentivization model is built around the `NYM` token, which is used to pay for services on the network and reward participants who contribute to the network's security and functionality. This creates a system where the network is self-sustaining and the incentives of all participants are aligned towards maintaining the privacy and security of the network. This incentivization model is what makes Nym the first of its kind as an incentivized mixnet, making it a highly innovative and secure solution for privacy-focused applications.
 
-### Breaking it Down: Understanding the Implications
+### ELI5 Understanding of the Implications of Nym
 
 Nym is a type of technology that is designed to keep your online activities private. Essentially, it helps hide your data from anyone who might be trying to spy on you, such as hackers or government agencies. The way Nym works is by "mixing" your data with other users' data, making it much more difficult for anyone to single out and track just your information. 
 
