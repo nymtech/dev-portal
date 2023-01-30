@@ -9,11 +9,6 @@
 - [Different Types of Nodes](infrastructure/different-nodes.md)
 - [Implementing Nym](infrastructure/implementing-nym.md)
 
-# Tutorials
-
-- [Simple Service Provider](tutorials/simple-service-provider.md)
-- [IPFS Service Provider (coming soon)](tutorials/ipfs-service-provider.md)
-
 # Quickstart
 
 - [Overview](quickstart/overview.md)
@@ -23,9 +18,14 @@
 # Integrations
 
 - [Integration Options](integrations/integration-options.md)
+- [Integration FAQ](integrations/faq.md)
 - [Mixnet Integration](integrations/mixnet-integration.md)
 - [Payment Integration](integrations/payment-integration.md)
-- [Integration FAQ](integrations/faq.md)
+
+# Tutorials
+
+- [Simple Service Provider](tutorials/simple-service-provider.md)
+- [IPFS Service Provider (coming soon)](tutorials/ipfs-service-provider.md)
 
 # Community Resources
 
