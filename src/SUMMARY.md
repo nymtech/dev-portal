@@ -5,8 +5,7 @@
 # Infrastructure
 - [What is Nym?](infrastructure/what-is-Nym.md)
 - [Nym vs Other Systems](infrastructure/nym-vs-others.md)
-- [Mixnet Traffic Flow](infrastructure/mixnet-traffic-flow.md)
-- [Different Types of Nodes](infrastructure/different-nodes.md)
+- [Node Types](infrastructure/node-types.md)
 - [Implementing Nym](infrastructure/implementing-nym.md)
 
 # Tutorials

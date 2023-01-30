@@ -1,6 +1,8 @@
-# Different Types of Nodes
+# Node Types
 
 Discover the intricate workings of Nym's privacy-enhancing mixnet infrastructure through our informative video, where we break down the different types of nodes and how they each play a crucial role in ensuring secure and anonymous communication.
+
+For a more in-depth understanding of the inner workings of Nym's mixnets, check out this on the [Mixnet Traffic Flow](https://nymte.ch/docs/architecture/traffic-flow.html).
 
 <iframe width="700" height="400" src="https://www.youtube.com/embed/rnPpEsJS4FM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
