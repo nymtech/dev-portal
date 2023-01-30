@@ -10,7 +10,7 @@ In this tutorial, you will learn how to build two essential components for sendi
 - A Service Provider also written in TypeScript, which can receive messages from the mixnet.
 - Additionally, you will be guided on how to configure a pair of Nym Websocket Clients, which are necessary for connecting to the mixnet with your application.
 
->Service providers are usually run on remote servers to keep metadata private, but for demonstration purposes, this tutorial will show how to run it on a local machine using looped messages through the mixnet.
+> ⚠️ Service providers are usually run on remote servers to keep metadata private, but for demonstration purposes, this tutorial will show how to run it on a local machine using looped messages through the mixnet.
 
 <img src="/images/ssp_image.png"/>
 
@@ -48,7 +48,7 @@ Continue to then do the following:
 Continue just press enter after each prompt to confirm the configuration.
 
 <details>
-    <summary>console output</summary>
+    <summary>Console Output</summary>
        
         This utility will walk you through creating a `package.json` file.
         It only covers the most common items, and tries to guess sensible defaults.
@@ -61,7 +61,7 @@ Continue just press enter after each prompt to confirm the configuration.
 
         Press ^C at any time to quit.
         package name: (user-client)
-        version: (1.0.0)<br/> 
+        version: (1.0.0)
         description:
         entry point: (index.js)
         test command:
@@ -78,7 +78,7 @@ Continue just press enter after each prompt to confirm the configuration.
             "main": "index.js",
             "scripts": {
                 "test": "echo \"Error: no test specified\" && exit 1"
-            },<br/>
+            },
             "author": "",
             "license": "ISC"
         }
@@ -147,17 +147,6 @@ After the installation has been completed, check to see that the typescript depe
 
     After the npm install has finished, create a new folder called `src` in the same level as our `tsconfig.json` and `package.json` (User Client). Inside there , create 2 new files. One called `index.html` and one called `index.ts`.
 
-    :::note
-        Our Folder Structure (so far)
-
-        Simple Service Provider Tutorial/
-        ├─ User Client/
-        │  ├─ src/
-        │  │  ├─ index.html
-        │  │  ├─ index.ts
-        │  ├─ package.json
-        │  ├─ tsconfig.json
-    :::
 
 
  2. In our `index.html`, paste in the following code:
