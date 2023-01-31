@@ -29,7 +29,6 @@
 # Community Resources
 
 - [AMAs with Nym Developer Relations](community-resources/ama.md)
-- [Forums (TBC)](community-resources/forums.md)
 - [Community Applications](community-resources/community-applications.md)
 - [Community Guides](community-resources/community-guides.md)
 - [Change Service Grantee Information](info-request.md)
