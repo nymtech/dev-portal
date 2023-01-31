@@ -42,5 +42,6 @@ Maybe you would like to concentrate on building a application that uses the mixn
 
 Or perhaps you a developer that would like to run a infrastructure node such as a Gateway, Mix node or Network Requestor: 
 * Check out the [Network Overview](https://nymtech.net/docs/architecture/network-overview.html) docs page. 
+
 * Take a look at our [Node Setup Guide](https://nymte.ch/docs/nodes/setup-guides.html) with our Nym Docs, containing setup guides for setting up you own infrastructure node.
 
