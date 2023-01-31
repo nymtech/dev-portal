@@ -27,7 +27,7 @@ To assist in your learning, the complete code for this tutorial is available on 
 We aim to create a user-friendly experience for sending data through the mixnet. The User Client will present a simple form accessible through a web browser, where users can enter their data. Once the form is completed, users can press a 'Send' button which will transmit the data straight to the Service Provider via the mixnet. The sent data will be visible within the user interface of the Service Provider, which can also be accessed through a web browser.
 
 #### What is a Service Provider
-'Service Providers' are the name given to any type of app that can communicate with the mixnet via a Nym Client. The [Network Requester]() is an app that takes an outbound network request from the mixnet, performs that request (e.g. authenticating with a message server and recieving new messages) and then passes the response back to the user who requested it, sheilding their metadata from the message server. 
+'Service Providers' are the name given to any type of app that can communicate with the mixnet via a Nym Client. The [Network Requester](https://nymtech.net/docs/nodes/network-requester-setup.html) is an app that takes an outbound network request from the mixnet, performs that request (e.g. authenticating with a message server and recieving new messages) and then passes the response back to the user who requested it, sheilding their metadata from the message server. 
 
 The Service Provider covered in this tutorial is far more simple than this, as it just aims to show developers how to approach building something that can:
 * connect to the mixnet, 
