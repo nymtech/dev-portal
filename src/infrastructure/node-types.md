@@ -32,13 +32,11 @@ Validators are essential to the security and integrity of the Nym network, taske
 
 Validators also play a critical role in maintaining the Nym Cosmos blockchain, a secure, public ledger that records network-wide information such as node public information and keys, network configuration parameters, CosmWasm smart contracts, and `NYM` and credential transactions.
 
-#### Service Provider
+#### Service Providers
 
-Service Providers are a crucial aspect of the Nym infrastructure that support the application layer of the Nym network. Any application built with Nym will require a Service Provider, which can be created by anyone. TService Providers run a piece of binary code that enables them to handle requests from Nym users or other services, and then make requests to external servers on behalf of the users.
+Service Providers are a crucial aspect of the Nym infrastructure that support the application layer of the Nym network. Any application built with Nym will require a Service Provider, which can be created by anyone. Service Providers run a piece of binary code that enables them to handle requests from Nym users or other services, and then make requests to external servers on behalf of the users.
 
-For example, a Service Provider could receive a request to check a mail server and then forward the response to the user. Importantly, Service Providers are not open proxies and have a domain whitelist, which ensures that they only communicate with trusted domains. 
-
-Service Providers earn credentials by facilitating the flow of information in and out of the mixnet, and these credentials can be redeemed for `NYM` tokens as a reward for providing services. The presence of Service Providers in the Nym network enhances its security and privacy, making it a reliable and robust platform for anonymous communication and data exchange.
+For example, a Service Provider could receive a request to check a mail server and then forward the response to the user. The presence of Service Providers in the Nym network enhances its security and privacy, making it a reliable and robust platform for anonymous communication and data exchange.
 
 ### Where do I go from here? 💭
 

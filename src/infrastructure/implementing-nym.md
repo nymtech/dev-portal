@@ -39,7 +39,7 @@ The Nym SOCKS5 client is a software tool that acts as a proxy between a user's d
 
 This client is useful for allowing existing applications to use the Nym mixnet without any code changes. All that's necessary is that they can use the SOCKS5 proxy protocol (which many applications can - crypto wallets, browsers, chat applications etc). It's less flexible as a way of writing custom applications than the other clients.
 
-For more information and guidance on how to implement the Nym SOCKS5 client, please visit [here](https://nymte.ch/docs/clients/socks5-client.html).
+For more information and guidance on how to implement the Nym SOCKS5 client, please visit [here](https://nymtech.net/docs/stable/integrations/socks5-client).
 
 #### Webassembly client
 
