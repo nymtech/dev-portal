@@ -8,11 +8,11 @@ The Nym socks5 client allows you to proxy traffic from a desktop application thr
 
 If you are using OSX or a Debian-based operating system, you can download the `nym-socks5-client` binary from our [Github releases page](https://github.com/nymtech/nym/releases).
 
-If you are using a different operating system, head over to the [Building Nym](https://nymtech.net/docs/stable/run-nym-nodes/build-nym) page for instructions on how to build the repository from source. 
+If you are using a different operating system, head over to the [Building from Source](https://nymtech.net/docs/binaries/building-nym.html) page for instructions on how to build the repository from source. 
 
 ### Initialise your socks5 client 
 
-Use the following command to initialise your socks5 client with the address of a Nym-operated [Network Requester](https://nymtech.net/docs/stable/run-nym-nodes/nodes/requester) as a provider (the endpoint that will be proxying your traffic out of the mixnet) for ease: 
+Use the following command to initialise your socks5 client with the address of a Nym-operated [Network Requester](https://nymtech.net/docs/nodes/network-requester-setup.html) as a provider (the endpoint that will be proxying your traffic out of the mixnet) for ease: 
 
 ```
 ./nym-socks5-client init --id quickstart --provider Entztfv6Uaz2hpYHQJ6JKoaCTpDL5dja18SuQWVJAmmx.Cvhn9rBJw5Ay9wgHcbgCnVg89MPSV5s2muPV2YF1BXYu@Fo4f4SQLdoyoGkFae5TpVhRVoXCF8UiypLVGtGjujVPf
