@@ -77,6 +77,8 @@ You can find examples of how to utilise this client in the [Quickstart](../quick
 In order to ensure uptime and reliability, it is recommended that you run some pieces of mixnet infrastructure. What infrastructure is necessary to run depends on the architecture of your application, and the endpoints that it needs to hit! 
 
 * If you're running a purely P2P application, then just integrating clients and having some method of sharing addresses should be enough to route your traffic through the mixnet. 
-* If you're wanting to place the mixnet between your users' application instances and a server-based backend, you can use the network requester node to proxy these requests to your application backend, with the mixnet 'between' the user and your service, in order to prevent metadata leakage being broadcast to the internet. All you have to do is get your domain added to network requesters' [whitelist](https://nymtech.net/.wellknown/network-requester/standard-allowed-list.txt) by getting in touch with us. 
+* If you're wanting to place the mixnet between your users' application instances and a server-based backend, you can use the [network requester](https://nymtech.net/docs/nodes/network-requester-setup.html) service provider binary to proxy these requests to your application backend, with the mixnet 'between' the user and your service, in order to prevent metadata leakage being broadcast to the internet. 
 * If you're wanting to route RPC requests through the mixnet to a blockchain, you will need to look into setting up some sort of service that does the transaction broadcasting for you. You can find examples of such projects on the [community applications](../community-resources/community-applications.md) page. 
+
+> Alpha leak: we are working on tutorial for broadcasting blockchain transactions through the mixnet, as well as interacting with our smart contract infrastructure... keep your eyes peeled! 
 
