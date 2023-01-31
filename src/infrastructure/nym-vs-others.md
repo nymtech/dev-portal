@@ -6,6 +6,8 @@ Nym is the first system we're aware of which provides integrated protection on b
 
 Unlike other systems, Nym focuses on __ALL__ layers for privacy and security, providing a more comprehensive solution compared to solely concentrating on one layer like most comparable systems do.
 
+For more information on how Nym differs from other systems, check out this page on the [Mixnet Traffic Flow](https://nymtech.net/docs/stable/architecture/traffic-flow)
+
 <img src="/images/nym-vs-animation.gif"/>
 
 ### Nym vs VPNs
