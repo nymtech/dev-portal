@@ -6,17 +6,14 @@ The Nym Technology Developer Relations AMA (Ask Me Anything) is an event organis
 
 Checkout out our playlist below:
 
-
-
-
 #### Episode 3: 25th January 
 
-🚧 coming soon 🚧
+<iframe width="700" height="400" src="https://www.youtube.com/embed/Uytu2a8mNEw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### Episode 2: 11th January 
 
-🚧 coming soon 🚧
+<iframe width="700" height="400" src="https://www.youtube.com/embed/smPPle_I8T8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-#### Episode 1: 21st December 
+#### Episode 1: 20st December 
 
-🚧 coming soon 🚧
+<iframe width="700" height="400" src="https://www.youtube.com/embed/0kVXR7aNOyg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
