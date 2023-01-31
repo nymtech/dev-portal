@@ -6,7 +6,7 @@ We aren't the only ones writing documentation: the Nym developer community is al
 
 by No Trust Verify
 
->No Trust Verify is a project that aims to build open-source, privacy-enhancing technologies that make it easier to use the Internet securely and anonymously. Their focus is on providing tools and services that make it simple for developers to create decentralized applications (dApps) on the Ethereum blockchain that respect users' privacy.
+>No Trust Verify is a project that aims to build open-source, privacy-enhancing technologies that make it easier to use the Internet securely and anonymously. Their focus is on providing tools and services that make it simple for developers to create decentralized applications (dApps) that respect users' privacy.
 * [Website](https://notrustverify.github.io/awesome-nym/)
 * [GitHub](https://github.com/notrustverify/awesome-nym)
 
