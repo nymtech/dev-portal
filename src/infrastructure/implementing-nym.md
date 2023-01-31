@@ -31,7 +31,7 @@ The Nym Websocket client is a software tool that allows for communication betwee
 
 This option is the native websocket client (`nym-client`). This is a compiled program that can run on Linux, Mac OS X, and Windows machines. It runs as a persistent process on a desktop or server machine. You can connect to it from any language that supports websockets.
 
-For more information and guidance on how to implement the Nym Websocket client, please visit [here](https://nymte.ch/docs/clients/websocket-client.html).
+For more information and guidance on how to implement the Nym Websocket client, please visit [here](https://nymtech.net/docs/stable/integrations/websocket-client).
 
 #### SOCKS5 client
 
@@ -47,7 +47,7 @@ The Nym WebAssembly (WASM) client is a software tool that runs in a user's web b
 
 If you're working in JavaScript, or building an [edge computing app](https://en.wikipedia.org/wiki/Edge_computing), you'll likely want to choose the Webassembly client. We expect that many client apps will be built using the Webassembly client. It's packaged and [available on the npm registry](https://www.npmjs.com/login?next=%2Fpackage%2F%40nymproject%2Fnym-client-wasm), so you can `npm install it` into your JavaScript or TypeScript application.
 
-For more information and guidance on how to implement the Nym Webassembly client, please visit [here](https://nymte.ch/docs/clients/webassembly-client.html).
+For more information and guidance on how to implement the Nym Webassembly client, please visit [here](https://nymtech.net/docs/stable/integrations/wasm-client).
 
 ### Commonalities between clients
 
