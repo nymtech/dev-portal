@@ -3,10 +3,10 @@
 [Introduction](introduction.md)
 
 # Infrastructure
-- [What is Nym?](infrastructure/what-is-Nym.md)
+- [What is Nym?](infrastructure/what-is-nym.md)
 - [Nym vs Other Systems](infrastructure/nym-vs-others.md)
 - [Node Types](infrastructure/node-types.md)
-- [Implementing Nym](infrastructure/implementing-nym.md)
+<!-- - [Implementing Nym](infrastructure/implementing-nym.md) -->
 
 # Quickstart
 
