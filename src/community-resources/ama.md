@@ -21,8 +21,3 @@ Checkout out our playlist below:
 
 🚧 coming soon 🚧
 
-{
-	{
-		> footer
-	}
-}
