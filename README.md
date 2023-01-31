@@ -7,10 +7,10 @@ Developer Portal for the Nym privacy platform built using the [mdBook](https://r
 ## Contributing
 Contributions to our documentation are very welcome. Please work on your contribution in either a `feature/<feature-name>` or `chore/<chore-name>` branch from `master` and target your pull request at `master`. 
 
-Changes merged to `master` will be autodeployed to the production site. 
+Changes merged to `master` will be autodeployed to the production site.
 
-### Contributing a new translation
-To contribute tranlsations in a new language, please get in touch via our [Keybase](https://keybase.io/team/nymtech.friends) or Discord channels (Matrix coming soon). 
+### Adding community projects and resources 
+If you have built a project with Nym or are compiling and writing resources about Nym, we want to include your work in the `community-resources/` section to share with the rest of the community! Just follow the existing formatting and add your project to the page, then put in a pull request. 
 
 ## Variables
 There are some variables that are shared across this book, such as the current latest software version. 
