@@ -1,6 +1,6 @@
 # What is Nym?
 
-Nym is a privacy platform that secures user data and protects against surveillance. It leverages the __mixnet__, a type of overlay network that makes both content and metadata of transactions private through network-level obfuscation and incentivization, and __Coconut__, a privacy technology that creates an application-level private access control layer. Nym also utilizes the capabilities of the __Nyx blockchain__ to enable secure and private communication with decentralization principles.
+Nym is a privacy platform that secures user data and protects against surveillance. It leverages the __mixnet__, a type of overlay network that makes both content and metadata of transactions private through network-level obfuscation and incentivisation, and __Coconut__, a privacy technology that creates an application-level private access control layer. Nym also utilises __Nyx__, our Cosmos SDK blockchain, to allow for us to use payment tokens in the form of `NYM`, as well as smart contracts, in order to create a robust, decentralised, and secure environment for the mixnet. In a nutshell, Nym is a solution that provides strong privacy protection for users in the digital world.
 
 ### An overlay network for network-level traffic privacy
 Our mixnet design is based on the [Loopix Anonymity System](https://arxiv.org/abs/1703.00536), somewhat modified to provide better quality of service guarantees.
