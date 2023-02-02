@@ -16,7 +16,7 @@ In this tutorial, you will learn how to build two essential components for sendi
 
 > ⚠️ Service providers are usually run on remote servers to keep metadata private, but for demonstration purposes, this tutorial will show how to run it on a local machine using looped messages through the mixnet.
 
-<img src="/images/ssp_image.png"/>
+<img src="../images/ssp_image.png"/>
 
 We'll dive into the process of creating a Typescript application from the ground up. We'll cover how to set up a Nym Websocket Client and connect it to the mixnet, as well as the necessary steps to send a properly formatted message through the mixnet to the Service Provider. Don't fret if your skills in Javascript or Typescript are a bit rusty, there will be plenty of code snippets to copy and paste along the way.
 
@@ -188,7 +188,7 @@ This will ensure that our TypeScript file is functional when the application is 
 
 Now back in our terminal , run `npm start`.
 
-<img src="/images/tutorial_image_1.png"/>
+<img src="../images/tutorial_image_1.png"/>
 
 Open your browser at [localhost:1234](http://localhost:1234/). 
 
@@ -841,7 +841,7 @@ npm start
 
 Open your browser at [localhost:1235](http://localhost:1235/). 
 
-<img src="/images/tutorial_image_2.png"/>
+<img src="../images/tutorial_image_2.png"/>
 
 The Service Provider is seeking a websocket connection on port `1978` but currently it cannot find it. 
 
@@ -858,7 +858,7 @@ The Service Provider is seeking a websocket connection on port `1978` but curren
 
 The second Nym Websocket Client is now running, so if you return to the Service Provider tab in your browser and refresh, you'll see the following:
 
-<img src="/images/tutorial_image_3.png"/>
+<img src="../images/tutorial_image_3.png"/>
 
 Similar to the User Client, in the 'Activity Log' of the UI, there's a successful response from our websocket, thus we're able to see the same address from our terminal. If we were to terminate our `nym-client`, we can an error on the browser UI stating a missing websocket connection. This is a good sign of error handling.
 

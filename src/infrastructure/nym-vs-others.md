@@ -8,7 +8,7 @@ The diagram and brief explainer texts below give a high level overview of the di
 
 > If you want to dig more deeply into the way traffic is packetised and moved through the mixnet, check out the [Mixnet Traffic Flow](https://nymtech.net/docs/stable/architecture/traffic-flow) page of the docs. 
 
-<img src="/images/nym-vs-animation.gif"/>
+<img src="../images/nym-vs-animation.gif"/>
 
 ### Nym vs VPNs
 
