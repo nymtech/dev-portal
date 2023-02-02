@@ -87,8 +87,8 @@ additional-js  = ["theme/pagetoc.js"]
 git-repository-url = "https://github.com/nymtech/docs"
 git-repository-icon = "fa-github"
 # edit-url-template = "https://github.com/rust-lang/mdBook/edit/master/guide/{path}"
-# site-url = "/example-book/"
-# cname = "myproject.rs"
+site-url = "/developers/"
+cname = "nymtech.net"
 # input-404 = "not-found.md" # todo make custom 404 page
 
 [output.html.fold]
