@@ -4,7 +4,7 @@ In this guide, developers will learn about the powerful technology offered by Ny
 
 You can watch the step-by-step guide on creating your own Simple Service Provider:
 
-<iframe width="700" height="400"  src="https://www.youtube.com/embed/y0i4Sk3_NoI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="700" height="400"  src="https://www.youtube.com/watch?v=UYn8nGFtdpg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 #### What are we building?
 
