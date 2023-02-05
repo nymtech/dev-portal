@@ -76,7 +76,7 @@ __Familiarise yourself with Nym's specific terms and jargon through our glossary
 
 **Proof-of-Mixing** - The reward of NYM tokens is based on the good quality of service carried out by node operators.
 
-**POC** - Stands for Proof of Concept. It's a demonstration that a proposed product, system, or service can be built and will work as intended. It is a way of teting whether an idea is feasible and likely to succeed.
+**POC** - Stands for Proof of Concept. It's a demonstration that a proposed product, system, or service can be built and will work as intended. It is a way of testing whether an idea is feasible and likely to succeed.
 
 **Public Key** - A large numerical value that is used to encrypt data.
 
