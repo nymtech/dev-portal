@@ -28,7 +28,7 @@
 
 # Community Resources
 
-- [AMAs with Nym Developer Relations](community-resources/ama.md)
+- [Nym DevRel AMAs](community-resources/ama.md)
 - [Community Applications](community-resources/community-applications.md)
 - [Community Guides](community-resources/community-guides.md)
 - [Change Service Grantee Information](info-request.md)

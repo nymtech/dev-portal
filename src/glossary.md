@@ -1,3 +1,6 @@
+# Glossary
+
+#### Familiarise yourself with Nym's specific terms and jargon through our glossary, making your understanding of Nym technology more enjoyable and educational.
 
 
 **[Address](https://nymtech.net/docs/stable/integrations/addresses-in-nym/)** - A unique string of characters generated from a client keypair. Used to identify clients in the mixnet.

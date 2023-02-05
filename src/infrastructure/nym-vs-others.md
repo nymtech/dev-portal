@@ -6,8 +6,6 @@ Nym is the first system we're aware of which provides integrated protection on b
 
 The diagram and brief explainer texts below give a high level overview of the difference between Nym and other comparable systems. 
 
-> If you want to dig more deeply into the way traffic is packetised and moved through the mixnet, check out the [Mixnet Traffic Flow](https://nymtech.net/docs/stable/architecture/traffic-flow) page of the docs. 
-
 <img src="../images/nym-vs-animation.gif"/>
 
 ### Nym vs VPNs
@@ -37,3 +35,7 @@ Nym’s cutting-edge mixnet design guarantees network anonymity and resistance t
 The Nym credential system decentralizes the functions of systems like Facebook Connect while adding privacy. Personal data has become a toxic asset, even to companies who base their entire business around it, as evidenced by the hack of Facebook’s OAuth identity system in 2018 and the subsequent release of the data of 50 million users.
 
 Unlike Facebook Connect and similar OAuth-based services like Sign in with Google, traditional usernames and passwords, or even public/private key pairs, Nym credentials allow users to authenticate and authorize data sharing without unwillingly revealing any information to a third party. There is no central third party in charge of the credentials, and users remain totally in control of their own data, disclosing it only to those who they want to. A user can store their data wherever they want (including on their own devices), and unlike alternatives like W3C’s DIDs, a user does not store anything on the blockchain, offering better privacy.
+
+```admonish info title ="Further Reading"
+If you want to dig more deeply into the way traffic is packetised and moved through the mixnet, check out the [Mixnet Traffic Flow](https://nymtech.net/docs/stable/architecture/traffic-flow) page of the docs. 
+```
