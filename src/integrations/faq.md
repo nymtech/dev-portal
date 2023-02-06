@@ -117,17 +117,13 @@ The token used to reward mixnet infrastructure operators - `NYM` - is one of the
 
 `NYM` is used to incentivise the mixnet, whereas `NYX` is used to secure the Nyx blockchain via Validator staking. 
 
-```admonish info
-Integration with Nym's technology stack will most likely involve using `NYM` if you do need to interact with the Nyx blockchain and transfer tokens. 
-```
+> Integration with Nym's technology stack will most likely involve using `NYM` if you do need to interact with the Nyx blockchain and transfer tokens.
 
 ### I've seen an ERC20 representation of `NYM` on Ethereum - what's this and how do I use it? 
 
 We use the [Gravity Bridge](https://github.com/Gravity-Bridge) blockchain to bridge an ERC20 representation of `NYM` between the Cosmos ecosystem of IBC-enabled chains and Ethereum mainnet. Gravity Bridge is its own IBC-enabled CosmosSDK chain, which interacts with a smart contract deployed on Ethereum mainnet. 
 
-```admonish caution
-The ERC20 representation of `NYM` **cannot** be used with the mixnet; only the native Cosmos representation is usable for staking or bonding nodes.
-```
+> The ERC20 representation of `NYM` **cannot** be used with the mixnet; only the native Cosmos representation is usable for staking or bonding nodes.
 
 If you need to transfer tokens across the bridge, we recommend users use Cosmostation's [spacestation.zone](https://spacestation.zone/) dApp with Metamask and Keplr. 
 
