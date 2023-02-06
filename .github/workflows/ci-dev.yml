@@ -18,7 +18,7 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-      - run: (test -x $HOME/.cargo/bin/mdbook || cargo install --vers "^0.4" mdbook && cargo install --vers "^0.2.0" mdbook-variables && cargo install --vers "^v1.8.0" mdbook-admonish && cargo install --vers "^v0.1.2" mdbook-last-changed && cargo install --vers "^0.1.2" mdbook-theme )
+      - run: (test -x $HOME/.cargo/bin/mdbook || cargo install --vers "^0.4")
       - run: mdbook build
       - name: Deploy branch to CI www
         continue-on-error: true
