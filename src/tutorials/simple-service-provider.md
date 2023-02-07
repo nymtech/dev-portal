@@ -2,8 +2,6 @@
 
 In this guide, developers will learn how to build the foundation of a privacy-enabled application (PEApp) that can send and receive traffic from the mixnet.  
 
-<!-- You can watch the step-by-step guide on creating your own Simple Service Provider [here](): -->
-
 <!--<iframe width="700" height="400"  src="https://www.youtube.com/watch?v=UYn8nGFtdpg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> --> 
 
 #### What are we building?
