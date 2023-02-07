@@ -2,7 +2,7 @@ name: CI dev-portal
 
 on:
   push:
-    branches-ignore: master
+    branches-ignore: main
 
 jobs:
   build:
