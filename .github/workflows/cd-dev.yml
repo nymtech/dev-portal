@@ -20,6 +20,7 @@ jobs:
           toolchain: stable
       - name: Install mdbook
         run: (test -x $HOME/.cargo/bin/mdbook || cargo install --vers "^0.4" mdbook)
+      - name: Install mdbook plugins
         run: |
           cargo install --vers "^0.2.0" mdbook-variables && cargo install \
             --vers "^1.8.0" mdbook-admonish && cargo install --vers \
