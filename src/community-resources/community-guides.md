@@ -12,9 +12,9 @@ by No Trust Verify
 
 ## <img src='../images/profile_picture/pineappleproxy_pp.png' style="float: right; width: 75px; height: 75px;">The Way of the NYMJA
 
-by Pineapple Proxy DOA 🍍
+by Pineapple Proxy🍍
 
->The Pineapple Proxy DAO is a decentralized autonomous organization that aims to provide a platform for building decentralized applications (dApps) on the Ethereum blockchain. It provides a suite of tools and services that make it easy for developers to create, test, and deploy dApps on the Ethereum network.
+>Born out of a study group from Nym's Shipyard Academy, Pineapple Proxy has emerged as a cluster of motivated and skilled individuals who see the new internet taking shape. With vibecare at the heart of their approach, this zesty collective is on a mission to make privacy convenient for everyone via content, new tools, events, and novel experiences. They believe in collective intelligence, empathy, and collaboration as the means by which privacy will become a meaningful reality.
 * [Website](https://pnproxy.org/welcome.html)
 * [GitHub](https://github.com/Pineapple-Proxy-DAO/web)
 
