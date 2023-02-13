@@ -1,6 +1,6 @@
 # Building a Simple Service Provider
 
-In this guide, developers will learn about the powerful technology offered by Nym, which allows for the creation of applications that prioritize user privacy through the use of mixnet technology.
+In this guide, developers will learn how to build the foundation of a privacy-enabled application (PEApp) that can send and receive traffic from the mixnet.  
 
 <!-- You can watch the step-by-step guide on creating your own Simple Service Provider [here](): -->
 
