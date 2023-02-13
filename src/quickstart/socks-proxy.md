@@ -1,5 +1,5 @@
 # SOCKS Proxy (CLI)
- 
+
 >The `socks5` client now also supports SOCKS4 and SOCKS4A protocols as well as SOCKS5.
 
 The Nym socks5 client allows you to proxy traffic from a desktop application through the mixnet, meaning you can send and receive information from remote application servers without leaking metadata which can be used to deanonymise you, even if you're using an encrypted application such as Signal. 
@@ -39,7 +39,5 @@ Most wallets and other applications will work basically the same way: find the n
 In some other applications, this might be written as **localhost:1080** if there's only one proxy entry field.
 
 ## Further reading 
+
 If you want to dig more into the architecture and use of the socks5 client check out its documentation [here](https://nymtech.net/docs/clients/socks5-client.html).
-
-
-

@@ -117,7 +117,7 @@ The token used to reward mixnet infrastructure operators - `NYM` - is one of the
 
 `NYM` is used to incentivise the mixnet, whereas `NYX` is used to secure the Nyx blockchain via Validator staking. 
 
-> Integration with Nym's technology stack will most likely involve using `NYM` if you do need to interact with the Nyx blockchain and transfer tokens. 
+> Integration with Nym's technology stack will most likely involve using `NYM` if you do need to interact with the Nyx blockchain and transfer tokens.
 
 ### I've seen an ERC20 representation of `NYM` on Ethereum - what's this and how do I use it? 
 
