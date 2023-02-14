@@ -112,6 +112,16 @@ Yes. Follow the instructions in the [Ledger support for Nyx documentation](https
 ### Where can I find network details such as deployed smart contract addresses? 
 In the [`network defaults`](https://github.com/nymtech/nym/blob/release/{{platform_release_version}}/common/network-defaults/src/mainnet.rs) file. 
 
+### What is Circulating Supply and how to find out the distribution amount?
+
+The Circulating Supply is the number of available `NYM` tokens in the Nyx blockchain system that are often used by exchanges.
+
+The up-to-date Validator API endpoints can be found via the [Swagger Documentation](https://validator.nymtech.net/api/swagger/index.html). There you will be able to find out using the following API calls to retrieve the correct distribution amount and circulating supply within Nym. 
+
+- GET `/circulating-supply`  
+- GET `/circulating-supply/total-supply-value`
+- GET `circulating-supply/circulating-supply-value`
+
 ## `NYM` Token 
 The token used to reward mixnet infrastructure operators - `NYM` - is one of the native tokens of the Nyx blockchain. The other token is `NYX`. 
 
