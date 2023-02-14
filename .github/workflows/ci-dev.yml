@@ -57,6 +57,6 @@ jobs:
           MATRIX_TOKEN: "${{ secrets.MATRIX_TOKEN }}"
           MATRIX_DEVICE_ID: "${{ secrets.MATRIX_DEVICE_ID }}"
           IS_SUCCESS: "${{ job.status == 'success' }}"
-        uses: docker://node:16-bullseye
+        uses: docker://keybaseio/client:stable-node
         with:
           args: .github/workflows/support-files/notifications/entry_point.sh
