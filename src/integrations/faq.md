@@ -112,22 +112,6 @@ Yes. Follow the instructions in the [Ledger support for Nyx documentation](https
 ### Where can I find network details such as deployed smart contract addresses? 
 In the [`network defaults`](https://github.com/nymtech/nym/blob/release/{{platform_release_version}}/common/network-defaults/src/mainnet.rs) file. 
 
-### What is Circulating Supply and how to find out the distribution amount?
-
-Circulating supply is the total number of available `NYM`. `NYM` is currently present on the IBC-enabled Nyx blockchain, as well as in ERC20 form on Ethereum Mainnet.
-
-The Validator API endpoints can be found via the [Swagger Documentation](https://validator.nymtech.net/api/swagger/index.html). The following endpoints can be called to retrieve the correct distribution amount and circulating supply within Nym: 
-
-Using this API endpoint calls up-to-date information on various token metrics such as `total_supply`, `mixmining_reserved`, `vesting_tokens` and `circulating_supply` available on the market.
-
-`/circulating-supply`
-
-Using this API endpoint calls information about the total supply value of tokens.
-`/circulating-supply/total-supply-value`
-
-Using this API endpoint, calls information about the circulating supply value of tokens.
-`circulating-supply/circulating-supply-value`
-
 ## `NYM` Token 
 The token used to reward mixnet infrastructure operators - `NYM` - is one of the native tokens of the Nyx blockchain. The other token is `NYX`. 
 
@@ -142,6 +126,37 @@ We use the [Gravity Bridge](https://github.com/Gravity-Bridge) blockchain to bri
 > The ERC20 representation of `NYM` **cannot** be used with the mixnet; only the native Cosmos representation is usable for staking or bonding nodes.
 
 If you need to transfer tokens across the bridge, we recommend users use Cosmostation's [spacestation.zone](https://spacestation.zone/) dApp with Metamask and Keplr. 
+
+### What is Circulating Supply and how to find out the distribution amount?
+
+Circulating supply is the total number of available `NYM`. `NYM` is currently present on the IBC-enabled Nyx blockchain, as well as in ERC20 form on Ethereum Mainnet.
+
+The Validator API endpoints can be found via the [Swagger Documentation](https://validator.nymtech.net/api/swagger/index.html). The following endpoints can be called to retrieve the correct distribution amount and circulating supply within Nym. 
+
+Using this API endpoint returns information about the circulating supply of Nym tokens:
+
+```
+/circulating-supply
+```
+- `total_supply`- The total number of Nym tokens that have been created and can exist, including those that are currently in circulation and those that are reserved for various purposes.
+
+- `mixmining_reserved`- The number of Nym tokens that are reserved for the Mixnet miners who help to power the Nym network.
+
+- `vesting_tokens`- The number of Nym tokens that are subject to vesting, meaning they are gradually released over time to certain stakeholders such as the team, advisors, and early investors.
+
+- `circulating_supply`- The number of Nym tokens that are currently in circulation and available to be traded on the open market, which is calculated by subtracting the `mixmining_reserved` and `vesting_tokens` from the `total_supply`.
+
+Using this API endpoint returns the current value of the total supply of Nym tokens:
+
+```
+/circulating-supply/total-supply-value
+```
+
+Using this API endpoint returns the current value of the circulating supply of Nym tokens:
+
+```
+circulating-supply/circulating-supply-value
+```
 
 ## Sending traffic through the Nym mixnet  
 ### Is the mixnet free to use? 
