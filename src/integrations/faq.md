@@ -114,13 +114,19 @@ In the [`network defaults`](https://github.com/nymtech/nym/blob/release/{{platfo
 
 ### What is Circulating Supply and how to find out the distribution amount?
 
-The Circulating Supply is the number of available `NYM` tokens in the Nyx blockchain system that are often used by exchanges.
+The Circulating Supply is the number of available `NYM` tokens on Ethereum as ERC20s and the Nyx blockchain.
 
-The up-to-date Validator API endpoints can be found via the [Swagger Documentation](https://validator.nymtech.net/api/swagger/index.html). There you will be able to find out using the following API calls to retrieve the correct distribution amount and circulating supply within Nym. 
+The Validator API endpoints can be found via the [Swagger Documentation](https://validator.nymtech.net/api/swagger/index.html). The following endpoints can be called to retrieve the correct distribution amount and circulating supply within Nym: 
 
-- GET `/circulating-supply`  
-- GET `/circulating-supply/total-supply-value`
-- GET `circulating-supply/circulating-supply-value`
+Using this API endpoint calls up-to-date information on various token metrics such as `total_supply`, `mixmining_reserved`, `vesting_tokens` and `circulating_supply` available on the market.
+
+`/circulating-supply`
+
+Using this API endpoint calls information about the total supply value of tokens.
+`/circulating-supply/total-supply-value`
+
+Using this API endpoint, calls information about the circulating supply value of tokens.
+`circulating-supply/circulating-supply-value`
 
 ## `NYM` Token 
 The token used to reward mixnet infrastructure operators - `NYM` - is one of the native tokens of the Nyx blockchain. The other token is `NYX`. 
