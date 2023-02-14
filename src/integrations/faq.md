@@ -138,6 +138,27 @@ Using this API endpoint returns information about the circulating supply of Nym 
 ```
 /circulating-supply
 ```
+Query Response: 
+
+	{
+	    "total_supply": {
+	        "denom": "unym",
+	        "amount": "1000000000000000"
+	    },
+	    "mixmining_reserve": {
+	        "denom": "unym",
+	        "amount": "241105338883248"
+	    },
+	    "vesting_tokens": {
+	        "denom": "unym",
+	        "amount": "390255200928865"
+	    },
+	    "circulating_supply": {
+	        "denom": "unym",
+	        "amount": "368639460187887"
+	    }
+	}
+
 - `total_supply`- The total number of Nym tokens that have been created and can exist, including those that are currently in circulation and those that are reserved for various purposes.
 
 - `mixmining_reserved`- The number of Nym tokens that are reserved for the Mixnet miners who help to power the Nym network.
@@ -151,12 +172,18 @@ Using this API endpoint returns the current value of the total supply of Nym tok
 ```
 /circulating-supply/total-supply-value
 ```
+Query Response:
+
+	1000000000.0
 
 Using this API endpoint returns the current value of the circulating supply of Nym tokens:
 
 ```
-circulating-supply/circulating-supply-value
+/circulating-supply/circulating-supply-value
 ```
+Query Response:
+
+	368639460.187887
 
 ## Sending traffic through the Nym mixnet  
 ### Is the mixnet free to use? 
