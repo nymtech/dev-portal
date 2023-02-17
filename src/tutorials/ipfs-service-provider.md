@@ -5,52 +5,45 @@ In this guide, developers will be able to observe how using Nym Websocket Client
 
 #### What are we building?
 
-In this tutorial, you will learn how to build a User Client that allows a user to upload an image to the browser and send it through the mixnet, via our Nym Websocket Client. You'll also then learn how to create a typescript Service Provider, which will recieve the image that our client sent.The Service Provider will then upload that image to IPFS and return the results of that back to the User Client.
+In this tutorial, you will learn how to build a User Client that allows a user to upload an image to the browser and send it through the Nym Mixnet, via our Nym Websocket Client. You'll also then learn how to create a typescript Service Provider, which will receive the image that our client sent.The Service Provider will then upload that image to IPFS and return the results of that back to the User Client.
 
-We will be buildiing:
-- A User Client written in TypeScript, which allows for uploading images to then be passed to a Nym Websocket Client to be sent through the mixnet.
-- A Angular Typescript Service Provider, which can receive images from the User Client and then uploads it to IPFS via a built-in js-ipfs node. The service provider will then return the uploaded file url back to the User Client.
+We will be building:
+- A User Client written in TypeScript, which allows for uploading images to then be passed to a Nym Websocket Client to be sent through the Nym Mixnet.
+- A Angular Typescript Service Provider, which can receive images from the User Client and then uploads it to IPFS via a built-in js-ipfs node. The service provider will then return the uploaded file URL back to the User Client.
 - We will also be refreshing our knowledge on using the Nym Websocket Clients that we used in the previous tutorial.
 
-> ⚠️ Service providers are usually run on remote servers to keep metadata private, but for demonstration purposes, this tutorial will show how to run it on a local machine using looped messages through the mixnet.
+> ⚠️ Service providers are usually run on remote servers to keep metadata private, but for demonstration purposes, this tutorial will show how to run it on a local machine using looped messages through the Nym Mixnet.
 
 <img src="../images/ifps-sp-image.png"/>
 
-We'll dive into the process of creating a Typescript application in a similar process to how we have done previously. We will then also utilize a pre-built Angular Typescript codebase that includes a packaged IPFS node provided by the [IPFS Examples repository](https://github.com/ipfs-examples) repo. Each application will have its own Nym Websocket Client to append their images/messages to, which we will also configure.
+We'll dive into the process of creating a Typescript application in a similar process to how we have done previously. We will then also utilise a pre-built Angular Typescript codebase that includes a packaged IPFS node provided by the [IPFS Examples repository](https://github.com/ipfs-examples) repository. Each application will have its own Nym Websocket Client to append their images or messages to, which we will also configure.
 
-You don't need to have any expertise in Angular or Typescript in order navigate this tutorial as we will go through setting up our applications step by step. Feel free to re-use any functionality you discover that might useful.
-
-To assist in your learning, the complete code for this tutorial is available on [Github](https://github.com/nymtech/developer-tutorials). You can use it as a reference while building or simply download it and follow along as you progress through the tutorial."
+To assist in your learning, the complete code for this tutorial is available on [Github](https://github.com/nymtech/developer-tutorials). You can use it as a reference while building or simply download it and follow along as you progress through the tutorial.
 
 #### What do we want to achieve?
 
-We are looking to create a a method of sending image data anonymously to a Service Provider, which will then upload our image to the [IPFS (InterPlanetary File System) ](https://ipfs.tech/). We then want the url of the image we uploaded to IPFS to be returned to our User Client. We also want a manual way of Uploading files to IPFS straight from the Service Provider itself, so we can separate between IPFS and MIxnet logic clearly if we wanted to debug our application to see whether IPFS failed or the Nym Websocket Clients failed.
+We are looking to create a a method of sending image data anonymously to a Service Provider, which will then upload our image to the [IPFS (InterPlanetary File System) ](https://ipfs.tech/). We want the URL of the image we uploaded to IPFS to be returned to our User Client. We also want a manual way of uploading files to IPFS directly from the service provider itself so that we can clearly separate IPFS and Mixnet logic if we need to debug our application and determine whether IPFS or the Nym Websocket Clients have failed.
 
 #### What is IPFS?
 
-IPFS is a globally distributed file storage system that operates on a peer-to-peer network. Any computer can participate by downloading the IPFS software and acting as a host for storing and serving files. Once a file is uploaded to the IPFS network by a user, it can be accessed and retrieved by any other IPFS user worldwide.
-
-IPFS allows for developers to utilize their API features to integrate into applications they are developing. You can find out more in their documentation [here](https://js.ipfs.tech/).
+IPFS is a peer-to-peer file storage system that is globally distributed. Any computer can participate by downloading the IPFS software and acting as a host for storing and serving files. When a user uploads a file to the IPFS network, it becomes accessible to any other IPFS user around the world. This feature allows developers to integrate its API features into the applications they are developing. You can learn more about IPFS and its features by referring to their documentation [here](https://js.ipfs.tech/).
 
 #### Why use IPFS?
-- Decentralized and distributed: IPFS is a peer-to-peer network, so it can provide more reliability and stability compared to traditional client-server networks, where data is stored on a single server.
-- Improved performance: IPFS can speed up file transfers and reduce the load on a single server by breaking files into smaller pieces and distributing them across multiple nodes.
-- Tamper-proof: IPFS uses cryptographic hash functions to ensure that the contents of files stored on the network cannot be altered without being detected.
+- Decentralised and Distributed: IPFS operates on a peer-to-peer network, offering increased reliability and stability compared to traditional client-server networks, where data is stored on a single server.
+- Improved Performance: IPFS speeds up file transfers and reduces the load on a single server by breaking files into smaller pieces and distributing them across multiple nodes.
+- Tamper-proof: IPFS employs cryptographic hash functions to prevent alteration of the contents of files stored on the network without detection.
 
-### Prerequisites.
-* `node v18.12.1`. We suggest that you use [nvm](https://github.com/nvm-sh/nvm) to switched the specified version to ensure correct compilation of all components.
-* `npm` 
-* A copy of the Nym Websocket Client (nym-client) on your local machine. If you need to acquire one, visit [here on how to build the Nym Monorepo](https://nymtech.net/docs/binaries/building-nym.html)
+### Prerequisites
+* `node` & `npm` 
+* `Typescript` 
 
-### Building the User Client.
-#### Setting up our Application
-Make a new directory called `ipfs-upload-service-tutorial` and inside it create another folder named `user-client`.
 
->   
-    Our directory so far:
+#### Preparing your TypeScript environment 
 
-    ipfs-upload-service-tutorial/
-    ├─ user-client/
+- Make a new directory called `ipfs-upload-service-tutorial` and inside it create another folder named `user-client`.
+
+- Also create an `/assets` folder in the root directory. Inside, create a `/styles` folder with a `styles.css` file and a `images`
+
 
 Continue to then do the following:
 
@@ -148,17 +141,9 @@ The package (`ts-node`) allows us to build a typescript application in a node en
 }
 ```
 
->   
-    Our directory so far:
-
-    ipfs-upload-service-tutorial/
-    ├─ user-client/
-    │  ├─ package.json
-    │  ├─ tsconfig.json
-
 #### Bundling the Application
 
- To build and run our application locally, we require a tool that allows us to work on it while it's running and instantly reflects saved changes on the browser.
+To build and run our application locally, we require a tool that allows us to work on it while it's running and instantly reflects saved changes on the browser.
 
 1. This can be achieved through the installation of Parcel bundler using the following command in your terminal window:
 
@@ -213,104 +198,91 @@ Your web application is now up and running with `Test` displayed on the browser 
 
 Checking the `console.log` output is done by right-clicking on the browser and selecting __Inspect__, then navigating to the __Console__ section of the resulting panel. You should see the message `test log` displayed there.
 
->   
-    Our directory so far:
 
-    ipfs-upload-service-tutorial/
-    ├─ user-client/
-    │  ├─ package.json
-    │  ├─ tsconfig.json
-    │  ├─ src/
-    │  │  ├─ index.ts
-    │  │  ├─ index.html
+### Building the User Client
 
-#### Writing the application logic.
-
-In our `index.ts`, we will remove our `console.log` statement and then copy and paste the code found below. This code is what we need to initialize our Websocket, same to the code we have in our last tutorial, but with a couple of additional elements.
+1. Replace the existing content of the `index.ts` file in the `user-client` folder with this function:
 
 ```
-/*
-    The address that is given to us from our mixnet client.
-*/
+    async function main() {
+        var port = '1977' 
+        var localClientUrl = "ws://127.0.0.1:" + port;
+        
+        websocketConnection = await connectWebsocket(localClientUrl).then(function (c) {
+            return c;
+        }).catch(function (err) {
+            displayClientMessage("Websocket connection error. Is the client running with <pre>--connection-type WebSocket</pre> on port " + port + "?");
+        })
+
+        websocketConnection.onmessage = function (e) {
+            handleResponse(e);
+        };
+        
+        sendSelfAddressRequest();
+        
+        fileInput.addEventListener('change', onFileChange, false);
+    }
+
+    function connectWebsocket(url) {
+        return new Promise(function (resolve, reject) {
+            var server = new WebSocket(url);
+            console.log('connecting to Websocket Server (Nym Client)...')
+            server.onopen = function () {
+                resolve(server);
+            };
+            server.onerror = function (err) {
+                reject(err);
+            };
+        });
+    }
+
+    main();
+```
+
+* `main()` - This first function will hold the majority of the logic and initiate the connection with the Nym Websocket Client. It's best to declare it at the start of the file and call it at the end to run when launching the application.
+
+* `connectWebsocket(url)` - In this function, we return a Promise that tries to set up a websocket connection to the url we provide as a parameter. If the connection is successful, we will get a notification in our application and websocket client. If it fails, we'll receive an error in our app.
+
+2. Above our `main()` function, add the following code:
+
+```
 var ourAddress : string;
 
-/*
-    Address we want to send our messages to.
-*/
 var targetAddress: string = '';
 
-/*
-    Variable that holds our websocket connection data.
-*/
-var websocketConnection: any;
+WebsocketConnection: any;
 
-/*
-    Variable that holds our selectedPayload data.
-*/
 var selectedPayload: any;
 
 const fileInput = document.querySelector('#fileInput')
-
-async function main() {
-    var port = '1977' // client websocket listens on 1977 by default.
-    var localClientUrl = "ws://127.0.0.1:" + port;
-    
-    // Set up and handle websocket connection to our desktop client.
-    websocketConnection = await connectWebsocket(localClientUrl).then(function (c) {
-        return c;
-    }).catch(function (err) {
-        displayClientMessage("Websocket connection error. Is the client running with <pre>--connection-type WebSocket</pre> on port " + port + "?");
-    })
-
-    websocketConnection.onmessage = function (e) {
-        handleResponse(e);
-    };
-    
-    sendSelfAddressRequest();
-    
-    fileInput.addEventListener('change', onFileChange, false);
-}
-
-/*
-    Get out address to log in the activity log so we know what our address is in the mixnet via our application UI
-*/
-function sendSelfAddressRequest() {
-    var selfAddress = {
-        type: "selfAddress"
-    }
-    displayJsonSend(selfAddress);
-    websocketConnection.send(JSON.stringify(selfAddress));
-}
-
-/* 
-    Connect to a websocket. 
-*/
-function connectWebsocket(url) {
-    return new Promise(function (resolve, reject) {
-        var server = new WebSocket(url);
-        console.log('connecting to Websocket Server (Nym Client)...')
-        server.onopen = function () {
-            resolve(server);
-        };
-        server.onerror = function (err) {
-            reject(err);
-        };
-    });
-}
 ```
+These variables are the main global variables of our application.
 
-* `main()` - This initial function will contain most of the reasoning and start the interaction with the Nym Websocket Client. It is recommended to declare it at the beginning of the file and activate it upon launching the application by calling it at the end of our file.
+* `ourAddress` - Automatically filled in upon receipt of a reply from the Nym Websocket client's initialization.
 
-* `connectWebsocket(url)` - This function returns a Promise that attempts to establish a websocket connection to the specified url. If the connection is established successfully, a notification will be received in the application and websocket client. On the other hand, if the connection fails, an error will be displayed in the app.
+* `targetAddress` - A manually set parameter for the Service Provider's Nym client.
 
+* `websocketConnection` - Populated upon a successful response from our Promise within the `connectWebsocket()` function.
+
+* `fileInput` - For storing the value of an input element that's added to the `index.html`. We then attach an `EventListener` that will trigger a function called `onFileChange` when a file change is detected by the browser, such as when a file is selected from the device's file explorer.
+
+3. Currently the `sendSelfAddressRequest()` has not been defined. Add the following under between the `main()` and `displayClientMessage()` functions:
+
+```
+    function sendSelfAddressRequest() {
+        var selfAddress = {
+            type: "selfAddress"
+        }
+        displayJsonSend(selfAddress);
+        websocketConnection.send(JSON.stringify(selfAddress));
+    }
+
+```
 * `sendSelfAddressRequest()` - Function that retrieves the websocket address and displays it on the browser's UI after connecting to the websocket.
 
-We also have our `fileInput` variable that stores the value of an input element that we will implement in our `index.html` further in the tutorial. We then assign an EventListener to invoke a function (`onFileChange`) when our browser detects a file change when we select one from our devices file explorer. Were going to be implementing `onFileChange` next.
+4. Add the following under the `connectWebsocket(url)`function:
 
 ```
-/*
-    Function that fires of then the selected file on our input changes. Enables for files to be uploaded instantly.
-*/
 function onFileChange(){
     selectedPayload = document.getElementById('fileInput').files[0];
     var reader = new FileReader();
@@ -323,16 +295,14 @@ function readAndSendFile(event) {
     sendMessageToMixnet(blobResult);
 }
 ```
-* `onFileChange()`: This function is triggered when a file is selected by the user and sets the selected file as `selectedPayload`, reads it as a data URL using `FileReader` and triggers the `readAndSendFile` function once the file has been read.
 
-* `readAndSendFile(event)`: This function is triggered by the `FileReader` load event and sends the contents of the file (stored in `event.target.result` as `blobResult`) using the `sendMessage` function.
+* `onFileChange()` - Whenever the user selects a file it sets it as selectedPayload which reads the file as a data URL using FileReader, therefore triggering the `readAndSendFile` function once the file has been successfully read.
 
-Next, we'll implement our `sendMessageToMixnet` that we just called in the last function we wrote. Type or paste out the following beneath the previous code.
+* `readAndSendFile(event)` - Triggered by the `FileReader` load event and sends the contents of the file (stored in `event.target.result` as `blobResult`) using the `sendMessage` function.
+
+5. Underneath the `sendSelfAddressRequest()` function, add the following:
 
 ```
-/*
-    Function that gets the form data and sends that to the mixnet in a stringified JSON format.
-*/
 function sendMessageToMixnet(payload) {
     
     var messageContentToSend  = {
@@ -344,7 +314,6 @@ function sendMessageToMixnet(payload) {
          dataUrl: payload
     };  
     
-    /*We have to send a string to the mixnet for it to be a valid message , so we use JSON.stringify to make our object into a string.*/
     const message = {
         type: "send",
         message: JSON.stringify(messageContentToSend),
@@ -352,16 +321,11 @@ function sendMessageToMixnet(payload) {
         withReplySurb: false,
     }
     
-    //Display our json data to ber sent
     displayJsonSend(message);
     
-    //Send our message object via out via our websocket connection.
     websocketConnection.send(JSON.stringify(message));
 }
 
-/*
-    Handle any messages that come back down the websocket.
-*/
 function handleResponse(resp) {
     try {
         let response = JSON.parse(resp.data);
@@ -380,465 +344,183 @@ function handleResponse(resp) {
     }
 }
 ```
-To ensure consistency with the previous tutorial, we will convert our message into a string format before transmission. Before sending the image over the mixnet, we will send the Blob (base64) value of the image to our service provider. The length of the Blob value increases with the size of the image, but it is necessary to send it to IPFS so it can consume the data. We can then retrieve the resulting IPFS URL from tat operation which we (eventually) want back.
+> For guide consistency, we will convert our message to a string format before transmission. Before sending the image over the mixnet, we will first send the Blob (base64) value of the image to our service provider. The length of the Blob value increases with the size of the image, but it is necessary to send it to IPFS so that it can process the data. We can then retrieve the resulting IPFS URL from that operation, which we eventually want to obtain.
 
-* `sendMessageToMixnet()` - The key function that enables our Service Provider to receive messages performs several tasks. Firstly, it retrieves the values from the form in `index.html` and assigns them to local variables. These variables are then combined into a single object to be sent to the mixnet. Secondly, the function `displayJsonSend()` is called to display the sent message on the user interface. Lastly, the message is sent to the websocket using the global variable `websocketConnection`.
+* `sendMessageToMixnet()` - The key function that will allow our Service Provider messages to receive messages. Firstly, it will gets the values from a form in the `index.html` and assign them to local variables within the function, inserting the local variables into one object to be sent to the mixnet. Secondly, calling the `displayJsonSend()` function to render the sent message on to the UI. Lastly, the `websocketConnection` global variable will send our message to the websocket. 
 
-* `handleResponse()` - the function responsible for sorting between the types of messages it receives from the mixnet, depending upon the value the response's `type` property holds. From their, it invokes the appropriate function that the data requires.
+* `handleResponse()` - Responsible for sorting messages it receives from the mixnet based on the `type` property of the response. It then invokes the appropriate function that the data requires.
 
 At this point, we have some more functions that we need to write as indicated by our new functions. Underneath our new code, type or paste the following:
 
+6. Next, implement the functions that will handle DOM (Document Object Model) manipulation allowing the alteration of the UI depending on our interaction with the application. 
+
+Before the `main()` declaration at the end of the file, add the following:
+
 ```
-/*
-    Display messages that relates to initializing our client and client status (appearing in our activity log).
-*/
-function displayClientMessage(message) {
-    document.getElementById("output").innerHTML += "<p>" + message + "</p >";
-}
-
-/*
-    Handle any string message values that are received through messages sent back to us.
-*/
-function handleReceivedMessage(message) {
-    const stringifiedMessage = message.message
-    displayJsonReceived(stringifiedMessage)
-}
-
-/*
-    Functions that will display 'send' related event logs into our activity log.
-*/
-function displayJsonSend(message) {
-    let sendDiv = document.createElement("div")
-    let messageLog = document.createElement("p")
-
-    messageLog.setAttribute('style', 'color: #36d481');
-
-    let lineContent;
-
-    if (message.type == 'selfAddress'){
-        lineContent = document.createTextNode("Sent ourselves our address.")
-    } else {
-        let decodedMessage = message.message.replace(/\//g,"");
-
-        // After using 'string.replace()' as above, we can turn our data back into an object. This will make it match our attributes defined in the MessageData interface
-        let parsedMessage = JSON.parse(decodedMessage);
-
-        lineContent = document.createTextNode("⬆ Sent File : " + parsedMessage.name)
+    function displayClientMessage(message) {
+        document.getElementById("output").innerHTML += "<p>" + message + "</p >";
     }
 
-    messageLog.appendChild(lineContent)
-    sendDiv.appendChild(messageLog)
-    document.getElementById("output").appendChild(sendDiv)
-}
-
-/*
-    Functions that will display 'send' related event logs into our activity log.
-*/
-function displayJsonReceived(message) {
-    const timeElapsed = Date.now();
-    const today = new Date(timeElapsed);
-    let parsedMessage = JSON.parse(message);
-    
-    let dataLog = {
-        url : parsedMessage.url,
-        name: parsedMessage.name,
-        dataUrl : parsedMessage.dataUrl,
-        time : today.toUTCString()
-    }
-    
-    let receivedDiv = document.createElement("div");
-    let messageLogLine1 = document.createElement("p");
-    let messageLogLine2 = document.createElement("p");
-
-    messageLogLine1.setAttribute('style', 'color: orange;word-break: break-word;');
-    messageLogLine2.setAttribute('style', 'color: orange;word-break: break-word;');
-
-    let line1Contents;
-    let line2Contents;
-
-    if (parsedMessage.type == 'selfAddress'){
-        line1Contents = document.createTextNode("Initialized Mixnet Websocket.");
-        line2Contents = document.createTextNode('Our address : ' + parsedMessage.address);
-    } else {
-        line1Contents = document.createTextNode("⬇ " + dataLog.time + " | " + dataLog.name);
-        line2Contents = document.createTextNode('Link: ' + dataLog.url);
+    function handleReceivedMessage(message) {
+        const stringifiedMessage = message.message
+        displayJsonReceived(stringifiedMessage)
     }
 
-    messageLogLine1.appendChild(line1Contents);
-    messageLogLine2.appendChild(line2Contents);
-    
-    receivedDiv.appendChild(messageLogLine1);
-    receivedDiv.appendChild(messageLogLine2);
-    document.getElementById("output").appendChild(receivedDiv);
-}
+    function displayJsonSend(message) {
+        let sendDiv = document.createElement("div")
+        let messageLog = document.createElement("p")
+
+        messageLog.setAttribute('style', 'color: #36d481');
+
+        let lineContent;
+
+        if (message.type == 'selfAddress'){
+            lineContent = document.createTextNode("Sent ourselves our address.")
+        } else {
+            let decodedMessage = message.message.replace(/\//g,"");
+
+            let parsedMessage = JSON.parse(decodedMessage);
+
+            lineContent = document.createTextNode("⬆ Sent File : " + parsedMessage.name)
+        }
+
+        messageLog.appendChild(lineContent)
+        sendDiv.appendChild(messageLog)
+        document.getElementById("output").appendChild(sendDiv)
+    }
+
+    function displayJsonReceived(message) {
+        const timeElapsed = Date.now();
+        const today = new Date(timeElapsed);
+        let parsedMessage = JSON.parse(message);
+        
+        let dataLog = {
+            url : parsedMessage.url,
+            name: parsedMessage.name,
+            dataUrl : parsedMessage.dataUrl,
+            time : today.toUTCString()
+        }
+        
+        let receivedDiv = document.createElement("div");
+        let messageLogLine1 = document.createElement("p");
+        let messageLogLine2 = document.createElement("p");
+
+        messageLogLine1.setAttribute('style', 'color: orange;word-break: break-word;');
+        messageLogLine2.setAttribute('style', 'color: orange;word-break: break-word;');
+
+        let line1Contents;
+        let line2Contents;
+
+        if (parsedMessage.type == 'selfAddress'){
+            line1Contents = document.createTextNode("Initialized Mixnet Websocket.");
+            line2Contents = document.createTextNode('Our address : ' + parsedMessage.address);
+        } else {
+            line1Contents = document.createTextNode("⬇ " + dataLog.time + " | " + dataLog.name);
+            line2Contents = document.createTextNode('Link: ' + dataLog.url);
+        }
+
+        messageLogLine1.appendChild(line1Contents);
+        messageLogLine2.appendChild(line2Contents);
+        
+        receivedDiv.appendChild(messageLogLine1);
+        receivedDiv.appendChild(messageLogLine2);
+        document.getElementById("output").appendChild(receivedDiv);
+    }
 ```
 
-Our two last will enable us to manipulate HTML elements in the DOM in order to update our UI when actions are performed in our application.
+* `displayJsonReceived()` - Responsible for sorting the contents of a received message from the mixnet. It's dependent on nature of the `selfAddress` request or an actual message from our service provider with the URL we're seeking.
 
-* `displayJsonReceived()` - The function that is responsible for sorting the contents of a received message from the mixnet. depending on whether it was a selfAddress request or an actual message from our service provider (with the URL we are ultimately looking for);
+* `displayJsonSend()` - Similar to the `displayJsonReceived()` function, however invoked when a message is sent.
 
-* `displayJsonSend()` - Does the same thing as `displayJsonReceived()`, only that invokes when we send a message.
 
-At the very end of our file, lets call our `main()` function
+8. Replace the current `index.html` with the following, to reflect our output on the UI:
 
 ```
-main();
-```
-
-Our `index.ts` logic is now ready for us to move onto implementing the UI. Lets open up our `index.html` and type or paste the following code:
-```
-<!doctype html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Mixnet Websocket File Upload Client for IPFS</title>
-        <link rel="stylesheet" href="../assets/styles/styles.css">
-    </head>
-    <body style="background-color: #242c3d;font-family: sans-serif;">
-        <div class="toolbar" role="banner">
-            <span class="toolbar-title">IPFS Image Upload Service Provider for Mixnet</span>
-            <div class="spacer"></div>
-            <a
-              href="https://nymtech.net/"
-              title="Nym"
-              target="_blank"
-            >
-              <img src="../assets/images/nym-logo-icon.png" alt="Nym Logo" width="48" height="48">
-            </a>
-            <h3> X </h3>
-            <a
-              href="https://docs.ipfs.tech/"
-              title="IPFS"
-              target="_blank"
-            >
-              <img src="../assets/images/ipfs-logo-icon.png" alt="IPFS Logo" width="48" height="48">
-            </a>
-            <div class="toolbar-tag">
-                <p>Client
-                </p>
+    <!doctype html>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Mixnet Websocket File Upload Client for IPFS</title>
+            <link rel="stylesheet" href="../assets/styles/styles.css">
+        </head>
+        <body style="background-color: #242c3d;font-family: sans-serif;">
+            <div class="toolbar" role="banner">
+                <span class="toolbar-title">IPFS Image Upload Service Provider for Mixnet</span>
+                <div class="spacer"></div>
+                <a
+                  href="https://nymtech.net/"
+                  title="Nym"
+                  target="_blank"
+                >
+                  <img src="../assets/images/nym-logo-icon.png" alt="Nym Logo" width="48" height="48">
+                </a>
+                <h3> X </h3>
+                <a
+                  href="https://docs.ipfs.tech/"
+                  title="IPFS"
+                  target="_blank"
+                >
+                  <img src="../assets/images/ipfs-logo-icon.png" alt="IPFS Logo" width="48" height="48">
+                </a>
+                <div class="toolbar-tag">
+                    <p>Client
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="content" role="main">
-            
-            <div class="section-container">
-                <div class="file-upload">
-                    <label for="fileInput" class="file-upload-label">UPLOAD image</label>
-                    <input id="fileInput" class="file-upload-input" type="file" accept="image/jpeg, image/png"/>
+            <div class="content" role="main">
+                
+                <div class="section-container">
+                    <div class="file-upload">
+                        <label for="fileInput" class="file-upload-label">UPLOAD image</label>
+                        <input id="fileInput" class="file-upload-input" type="file" accept="image/jpeg, image/png"/>
+                    </div>
+                </div>
+
+                <div class="section-container">
+                    <h3>Activity Log</h3>
+                    <h5>Sent and received data will be logged below.</h5>
+                
+                    <p style="background-color: #202124;color: #fff;padding: 1rem;">
+                        <span id="output"></div>
+                    </p>
                 </div>
             </div>
 
-            <div class="section-container">
-                <h3>Activity Log</h3>
-                <h5>Sent and received data will be logged below.</h5>
-            
-                <p style="background-color: #202124;color: #fff;padding: 1rem;">
-                    <span id="output"></div>
-                </p>
-            </div>
-        </div>
-        <script src="index.ts"></script>
-    </body>
-</html>
+            <script src="index.ts"></script>
+
+        </body>
+    </html>
 ```
 
-You may notice that we reference our `index.ts` file within the script tag of the `<body>`. You may recognize this from our previous application that we made in the last tutorial and this application works in the same way. We set this reference in order for our application to be bundled by parcel correctly.
+> The reference of the `index.ts` within the script tag of the `<body>` allows for our application to be bundled by parcel correctly.
 
-Lets create our `style.css` file to apply some styling to our user interface. We will create a new `/assets` folder in the root of the project (same folder level as `package.json`). Create a `/styles` inside the `/assets` folder and create a new file inside it named: `styles.css`.
-We now have a file that the `<head>` link attribute can access to find the stylesheet it was looking for. In `styles.css`, paste or type the following code:
+> ⚠️ Make sure to save all files before proceeding!
 
-<details>
-    <summary>styles.css (Click to expand)</summary>
-       
-        :host {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-            Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-        font-size: 14px;
-        color: #333;
-        box-sizing: border-box;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        }
+9. Inside the `styles.css` in `path/to/the/assets/styles` folder in the root directory, copy and paste the CSS default styling for the application from this [GitHub link](). 
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-        margin: 8px 0;
-        color: white;
-        }
+<!--need link to css from github here--->
 
-        p {
-        margin: 0;
-        }
+Also inside the `/images` in `path/to/the/assets` folder in the root directory, add the images for the application from this [GitHub link](). 
 
-        .spacer {
-        flex: 1;
-        }
+<!--need link to image from github here--->
 
-        .toolbar {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        background-color: #252526;
-        color: white;
-        font-weight: 600;
-        }
+> ⚠️ Make sure to save all files before proceeding!
 
-        .file-upload-label {
-        box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
-        background:linear-gradient(90deg, #f4731b 1.05%, #f12d50 100%);
-        border: 1px solid #F4511E;
-        border-radius: 4px;
-        cursor: pointer;
-        color: #fff;
-        display: inline-block;
-        float: left;
-        letter-spacing:2px;
-        text-transform: uppercase;
-        padding:20px;
-        margin: auto;
-        }
-
-        .file-upload-input {
-        position: absolute;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        font-size: 1px;
-        width: 0;
-        height: 100%;
-        opacity: 0;
-        }
-
-        .toolbar-tag p{
-        color: white; 
-        font-size: 16px; 
-        background-color: Orange; 
-        border:4px solid Orange; 
-        border-radius: 18px;
-        padding-left:1rem;
-        padding-right:1rem
-        }
-
-        .toolbar img {
-        margin: 0 16px;
-        }
-
-        .toolbar #twitter-logo {
-        height: 40px;
-        margin: 0 8px;
-        }
-
-        .toolbar #youtube-logo {
-        height: 40px;
-        margin: 0 16px;
-        }
-
-        .toolbar #twitter-logo:hover,
-        .toolbar #youtube-logo:hover {
-        opacity: 0.8;
-        }
-
-        .content {
-        display: flex;
-        margin: 82px auto 32px;
-        padding: 0 16px;
-        max-width: 960px;
-        flex-direction: column;
-        align-items: center;
-        }
-
-        .section-container {
-        display: block;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 16px;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        width: 850px;
-        }
-
-        .manual-file-input{
-        margin-bottom: 1rem;
-        text-align-last: center;
-        }
-
-        .data-item-card{
-        border-radius: 4px;
-        border: 1px solid #eee;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        }
-
-        a,
-        a:visited,
-        a:hover {
-        color: #1976d2;
-        text-decoration: none;
-        }
-
-        a:hover {
-        color: #125699;
-        }
-
-        .terminal {
-        position: relative;
-        width: 80%;
-        max-width: 600px;
-        border-radius: 6px;
-        padding-top: 45px;
-        margin-top: 8px;
-        overflow: hidden;
-        background-color: rgb(15, 15, 16);
-        }
-
-        .terminal::before {
-        content: "\2022 \2022 \2022";
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 4px;
-        background: rgb(58, 58, 58);
-        color: #c2c3c4;
-        width: 100%;
-        font-size: 2rem;
-        line-height: 0;
-        padding: 14px 0;
-        text-indent: 4px;
-        }
-
-        .terminal pre {
-        font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
-        color: white;
-        padding: 0 1rem 1rem;
-        margin: 0;
-        }
-
-        .circle-link {
-        height: 40px;
-        width: 40px;
-        border-radius: 40px;
-        margin: 8px;
-        background-color: white;
-        border: 1px solid #eeeeee;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-        transition: 1s ease-out;
-        }
-
-        .circle-link:hover {
-        transform: translateY(-0.25rem);
-        box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        footer {
-        margin-top: 8px;
-        display: flex;
-        align-items: center;
-        line-height: 20px;
-        }
-
-        footer a {
-        display: flex;
-        align-items: center;
-        }
-
-        .github-star-badge {
-        color: #24292e;
-        display: flex;
-        align-items: center;
-        font-size: 12px;
-        padding: 3px 10px;
-        border: 1px solid rgba(27, 31, 35, 0.2);
-        border-radius: 3px;
-        background-image: linear-gradient(-180deg, #fafbfc, #eff3f6 90%);
-        margin-left: 4px;
-        font-weight: 600;
-        }
-
-        .github-star-badge:hover {
-        background-image: linear-gradient(-180deg, #f0f3f6, #e6ebf1 90%);
-        border-color: rgba(27, 31, 35, 0.35);
-        background-position: -0.5em;
-        }
-
-        .github-star-badge .material-icons {
-        height: 16px;
-        width: 16px;
-        margin-right: 4px;
-        }
-
-        /*Added by me*/
-        .toolbar-title{
-        margin-left: 20px;
-        color: #c8c8c8;
-        }
-
-        /* Responsive Styles */
-        @media screen and (max-width: 767px) {
-            .section-container > *:not(.circle-link),
-            .terminal {
-                width: 100%;
-            }
-
-            .card:not(.highlight-card) {
-                height: 16px;
-                margin: 8px 0;
-            }
-
-            .card.highlight-card span {
-                margin-left: 72px;
-            }
-
-        }
-
-</details>
-
-Finally, we can go to the Nym Developer Tutorial repo to get our image assets : https://github.com/nymtech/developer-tutorials/tree/main/tutorial_assets/ipfs-upload-service-tutorial.
-Create a new /images folder in /assets and place the two images that you in that Github directory inside of it.
-
->   
-    Our directory so far:
-
-    ipfs-upload-service-tutorial/
-    ├─ user-client/
-    │  ├─ package.json
-    │  ├─ tsconfig.json
-    │  ├─ src/
-    │  │  ├─ index.ts
-    │  │  ├─ index.html
-    │  ├─ assets/
-    │  │  ├─ styles/
-    │  │  │  ├─ styles.css
-    │  │  ├─ images/
-    │  │  │  ├─ image
-    │  │  │  ├─ image
-
-Lets save that and give it a run using:
+9. Return back to your terminal and run:
 
 ```
 npm start
 ```
 
-We should get something looking like the following: 
+Return to your open browser and you should see a new UI has been created: 
 
 <img src="../images/ipfs-upload-service-tutorial/ipfs-user-client-1.png"/>
 
-This is where we are going to get our websocket client up and running.
+Here is where the websocket client up and running.
 
-#### Initializing our Clients Nym Websocket Client
+### Connecting the Nym Websocket Client
 
-Remember in the Prerequisite section when we mentioned that you'll have to have a copy of the Nym Websocket Client (nym-client) on your local machine. If you dont have a Nym Websocket Client yet . visit [here on how to build the Nym Monorepo to get one](https://nymtech.net/docs/binaries/building-nym.html).
+This far into the tutorial, we should have functioning User Client to make the initial websocket connection that we're looking for. To connect our Nym Websocket client, go to [releases page](https://github.com/nymtech/nym/releases) to doewnload the latest binaries release of the `nym-client`. Alternatively, download [here](https://nymtech.net/docs/binaries/building-nym.html) and follow instructions to build the binaries from the monorepo. Once the `nym-client` latest binaries has been downloaded, we can begin connecting and executing of our websocket functionality.  
 
 One you are ready, proceed to follow the instructions below:
 
@@ -919,12 +601,10 @@ One you are ready, proceed to follow the instructions below:
 
 </details>
 
-The Websocket Client for our Typescript User CLient is now up and running, and we can refresh the browser application to see the changes. In the 'Activity Log' of the UI, there's a successful response from our websocket, thus we should be able to see the same address from our terminal.
+The Websocket Client for our Typescript User CLient is now up and running, and we can refresh the browser application to see the changes. In the 'Activity Log' of the UI, there's a successful response from our websocket, thus we should be able to see the same address from our terminal. If we were to terminate our `nym-client`, we can an error on the browser UI. This is a good sign of error handling.
 
-Check to see if your User Client is still running. If not , start it back up with,
-```
-npm start
-```
+We can now rerun the same `nym-client`.
+
 You should now see the following changes in the browser window of our User Client:
 
 <img src="../images/ipfs-upload-service-tutorial/ipfs-user-client-2.png"/>
@@ -933,19 +613,18 @@ We can see that our User Client was able to access the websocket on port 1977, d
 
 ### Building the Service Provider.
 
-As mentioned in the introduction of the tutorial, we are looking to make use of a pre-built Angular code provided by the IPFS JS Project [here](https://github.com/ipfs-examples/js-ipfs-browser-angular).
-You can simply download it by using the green 'Code' button and then selecting Download ZIP. Alternatively, feel free to clone the repository using `git` if you have it installed by using the command specified on the same screen as the previous method.
+We're making use of the pre-built Angular code provided by the IPFS JS Project [here](https://github.com/ipfs-examples/js-ipfs-browser-angular).
 
-The Service Provider does not need to be in the same directory level as our User Client to operate.
+Clone the repository to your local machine and store the folder inside project root folder `ipfs-upload-service-tutorial`.
 
 #### Setting up our Application
 
-Once you have the code downloaded, open the root folder (`js-ipfs-angular-broswer-main`) and you'll see we already have a collection of files built for us. Before we invoke `npm install`, we will need to go to our `package.json` and make a few additions:
+Open the folder (`js-ipfs-angular-broswer-main`) and there should be several files. Before running `npm install`, we must need to go to our `package.json` and make a few additions:
 
-In the `"dependencies"` section of the `package.json`, add the following two lines of data:
+1. Replace the`"dependencies"` section of the `package.json` with following:
 ```
 "dependencies": {
-    "@angular-builders/dev-server": "^7.3.1", <----New Line
+    "@angular-builders/dev-server": "^7.3.1",
     "@angular/animations": "^13.2.0",
     "@angular/common": "^13.2.0",
     "@angular/compiler": "^13.2.0",
@@ -958,7 +637,7 @@ In the `"dependencies"` section of the `package.json`, add the following two lin
     "global": "^4.4.0",
     "ipfs-core": "^0.16.0",
     "ipfs-core-types": "^0.12.0",
-    "ipfs-http-client": "^59.0.0", <----New Line
+    "ipfs-http-client": "^59.0.0",
     "rxjs": "^7.5.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -966,59 +645,25 @@ In the `"dependencies"` section of the `package.json`, add the following two lin
 
 ```
 
-we can then proceed to call 
+> ⚠️ Make sure to save all files before proceeding!
+
+2. Return back to your terminal and run:
 
 ```
 npm start
 ```
 
-In your browser, open aup an new tab and navigate to [localhost:4200](http://localhost:4200/). Your browser window should look something like the screenshot below:
-
-#### Writing our Angular TS component,
+Go to [localhost:4200](http://localhost:4200/) in a new broswer tab. Your browser window should look something like this:
 
 <img src="../images/ipfs-upload-service-tutorial/angular-app-1.png"/>
 
-If we got to this point, we can safely say that we got the Angular Application successfully built and running in the browser.
+#### Writing our Angular TS component
 
-Lets go back to the source-code and open up the `/src/app/` folder. Were going to be implementing the majority of our code for this application within this folder. Lets open up the `app.component.ts` and take a look at the contents:
+The Angular Application should successfully be built and running in the browser.
 
-```
-import { Component, OnInit } from '@angular/core';
-import { IpfsService } from './ipfs.service';
-import { PeerId } from '@libp2p/interface-peer-id';
+Now were going to be implementing the majority of our code for this application within the `js-ipfs-browser-angular-main/src/app/` folder. The `app.component.ts` file is where we have working JS IPFS code that will get us the id, version and the status of the built-in IPFS node upon starting up the application.
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
-export class AppComponent implements OnInit {
-  title = 'browser-angular';
-  id: PeerId | null = null;
-  version: string | null  = null;
-  status: string | null  = null;
-
-  constructor(private IPFSService: IpfsService) {}
-
-  ngOnInit() {
-    this.start();
-  }
-
-  async start() {
-    const id = await this.IPFSService.getId();
-    this.id = id.id;
-
-    const version = await this.IPFSService.getVersion();
-    this.version = version.version
-
-    const status = await this.IPFSService.getStatus();
-    this.status = status ? 'Online' : 'Offline'
-  }
-}
-
-```
-
-Here we can find some working JS IPFS code that will get us the id, version and the status of the built-in IPFS node upon starting up the application. Lets modify teh variable names to something more distinct:
+1. Change the named variables `id`, `version` and `status` in the class `AppComponent` function with following:
 
 ```
   ipfsId: PeerId | null = null;
@@ -1027,9 +672,9 @@ Here we can find some working JS IPFS code that will get us the id, version and 
 
 ```
 
-Naming our variables this way will save us any confusion with other objects later on in the tutorial.
+> Naming our variables this way will save us any confusion with other objects.
 
-Lets also re-name our `start()` function to something more appropriate such as `initializeApplication()`. At this point, we can expect our code (from the ngOnInit function) to now look like this:
+2. Rename the `start()` function to `initializeApplication()`. The `ngOnInit()` function should look like this:
 
 ```
 ngOnInit() {
@@ -1049,11 +694,9 @@ async initializeApplication() {
 
 ```
 
-* `ngOnInit()` - is a lifecycle hook in Angular that is called after the component is constructed and initialized. This is a good place to put any initialization logic for your component, for example, setting default values for your component's properties or making API calls to load data. The `ngOnInit` method is only called once during the lifecycle of a component, and is called before the component is rendered on the page.
+* `ngOnInit()` -  A method is an Angular life cycle hook that gets triggered once a component is constructed and initialized. It provides an ideal spot to perform initialization logic, such as setting default values for component properties or making API requests to fetch data. It's important to note that the `ngOnInit()` method is invoked only once during the component's life cycle, and it executes before the component is displayed on the page.
 
-Lets go back into the files `constructor()`. Were going to first set up our websocket connection code for connecting to an assisting Nym Websocket Client, running on port 1978.
-
-Add the new code below inside our already established `constructor()`:
+3. Setting up our websocket connection code for connecting to a Nym Websocket Client, requires running on a new port 1978. Replace the `constructor()` function with the following:
 
 ```
 constructor(private IPFSService: IpfsService,){
@@ -1075,41 +718,39 @@ constructor(private IPFSService: IpfsService,){
     }
   });
   
-
   websocketSubject.subscribe({
     next: response => {
       console.log('Subject: message received: ' + response)
-      // Called whenever there is a message from the server.
     },
     error: err => {
       console.log('Subject: error received: ' + err)
-      // Called if at any point WebSocket API signals some kind of error.
     }, 
-    complete: () => console.log('Subject: complete') // Called when connection is closed (for whatever reason).
+    complete: () => console.log('Subject: complete') 
   });
   
 }
 ```
-RxJS WebSockets is a library for using WebSockets in an Angular application with RxJS observables.With RxJS WebSockets, you can easily subscribe to WebSocket events as observables in your Angular application, allowing you to use functional reactive programming to handle the data streams coming from the WebSocket.
 
-Once you've pasted that, Angular will prompt you to add in the imports required from `rxjs` in order for the app to compile successfully. Add in the following to the top of our `app.component.ts`:
+Once you've pasted that, Angular will prompt you to add in the imports required from `rxjs` in order for the app to compile successfully.
+
+> RxJS WebSockets is a library for using WebSockets in an Angular application with RxJS observable. With RxJS WebSockets, you can easily subscribe to WebSocket events as observable in your Angular application, allowing you to use functional reactive programming to handle the data streams coming from the WebSocket.
+
+
+4. In the `app.component.ts`, add the following to top of the file:
 
 ```
 import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 ```
 
-We also need to declare the port variable which the websocket logic needs to utilize. Lets declare that above our contructor:
+5. Declare the port variable which the websocket logic will utilise. This can be placed about the new `contructor()` function:
 
 ```
 port = '1978'
 ```
 
-Lets then delcare our `trimMessage()` function under the `constructor()`. Type or paste the code below under our `constructor()`:
+6. Declare our `trimMessage()` function under the `constructor()` function by adding the following:
 
 ```
-/* 
-    Function that remove any unwanted trailing characters behind the first json curly brace.
-*/
 trimMessage(message : string){
     let index = message.indexOf("{");
     let trimmedMessage = message.substring(index);
@@ -1117,9 +758,9 @@ trimMessage(message : string){
 }
 ```
 
-* `trimMessage()` - The function uses the `indexOf()` method on the `message` argument to find the index of the first occurrence of the character `"{"` in the string (In case of unexpected characters pre-ceding the first curly brace that defines the json within the string).
-Then, it uses the "substring()" method to extract a new string, "trimmedMessage", starting from the index of the "{" character until the end of the original "message" string.
-We can see that we have used a function called `proccessMessage()` which still needs to be declared, so lets do that. Underneath our `initializeApplication()` function, type of paste the following code:
+* `trimMessage()` - A function that uses the `indexOf()` method on the message parameter to locate the position of the first instance of the character `{` in the string. This is done to handle any unexpected characters that might precede the initial curly brace, which defines the JSON structure within the string. I then uses `substring()` method to extract a new string, `trimmedMessage`, starting from the index of the `{` character until the end of the original message string.
+
+7. A `proccessMessage()` function still needs to be declared. Underneath the `initializeApplication()` function, add the following:
 
 ```
   async processMessage(response : any,websocketSubject : WebSocketSubject<any>){
@@ -1148,8 +789,7 @@ We can see that we have used a function called `proccessMessage()` which still n
           recipient: this.targetMixnetAddress,
           withReplySurb: false,
         }
-  
-        //sends the messaqge to the mixnet via websocket.
+
         websocketSubject.next(mixnetMessage);
   
         this.logData(parsedMessage,'Client'); 
@@ -1174,8 +814,7 @@ We can see that we have used a function called `proccessMessage()` which still n
           recipient: this.targetMixnetAddress,
           withReplySurb: false,
         }
-  
-        //sends the messaqge to the mixnet via websocket.
+
         websocketSubject.next(mixnetMessage);
   
         this.logData(message,'Client');
@@ -1185,24 +824,16 @@ We can see that we have used a function called `proccessMessage()` which still n
 
 ```
 
+- `processMessage()`- Receives a message via a WebSocket connection and sends it to the intended recipient through the same connection. Two parameters, `response` and `websocketSubject`, allow the message to be received and sent using the `next()` method. The function begins by checking the type of response to determine whether it's an object or a string. If it's a string, it gets parsed into an object. If it's an object, the code moves to the `else if` condition. Next, the function converts the `dataUrl` property of the message into a `Blob` object with the dataUrlToBlob method. After the conversion, the `addFile()` method from the `IPFSService` is used to add the blob as a file to IPFS.
 
-The `processMessage()` function takes a message received from a WebSocket connection and sends it to a recipient through the same WebSocket connection. The function takes two arguments, response and websocketSubject, where response is the message received and websocketSubject sends it off using `next()`
+Finally, the function sends the processed message to the target mixnet address specified by the `targetMixnetAddress` property through the WebSocket. This is done by calling the` next()` method on the websocketSubject with a mixnetMessage object as the argument. The WebSocket automatically handles the process of stringifying the entire message. The `logData()` function is called in both cases, which updates the user interface when a message is received and processed.
 
-The function first checks the type of response to determine whether it is a string or an object. If it's a string, it parses the string into an object. If it's an object, it does go to the `else if` block.
-
-In either case, it then converts the `dataUrl` property of the message into a `Blob` using the `dataUrlToBlob` method. After converting the dataUrl to a Blob, it adds the Blob as a file to IPFS using the `addFile()` method from the `IPFSService`.
-
-Finally, the function sends the processed message to the target mixnet address, which is specified by the `targetMixnetAddress` property, through the WebSocket by calling the next method on the `websocketSubject` with a `mixnetMessage` object as the argument. The websocket will already take care of stringifying the entire message for us.
-
-The `logData()` function is called in both cases and updates the UI upon handling a message.
-
-First lets declare our required `targetMixnetAddress` global variable the top of the file, just above constructor.
+8. Declare the `targetMixnetAddress` global variable the top of the file, where the `port = '1978'` is stated:
 
 ```
   targetMixnetAddress : string = '';
 ```
-
-Then, lets implement the rest of the functions that we have not implemented for the `processMessage()` function now. Under the `processMessage()`function, lets type out or paste the following:
+ Implement the rest of the functions underneath `processMessage()` function by adding the following code:
 
 ```
 async dataUrlToBlob(dataURI : string,type : string){
@@ -1216,10 +847,6 @@ async dataUrlToBlob(dataURI : string,type : string){
     return new Blob([ab], { type: type });
 }
 
-
-/*
-    Logs data into our data log section of the UI.
-*/
 logData(file: any,methodOfRequest: string){
 
     let fileLog! : FileLogData
@@ -1254,13 +881,11 @@ logData(file: any,methodOfRequest: string){
 }
 ```
 
-* `dataUrlToBlob()` - The function uses the "atob" function to decode the base64 encoded data URI string into a byte string.Next, it creates an ArrayBuffer of the same length as the byte string and a Uint8Array "ia" backed by the ArrayBuffer. It then uses a for loop to iterate over each character in the byte string, and for each character, it sets the corresponding element in the Uint8Array to the character's ASCII code. The result value is what we want to upload to IPFS.
+* `dataUrlToBlob()` - Decodes a base64-encoded data URI string using the `atob` method to convert it to a byte string. It creates an ArrayBuffer of the same length as the byte string and creates a Uint8Array `ia` backed by the ArrayBuffer. Using a for loop, it iterates over each character in the byte string and sets the corresponding element in the Uint8Array to the character's ASCII code. The final value obtained is what we aim to upload to IPFS.
 
-* `logData()` - This function takes two arguments: `"file"` and `"methodOfRequest"`.The function starts by defining a variable `"fileLog"` of type `FileLogData` (which we will implement shortly) and initializing it to an empty object. It also creates a new `"Date"` object `"dateTime"`.The function then uses an "if-else" statement to check the value of `"methodOfRequest"`. Depending on the second parameter, the fileLog variable will be initialized with different outputs.
+* `logData()` - Takes two arguments, `file` and `methodOfRequest`. It starts by declaring a variable called `fileLog`, which is of type `FileLogData` and initialised to an empty object. It also creates a new "Date" object called `dateTime`. The function then uses an `if-else` statement to check the value of `methodOfRequest`. Depending on the second parameter's value, the `fileLog` variable will be initialized with different outputs.
 
-Next , we will need to define the type `FileLogData` that the `logData()` function will utilized, in order manipulate data in an organized manner.
-
-On the same folder level as the `app.component.ts`, we will create a new file called `file-log-data.ts`. Inside that file, type or paste the followin code;
+9. Define the type `FileLogData` that the `logData()` function will utilise in order manipulate data in an organised manner.  In `/app` folder, create a new file called `file-log-data.ts` and add the following code:
 
 ```
 export interface FileLogData{
@@ -1274,81 +899,18 @@ export interface FileLogData{
     cid?: string;
 }
 ```
-Save that, then go back into our `app.component.ts` and paste the following line under the other imports at the top of the file:
+Then return to the `app.component.ts` file and add the following the top of the file:
 ```
 import { FileLogData } from './file-log-data';
 ```
-Next, we are going to make a chasnge to the `ipfs.service.ts file`, which is also on the same folder level as `app.component.ts`. Lets open it and have a look inside:
 
-```
-import { Injectable } from '@angular/core';
+> ⚠️ Make sure to save all files before proceeding!
 
-import { IPFS, create } from 'ipfs-core';
-import * as IPFS_ROOT_TYPES from 'ipfs-core-types/src/root';
-import { BehaviorSubject, } from 'rxjs';
-@Injectable({
-  providedIn: 'root'
-})
-export class IpfsService {
-  private _ipfsSource = new BehaviorSubject<null | IPFS>(null);
-  private _createIPFSNodePromise: Promise<IPFS>;
+10. Next is to make additions and changes to the `ipfs.service.ts file`. Lets open it and have a look inside:
 
-  private get ipfs() {
-    const getter = async () => {
-      let node = this._ipfsSource.getValue();
+In Angular, a service is a reusable piece of code that can be used to perform specific tasks, such as fetching data, performing calculations, and handling logic that is independent of any particular component. Services are typically used to centralise and share business logic, data, and other functionality across multiple components in an Angular application, promoting separation of concerns and making the code easier to maintain and test.
 
-      if (node == null) {
-        console.log("Waiting node creation...")
-
-        node = await this._createIPFSNodePromise as IPFS
-        this._ipfsSource.next(node);
-      }
-
-      return node;
-    }
-
-    return getter();
-  }
-
-  constructor() {
-    console.log("Starting new node...")
-
-    this._createIPFSNodePromise = create()
-  }
-
-  /**
-   * @description Get the ID information about the current IPFS node
-   * @return {Promise<IPFS_ROOT_TYPES.IDResult>}
-   */
-  async getId(): Promise<IPFS_ROOT_TYPES.IDResult> {
-    const node = await this.ipfs;
-    return await node.id();
-  }
-
-  /**
-   * @description Get the version information about the current IPFS node
-   * @return {Promise<IPFS_ROOT_TYPES.VersionResult>}
-   */
-  async getVersion(): Promise<IPFS_ROOT_TYPES.VersionResult> {
-    const node = await this.ipfs;
-    return await node.version();
-  }
-
-  /**
-   * @description Get the status of the current IPFS node
-   * @returns {Promise<boolean>}
-   */
-  async getStatus(): Promise<boolean> {
-    const node = await this.ipfs;
-    return await node.isOnline();
-  }
-}
-
-```
-
-In Angular, a service is a reusable piece of code that can be used to perform specific tasks, such as fetching data, performing calculations, and handling logic that is independent of any particular component. Services are typically used to centralize and share business logic, data, and other functionality across multiple components in an Angular application, promoting separation of concerns and making the code easier to maintain and test.
-
-Each endpoint will query to the built-in app IPFS node and perform its respected operation. Lets go ahead and implement the `addFile()` function at the bottom of the file.
+Each endpoint will query to the built-in app IPFS node and perform its respected operation. Implement the `addFile()` function at the bottom of the file.
 ```
 async addFile(object : any,uploadMethod: string): Promise<any> {
     const node = await this.ipfs;
@@ -1356,7 +918,7 @@ async addFile(object : any,uploadMethod: string): Promise<any> {
 }
 ```
 
-That should satisfy the needs of our `proccessMessage()` function. Next, were going to be implementing the remainder of the code that our `logData()` function requires:
+11. Next is to implement the remaining of the `logData()` function:
 
 ```
     readFileSize(bytes : number, si=false, dp=1) {
@@ -1381,9 +943,6 @@ That should satisfy the needs of our `proccessMessage()` function. Next, were go
         return bytes.toFixed(dp) + ' ' + units[u];
     }
 
-    /*
-        Resets the file input variable, clearing the value for the next manual upload.
-    */
     resetFileInput() {
         this.currentSelectedSingleFileBlob = '';
         this.fileInputReference.nativeElement.value = "";
@@ -1391,11 +950,12 @@ That should satisfy the needs of our `proccessMessage()` function. Next, were go
 
 ```
 
-* `readFileSize()` -  The function converts the size of the file from bytes to a human-readable format, such as KiB, MB, or GB, depending on the size of the file.
+* `readFileSize()` -  Converts the size of the file from bytes to a human-readable format, such as KiB, MB, or GB, depending on the size of the file.
 
-* `resetFileInput()` -  Clear our Global variables to make sure we still don't have a file selected after we performed an action with it.
+* `resetFileInput()` -  To ensure that no file is selected after an action has been performed with it, we clear our global variables.
 
-As we can see, we'll need to add the next set of variables into our application so we can get our `logData()` and `resetFileInput()` fully completed. Back up at the top of the file, we need to declare our new global variables. Add these variables just above the `constructor()`, with your previously defined variables:
+
+12. The addition of the next set of variables allows for the `logData()` and `resetFileInput()` functions to work as intended. Declare these new global variables above the `constructor()`:
 
 ```
 @ViewChild('fileInput')
@@ -1407,16 +967,13 @@ selectedFileInfo : string = '';
 
 ```
 
-`@ViewChild` is a decorator in Angular that allows you to access a DOM element or a directive that is declared in the template of a component. The `@ViewChild` decorator is used to inject a reference to the DOM element or directive into the component class. This reference can then be used to interact with the element or directive, for example, to read its properties, call its methods, or modify its styles. IN this instance we use it for oir File Input element on the html template (which we will implement shortly).
+* `@ViewChild` - Decorates in Angular enables you to access a DOM element or directive declared in a component's template. By injecting a reference to the DOM element or directive into the component class, you can interact with it, such as reading its properties, calling its methods, or modifying its styles. In this scenario, we use `@ViewChild` to reference our File Input element in the HTML template, which we will implement shortly.
 
-The other three global variables act as temporary data storage between functions when they are executed in the application. By now we should have all the functionality our existing functions need,
+The other three global variables `currentSelectedSingleFile`,`currentSelectedSingleFileBlob` and `selectedFileInfo`, act as temporary data storage between functions when they are executed in the application
 
-Were going to cover the last part of the component code, which is the logic for Manual Image Upload. Beneath the rest of our code, paste or type the following:
+13. The last part of the component code enables Manual Image Upload. Beneath the rest of our code, add the following:
 
 ```
-/*
-    Uploads a file manually to IPFS when the Upload button is pressed, after selecting a file from the input above it.
-  */
   async uploadFile(file: any){
     var reader = new FileReader();
     reader.readAsDataURL(file);
@@ -1435,9 +992,6 @@ Were going to cover the last part of the component code, which is the logic for 
     this.logData(this.currentSelectedSingleFile,'Manual');
   }
 
-  /*
-   Called when the value of the file input changes, i.e. when a file has been selected for upload.
-  */
   onFileSelect(input: HTMLInputElement){
 
     function formatBytes(bytes: number): string {
@@ -1467,494 +1021,20 @@ Were going to cover the last part of the component code, which is the logic for 
 * `readFileSize()` - An event listener is attached to the reader object using the addEventListener method. The event listener listens for the load event, which is fired when the readAsDataURL method has finished reading the contents of the file.When the load event is fired, the getBlobAndUpload method is called with the event object as an argument.
 
 
-* `onFileSelect()` - the function thats invokeD when a manual file upload has taken place on the UI via the respective input element on the HTML code(coming up). It reads the file size in bytes passes that as information for our image.
+* `onFileSelect()` - When a manual file upload has taken place on the UI via the respective input element on the HTML code(coming up). It reads the file size in bytes passes that as information for our image.
 
-Its time to get the applications User Interface to be fully implemented. You'll notice that on the same folder level as `app.component.ts` , you'll have `app.component.html` as well as `app.component.css`.
-
-These are the two files were going to fill in next. We already have existing code in both our `app.component.html` as well as `app.component.css` but were going to get rid of it and replace it with the following.
 
 #### Setting our HTML Template and Styling.
 
-Copy and replace the contents of `app.component.html` with:
+1. Inside the `app.component.html` in `path/to/js-ipfs-browser-angular-main/src/app` folder in the root directory, replace HTML default for the application from this [GitHub link](). 
 
-```
-<div class="toolbar" role="banner">
-  <span class="toolbar-title">IPFS Image Upload Service Provider for Mixnet</span>
-  <div class="spacer"></div>
-  <a
-    href="https://nymtech.net/"
-    title="Nym"
-    target="_blank"
-  >
-    <img src="../assets/images/ui/nym-logo-icon.png" alt="Nym Logo" width="48" height="48">
-  </a>
-  <h3> X </h3>
-  <a
-    href="https://docs.ipfs.tech/"
-    title="IPFS"
-    target="_blank"
-  >
-    <img src="../assets/images/ui/ipfs-logo-icon.png" alt="IPFS Logo" width="48" height="48">
-  </a>
-  <div class="toolbar-tag">
-    <p>Service Provider
-    </p>
-  </div>
-</div>
+<!--need link to html from github here--->
 
-<div class="content" role="main">
-  <h2>IPFS Service Provider for Mixnet</h2>
-  <p>Using js-ipfs to handle client requests to add and retrieve files via the mixnet.</p>
+2. Inside the `app.component.css` in `path/to/js-ipfs-browser-angular-main/src/app` folder in the root directory, replace CSS default styling for the application from this [GitHub link](). 
 
-  <div class="section-container">
-      <div *ngIf="ipfsId != null; else loading" data-test="ipfs-info">
-        <h4>🔌 Current IPFS Node Information</h4>
-        <p>
-          <b>IPFS:</b><span data-test="ipfs-info-id">{{ ipfsId }}</span>
-        </p>
-        <p>
-          <b>Version:</b><span data-test="ipfs-info-version">{{ ipfsVersion }}</span>
-        </p>
-        <p>
-          <b>Status:</b><span data-test="ipfs-info-status">{{ ipfsClientStatus }}</span>
-        </p>
-      </div>
-    
-      <ng-template #loading>
-        <p>
-          <b>Loading...</b>
-        </p>
-      </ng-template>
+<!--need link to css from github here--->
 
-  </div>
-
-  <h3>Manual File Upload</h3>
-
-  <div class="section-container">
-    
-    <input 
-    type="file"
-    accept="image/jpeg, image/png"
-    #fileInput
-    class="manual-file-input"
-    (change)="onFileSelect(fileInput)">
-  
-    <button
-      class="card card-small inactive upload-button"
-      (click)="uploadFile(currentSelectedSingleFile)"
-      [disabled]="!currentSelectedSingleFile"
-    >
-    <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" style="color: #fff !important;"><path d="M22.5 40V21.45l-6 6-2.15-2.15L24 15.65l9.65 9.65-2.15 2.15-6-6V40ZM8 18.15V11q0-1.2.9-2.1Q9.8 8 11 8h26q1.2 0 2.1.9.9.9.9 2.1v7.15h-3V11H11v7.15Z"/></svg>
-      Upload
-    </button>
-   
-  </div>
-
-  <h3>IPFS Recent Actions History</h3>
-
-  <p *ngIf="dataLogItems.length == 0">No recent actions to display.</p>
-  <div class="section-container">
-    <span *ngFor="let item of dataLogItems.reverse()">
-        <div class="data-item-card" [ngStyle]="{'background-color':item.methodOfRequest == 'Client Request' ? '#8ab1db8a' : '#dbb38a8a' }">
-          <p>🗓️ {{ item.dateTime }}</p> 
-          <p>Type : {{ item.type }}</p>
-          <br>
-          <p>📄 {{ item.name }}</p>
-          <div *ngIf="item.methodOfRequest == 'Client Request';then client else manual"></div>
-          <ng-template #client><p style="font-family: sans-serif;color : white">🌐 {{ item.methodOfRequest }}</p></ng-template>
-          <ng-template #manual><p style="font-family: sans-serif;color : white">🔧 {{ item.methodOfRequest }}</p></ng-template>
-          <p>Size : {{ item.size }}</p>
-          <br>
-          <a href="https://ipfs.io/ipfs/{{item.cid}}"><p style="cursor: pointer;">🔗 IPFS Link</p></a>
-          <hr>
-          <img style="max-height: 200px;" src="{{ item.dataUrl }}" alt="{{ item.dataUrl }}">
-      </div>
-    </span>
-  </div>
-
-  <svg
-    id="clouds"
-    xmlns="http://www.w3.org/2000/svg"
-    width="2611.084"
-    height="485.677"
-    viewBox="0 0 2611.084 485.677"
-  >
-    <title>Gray Clouds Background</title>
-    <path
-      id="Path_39"
-      data-name="Path 39"
-      d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z"
-      transform="translate(142.69 -634.312)"
-      fill="#eee"
-    />
-  </svg>
-</div>
-
-<router-outlet></router-outlet>
-
-```
-
-Copy and replace the contents of `app.component.css` with:
-
-<details>
-    <summary>styles.css (Click to expand)</summary>
-       
-    :host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-        Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 14px;
-    color: #333;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    }
-
-    body{
-    background-color: #242c3d !important;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-    margin: 8px 0;
-    font-family: sans-serif !important;
-    color: white;
-    }
-
-    p {
-    margin: 0;
-    font-family: sans-serif !important;
-    color: white;
-    }
-
-    .upload-button{
-    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
-    background:linear-gradient(90deg, #f4731b 1.05%, #f12d50 100%) !important;
-    font-family: sans-serif !important;
-    border: 1px solid #F4511E;
-    border-radius: 4px;
-    cursor: pointer;
-    display: inline-block;
-    float: left;
-    letter-spacing:2px;
-    text-transform: uppercase;
-    padding:20px;
-    margin: auto;
-    }
-
-    .spacer {
-    flex: 1;
-    }
-
-    .toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    background-color: #252526;
-    color: white;
-    font-weight: 600;
-    }
-
-    .toolbar-title{
-    font-family: sans-serif;
-    }
-
-    .toolbar-tag p{
-    color: white; 
-    font-size: 16px; 
-    background-color: Orange; 
-    border:4px solid Orange; 
-    border-radius: 18px;
-    padding-left:1rem;
-    padding-right:1rem
-    }
-
-    .toolbar img {
-    margin: 0 16px;
-    }
-
-    .toolbar #twitter-logo {
-    height: 40px;
-    margin: 0 8px;
-    }
-
-    .toolbar #youtube-logo {
-    height: 40px;
-    margin: 0 16px;
-    }
-
-    .toolbar #twitter-logo:hover,
-    .toolbar #youtube-logo:hover {
-    opacity: 0.8;
-    }
-
-    .content {
-    display: flex;
-    margin: 82px auto 32px;
-    padding: 0 16px;
-    max-width: 960px;
-    flex-direction: column;
-    align-items: center;
-    }
-
-    svg.material-icons {
-    height: 24px;
-    width: auto;
-    }
-
-    svg.material-icons:not(:last-child) {
-    margin-right: 8px;
-    }
-
-    .card svg.material-icons path {
-    fill: #888;
-    }
-
-    .section-container {
-    display: block;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 16px;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    }
-
-    .card {
-    all: unset;
-    border-radius: 4px;
-    border: 1px solid #eee;
-    background-color: #fafafa;
-    height: 40px;
-    width: 200px;
-    margin: 0 8px 16px 16px;
-    padding: 16px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.2s ease-in-out;
-    line-height: 24px;
-    }
-
-    .section-container .card:not(:last-child) {
-    margin-right: 0;
-    }
-
-    .card.card-small {
-    height: 16px;
-    width: 168px;
-    }
-
-    .section-container .card:not(.highlight-card) {
-    cursor: pointer;
-    }
-
-    .section-container .card:not(.highlight-card):hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
-    }
-
-    .section-container .card:not(.highlight-card):hover .material-icons path {
-    fill: rgb(105, 103, 103);
-    }
-
-    .card.highlight-card {
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-    border: none;
-    width: auto;
-    min-width: 30%;
-    position: relative;
-    }
-
-    .card.card.highlight-card span {
-    margin-left: 60px;
-    }
-
-    .manual-file-input{
-    color: white;
-    margin-bottom: 1rem;
-    text-align-last: center;
-    }
-
-    .data-item-card{
-    border-radius: 4px;
-    border: 1px solid #eee;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    }
-
-    svg#rocket {
-    width: 80px;
-    position: absolute;
-    left: -10px;
-    top: -24px;
-    }
-
-    svg#rocket-smoke {
-    height: calc(100vh - 95px);
-    position: absolute;
-    top: 10px;
-    right: 180px;
-    z-index: -10;
-    }
-
-    a,
-    a:visited,
-    a:hover {
-    color: #1976d2;
-    text-decoration: none;
-    }
-
-    a:hover {
-    color: #125699;
-    }
-
-    .terminal {
-    position: relative;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 6px;
-    padding-top: 45px;
-    margin-top: 8px;
-    overflow: hidden;
-    background-color: rgb(15, 15, 16);
-    }
-
-    .terminal::before {
-    content: "\2022 \2022 \2022";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 4px;
-    background: rgb(58, 58, 58);
-    color: #c2c3c4;
-    width: 100%;
-    font-size: 2rem;
-    line-height: 0;
-    padding: 14px 0;
-    text-indent: 4px;
-    }
-
-    .terminal pre {
-    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
-    color: white;
-    padding: 0 1rem 1rem;
-    margin: 0;
-    }
-
-    .circle-link {
-    height: 40px;
-    width: 40px;
-    border-radius: 40px;
-    margin: 8px;
-    background-color: white;
-    border: 1px solid #eeeeee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: 1s ease-out;
-    }
-
-    .circle-link:hover {
-    transform: translateY(-0.25rem);
-    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    footer {
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    line-height: 20px;
-    }
-
-    footer a {
-    display: flex;
-    align-items: center;
-    }
-
-    .github-star-badge {
-    color: #24292e;
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    padding: 3px 10px;
-    border: 1px solid rgba(27, 31, 35, 0.2);
-    border-radius: 3px;
-    background-image: linear-gradient(-180deg, #fafbfc, #eff3f6 90%);
-    margin-left: 4px;
-    font-weight: 600;
-    }
-
-    .github-star-badge:hover {
-    background-image: linear-gradient(-180deg, #f0f3f6, #e6ebf1 90%);
-    border-color: rgba(27, 31, 35, 0.35);
-    background-position: -0.5em;
-    }
-
-    .github-star-badge .material-icons {
-    height: 16px;
-    width: 16px;
-    margin-right: 4px;
-    }
-
-    svg#clouds {
-    position: fixed;
-    bottom: -160px;
-    left: -230px;
-    z-index: -10;
-    width: 1920px;
-    }
-
-    /*Added by me*/
-    .toolbar-title{
-    margin-left: 20px;
-    color: #c8c8c8;
-    }
-
-    /* Responsive Styles */
-    @media screen and (max-width: 767px) {
-        .section-container > *:not(.circle-link),
-        .terminal {
-            width: 100%;
-        }
-
-        .card:not(.highlight-card) {
-            height: 16px;
-            margin: 8px 0;
-        }
-
-        .card.highlight-card span {
-            margin-left: 72px;
-        }
-
-        svg#rocket-smoke {
-            right: 120px;
-            transform: rotate(-5deg);
-        }
-    }
-
-    @media screen and (max-width: 575px) {
-        svg#rocket-smoke {
-            display: none;
-            visibility: hidden;
-        }
-    }
-
-
-</details>
-
-Once we have our styling in place, we want to go back into the `app.component.ts` and at the start of our file, add the following line under the `styleUrls` line of the 'Component' declaration.
+3. Return back to `app.component.ts`, replace this block with the following:
 
 ```
 @Component({
@@ -1965,15 +1045,17 @@ Once we have our styling in place, we want to go back into the `app.component.ts
 })
 ```
 
-Angular "Encapsulation" refers to the mechanism that isolates styles defined in a component from affecting the rest of the application. By default, Angular uses "Emulated" encapsulation, which adds a unique attribute to each component's styles, making them scoped to that component only.
+> Angular `encapsulation` refers to the mechanism that isolates styles defined in a component from affecting the rest of the application. By default, Angular uses "Emulated" encapsulation, which adds a unique attribute to each component's styles, making them scoped to that component only. There's another option, `"ViewEncapsulation.None"`, which disables this mechanism, meaning that styles defined in a component will not be scoped to that component and will be globally available to the rest of the application.
 
-However, there is another option, "ViewEncapsulation.None", which disables this mechanism, meaning that styles defined in a component will not be scoped to that component and will be globally available to the rest of the application.
 
-It is not the most standard of practices to implement this, but for our purposes here in the tutorial, it'll work just fine.
+4. Finally, create a new folder`/images/ui` in `path/to/the/assets` folder in the root directory of `js-ipfs-browser-angular-main`, add the images for the application from this [GitHub link](). 
 
-Finally, we can go to the Nym Developer Tutorial repo to get our image assets the same way we did previously : https://github.com/nymtech/developer-tutorials/tree/main/tutorial_assets/ipfs-upload-service-tutorial. Create a new `/images/ui` folder in `/assets` and place the two images that you in that Github directory inside of it.
+<!--need link to image from github here--->
 
-If you application isn't already running, lets start it by executing:
+> ⚠️ Make sure to save all files before proceeding!
+
+
+Run the following:
 ```
 npm start
 ```
@@ -1982,11 +1064,8 @@ You should now have something that looks like this in the browser window when yo
 
 <img src="../images/ipfs-upload-service-tutorial/angular-app-2.png"/>
 
-Lets get our next Next Nym Websocket Client up and running!
 
 #### Initializing our Service Provider's Nym Websocket Client and linking
-
-Remember in the Prerequisite section when we mentioned that you'll have to have a copy of the Nym Websocket Client (nym-client) on your local machine. You should already have a copy of the `nym-client` from our User Client. Simply duplicate that same terminal window and hey presto, another Nym Websocket Client.
 
 One you are ready, proceed to follow the instructions below:
 
@@ -2067,11 +1146,11 @@ One you are ready, proceed to follow the instructions below:
 
 </details>
 
-Once its up an running, we can go back to our browser window on [localhost:4200](http://localhost:4200/) and we should have the User Interface looking something like this:
+Look at the browser window for [localhost:4200](http://localhost:4200/) and it should present a user interface similar to this:
 
 <img src="../images/ipfs-upload-service-tutorial/angular-app-3.png"/>
 
-Okay great. So lets connect these two applications up together with each others Nym Websocket Client addresses. you'll want to copy the clients address as it is displayed on the output above on the final line: 
+3. To connect the two applications using their Nym Websocket Client addresses, copy the clients address : 
 (`EGDHEwXhYHEiu15emXAvsvqWBtAVXazPAYYJNEbmfHsV.GmjtZwTA4jFeUniMzj3mQR5BMiEGwB1qYtbg3v9jgMho@3sMAn8JPJc9p8nENaBJGPhUEebiA7kNxP4nGhMgGaZqG`). Your address will be different from this one of course.
 
 Lets paste that address back into our User Client code , inside `index.ts` and assign the global variable `targetAddress`:
@@ -2095,7 +1174,7 @@ Once you've copied this address, we want to go back over to our Angular Service 
 
 Lets go ahead and give the whole thing a shot.
 
-1. Upload a picture to teh User Client by clicking on the upload button, Once a file has been selected, it will be sent to the websocket automatically and you'll see a notification appear in the activity log.
+1. Upload a picture to the User Client by clicking on the upload button, Once a file has been selected, it will be sent to the websocket automatically and you'll see a notification appear in the activity log.
 
 <img src="../images/ipfs-upload-service-tutorial/demo-ipfs-1.png"/>
 
@@ -2106,24 +1185,3 @@ Lets go ahead and give the whole thing a shot.
 3. We receive a message from the Service Provider back in our User Client with the link to image uploaded to IPFS.
 
 <img src="../images/ipfs-upload-service-tutorial/ipfs-user-client-3.png"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
