@@ -394,7 +394,15 @@ The JSON.stringify our the data when passing to the `send()` function, because t
 
 * `displayJsonSend(message)` - Will show the message in the "Activity Log" section of the UI.
 
-8. Replace the current `index.html` with the following, to reflect our output on the UI:
+8. We'll take care of the styling before we move onto building our UI. Here we can grab the `assets` folder from this [link]('https://github.com/nymtech/developer-tutorials/tree/main/Simple%20Service%20Provider%20Tutorial/User%20Client/assets'). From here, were just going to drag it into the 'User Client' folder. Once we have that folder in, we can move onto filling out our next file, the `index.html` page to apply these styles.
+
+The easiest way to get the `/assets` folder form this repository is to visit [this Github directory downloader](https://download-directory.github.io/) and enter the link of the folder specified above. From there, the tool will download that specific folder from the example repository into your computers default downloads directory. Drag the `/assets` folder from that downloaded into the `/src` directory of your User Client folder.
+
+:::note
+You can opt to use CDN's as an alternative to storing styles and assets locally in the project. However we would advise against it due to privacy issues that may occur when using them in this manner. We recommend using local files for these purposes wherever possible.
+:::
+
+Then, replace the current `index.html` with the following, to reflect our output on the UI:
 
 ```
         <!doctype html>
@@ -415,7 +423,7 @@ The JSON.stringify our the data when passing to the `send()` function, because t
                     </style>
                 <meta charset="UTF-8">
                 <title>Mixnet Websocket Starter Client</title>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                <link rel="stylesheet" href="../assets/semantic.min.css"/>
             </head>
             <body>
                 <div class="headerContainer">
@@ -470,8 +478,8 @@ The JSON.stringify our the data when passing to the `send()` function, because t
                 <p style="background-color: #202124;color: #fff;">
                     <span id="output"></div>
                 </p>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js" integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script src="../assets/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script src="../assets/semantic.min.js" integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                 <script src="index.ts"></script>
             </body>
         </html>
@@ -746,6 +754,14 @@ We'll be connecting to the Nym Websocket Client in the exact same way as the 'Us
 
 #### Service Provider HTML Code
 
+ We'll take care of the styling before we move onto building our UI. Here we can grab the `assets` folder from this [link]('https://github.com/nymtech/developer-tutorials/tree/main/Simple%20Service%20Provider%20Tutorial/User%20Client/assets'). From here, were just going to drag it into the 'Service Provider' folder. Once we have that folder in, we can move onto filling out our next file, the `index.html` page to apply these styles.
+
+ The easiest way to get the `/assets` folder form this repository is to visit [this Github directory downloader](https://download-directory.github.io/) and enter the link of the folder specified above. From there, the tool will download that specific folder from the example repository into your computers default downloads directory. Drag the `/assets` folder from that downloaded into the `/src` directory of your Service Provider folder.
+
+:::note
+You can opt to use CDN's as an alternative to storing styles and assets locally in the project. However we would advise against it due to privacy issues that may occur when using them in this manner. We recommend using local files for these purposes wherever possible.
+:::
+
 Replace the current `index.html` with the following, to reflect our output on the UI for the Service Provider:
 
 ```
@@ -766,7 +782,7 @@ Replace the current `index.html` with the following, to reflect our output on th
             </style>
             <meta charset="UTF-8">
             <title>Mixnet Websocket Starter Service Provider</title>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <link rel="stylesheet" href="../assets/semantic.min.css"/>
         </head>
         <body>
             <div class="headerContainer">
@@ -798,8 +814,8 @@ Replace the current `index.html` with the following, to reflect our output on th
             <p style="background-color: #202124;color: #fff;">
                 <span id="output"></div>
             </p>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js" integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="../assets/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="../assets/semantic.min.js" integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script src="index.ts"></script>
         </body>
     </html>
@@ -812,12 +828,14 @@ The following is the desired directory structure of the `simple-service-provider
 ```
     simple-service-provider-tutorial/
     ├─ user-client/
+    │  ├─ assets/
     │  ├─ src/
     │  │  ├─ index.html
     │  │  ├─ index.ts
     │  ├─ package.json
     │  ├─ tsconfig.json
     ├─ service-provider/
+    │  ├─ assets/
     │  ├─ src/
     │  │  ├─ index.ts
     │  │  ├─ index.html
