@@ -5,12 +5,14 @@ In this guide, developers will be able to observe how using Nym Websocket Client
 
 #### What are we building?
 
-In this tutorial, you will learn how to build a User Client that allows a user to upload an image to the browser and send it through the Nym Mixnet, via our Nym Websocket Client. You'll also then learn how to create a typescript Service Provider, which will receive the image that our client sent.The Service Provider will then upload that image to IPFS and return the results of that back to the User Client.
+In this tutorial, you will learn how to build a client that allows a user to upload an image to the browser and send it through the mixnet, via our Websocket Client. 
+
+You'll also then learn how to create a typescript Service Provider, which will receive the image that our client sent. The Service Provider will then upload that image to IPFS and return the results of that back to the client.
 
 We will be building:
-- A User Client written in TypeScript, which allows for uploading images to then be passed to a Nym Websocket Client to be sent through the Nym Mixnet.
-- A Angular Typescript Service Provider, which can receive images from the User Client and then uploads it to IPFS via a built-in js-ipfs node. The service provider will then return the uploaded file URL back to the User Client.
-- We will also be refreshing our knowledge on using the Nym Websocket Clients that we used in the previous tutorial.
+- A TypeScript client for uploading images to be passed to a WebSocket client and sent through the mixnet.
+- An Angular TypeScript service provider that can receive images from the client and upload them to IPFS via a built-in js-ipfs node. The service provider will then return the URL of the uploaded file to the client.
+- We will also refresh our knowledge of using the WebSocket clients that we used in the previous tutorial.
 
 > ⚠️ Service providers are usually run on remote servers to keep metadata private, but for demonstration purposes, this tutorial will show how to run it on a local machine using looped messages through the Nym Mixnet.
 
@@ -496,9 +498,7 @@ Before the `main()` declaration at the end of the file, add the following:
 
 > ⚠️ Make sure to save all files before proceeding!
 
-9. Inside the `styles.css` in `path/to/the/assets/styles` folder in the root directory, copy and paste the CSS default styling for the application from this [GitHub link](). 
-
-<!--need link to css from github here--->
+9. Inside the `styles.css` in `path/to/the/assets/styles` folder in the root directory, copy and paste the CSS default styling for the application from this [GitHub link](need link to css from github here). 
 
 Also inside the `/images` in `path/to/the/assets` folder in the root directory, add the images for the application from this [GitHub link](). 
 
@@ -611,7 +611,7 @@ You should now see the following changes in the browser window of our User Clien
 
 We can see that our User Client was able to access the websocket on port 1977, detecting our Nym Websocket Client, which successfully returned our required mixnet address. Its time to continue to our next big part of the guide!
 
-### Building the Service Provider.
+### Building the Service Provider
 
 We're making use of the pre-built Angular code provided by the IPFS JS Project [here](https://github.com/ipfs-examples/js-ipfs-browser-angular).
 
@@ -657,9 +657,9 @@ Go to [localhost:4200](http://localhost:4200/) in a new broswer tab. Your browse
 
 <img src="../images/ipfs-upload-service-tutorial/angular-app-1.png"/>
 
-#### Writing our Angular TS component
+#### Frontend Development
 
-The Angular Application should successfully be built and running in the browser.
+The Angular application should be successfully built and running in the browser.
 
 Now were going to be implementing the majority of our code for this application within the `js-ipfs-browser-angular-main/src/app/` folder. The `app.component.ts` file is where we have working JS IPFS code that will get us the id, version and the status of the built-in IPFS node upon starting up the application.
 
@@ -904,8 +904,6 @@ Then return to the `app.component.ts` file and add the following the top of the 
 import { FileLogData } from './file-log-data';
 ```
 
-> ⚠️ Make sure to save all files before proceeding!
-
 10. Next is to make additions and changes to the `ipfs.service.ts file`. Lets open it and have a look inside:
 
 In Angular, a service is a reusable piece of code that can be used to perform specific tasks, such as fetching data, performing calculations, and handling logic that is independent of any particular component. Services are typically used to centralise and share business logic, data, and other functionality across multiple components in an Angular application, promoting separation of concerns and making the code easier to maintain and test.
@@ -1026,13 +1024,11 @@ The other three global variables `currentSelectedSingleFile`,`currentSelectedSin
 
 #### Setting our HTML Template and Styling.
 
-1. Inside the `app.component.html` in `path/to/js-ipfs-browser-angular-main/src/app` folder in the root directory, replace HTML default for the application from this [GitHub link](). 
+1. Inside the `app.component.html` in `path/to/js-ipfs-browser-angular-main/src/app` folder in the root directory, replace HTML default for the application from this [GitHub link](need link to css from github here). 
 
-<!--need link to html from github here--->
 
-2. Inside the `app.component.css` in `path/to/js-ipfs-browser-angular-main/src/app` folder in the root directory, replace CSS default styling for the application from this [GitHub link](). 
+2. Inside the `app.component.css` in `path/to/js-ipfs-browser-angular-main/src/app` folder in the root directory, replace CSS default styling for the application from this [GitHub link](need link to css from github here). 
 
-<!--need link to css from github here--->
 
 3. Return back to `app.component.ts`, replace this block with the following:
 
