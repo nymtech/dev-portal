@@ -159,24 +159,26 @@ Query Response:
 	    }
 	}
 
-- `total_supply`- The total number of Nym tokens that have been created and can exist, including those that are currently in circulation and those that are reserved for various purposes.
+- `total_supply`- The total number of NYM tokens that have been created and can exist, including those that are currently in circulation and those that are reserved for various purposes.
 
-- `mixmining_reserved`- The number of Nym tokens that are reserved for the Mixnet miners who help to power the Nym network.
+- `mixmining_reserved`- The number of NYM tokens that are reserved for the mixnet miners who help to power the Nym network.
 
-- `vesting_tokens`- The number of Nym tokens that are subject to vesting, meaning they are gradually released over time to certain stakeholders such as the team, advisors, and early investors.
+- `vesting_tokens`- The number of NYM tokens that are subject to vesting, meaning they are gradually released over time to certain stakeholders such as the team, advisors, and early investors.
 
-- `circulating_supply`- The number of Nym tokens that are currently in circulation and available to be traded on the open market, which is calculated by subtracting the `mixmining_reserved` and `vesting_tokens` from the `total_supply`.
+- `circulating_supply`- The number of NYM tokens that are currently in circulation and available to be traded on the open market, which is calculated by subtracting the `mixmining_reserved` and `vesting_tokens` from the `total_supply`.
 
-Using this API endpoint returns the current value of the total supply of Nym tokens:
+Using this API endpoint returns the current value of the total supply of NYM tokens:
 
 ```
 /circulating-supply/total-supply-value
 ```
 Query Response:
 
-	1000000000.0
+	1000000000.0 
 
-Using this API endpoint returns the current value of the circulating supply of Nym tokens:
+> The maximum number of `NYM` tokens that can ever be created is 1 billion.
+
+Using this API endpoint returns the current value of the circulating supply of NYM tokens:
 
 ```
 /circulating-supply/circulating-supply-value
@@ -184,6 +186,9 @@ Using this API endpoint returns the current value of the circulating supply of N
 Query Response:
 
 	368639460.187887
+
+> This refers to the present quantity of `NYM` tokens that are actively in circulation.
+
 
 ## Sending traffic through the Nym mixnet  
 ### Is the mixnet free to use? 
