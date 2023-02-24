@@ -1,5 +1,5 @@
 # Integration Options
-If you've already gone through the different [Quick Start](/quickstart/overview.md) options, you have seen the possibilities avaliable to you for quickly connecting existing application code to another Nym process. 
+If you've already gone through the different [Quick Start](../quickstart/overview.md) options, you have seen the possibilities avaliable to you for quickly connecting existing application code to another Nym process. 
 
 This section assumes you wish to integrate with Nym into your application code. 
 

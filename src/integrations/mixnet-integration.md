@@ -81,4 +81,3 @@ In order to ensure uptime and reliability, it is recommended that you run some p
 * If you're wanting to route RPC requests through the mixnet to a blockchain, you will need to look into setting up some sort of service that does the transaction broadcasting for you. You can find examples of such projects on the [community applications](../community-resources/community-applications.md) page. 
 
 > Alpha leak: we are working on tutorial for broadcasting blockchain transactions through the mixnet, as well as interacting with our smart contract infrastructure... keep your eyes peeled! 
-

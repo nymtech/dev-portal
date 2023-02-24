@@ -117,7 +117,7 @@ The token used to reward mixnet infrastructure operators - `NYM` - is one of the
 
 `NYM` is used to incentivise the mixnet, whereas `NYX` is used to secure the Nyx blockchain via Validator staking. 
 
-> Integration with Nym's technology stack will most likely involve using `NYM` if you do need to interact with the Nyx blockchain and transfer tokens. 
+> Integration with Nym's technology stack will most likely involve using `NYM` if you do need to interact with the Nyx blockchain and transfer tokens.
 
 ### I've seen an ERC20 representation of `NYM` on Ethereum - what's this and how do I use it? 
 
@@ -126,6 +126,69 @@ We use the [Gravity Bridge](https://github.com/Gravity-Bridge) blockchain to bri
 > The ERC20 representation of `NYM` **cannot** be used with the mixnet; only the native Cosmos representation is usable for staking or bonding nodes.
 
 If you need to transfer tokens across the bridge, we recommend users use Cosmostation's [spacestation.zone](https://spacestation.zone/) dApp with Metamask and Keplr. 
+
+### What is Circulating Supply and how to find out the distribution amount?
+
+Circulating supply is the total number of available `NYM`. `NYM` is currently present on the IBC-enabled Nyx blockchain, as well as in ERC20 form on Ethereum Mainnet.
+
+The Validator API endpoints can be found via the [Swagger Documentation](https://validator.nymtech.net/api/swagger/index.html). The following endpoints can be called to retrieve the correct distribution amount and circulating supply within Nym. 
+
+Using this API endpoint returns information about the circulating supply of Nym tokens:
+
+```
+/circulating-supply
+```
+Query Response: 
+
+	{
+	    "total_supply": {
+	        "denom": "unym",
+	        "amount": "1000000000000000"
+	    },
+	    "mixmining_reserve": {
+	        "denom": "unym",
+	        "amount": "241105338883248"
+	    },
+	    "vesting_tokens": {
+	        "denom": "unym",
+	        "amount": "390255200928865"
+	    },
+	    "circulating_supply": {
+	        "denom": "unym",
+	        "amount": "368639460187887"
+	    }
+	}
+
+- `total_supply`- The total number of NYM tokens that have been created and can exist, including those that are currently in circulation and those that are reserved for various purposes.
+
+- `mixmining_reserved`- The number of NYM tokens that are reserved for the mixnet miners who help to power the Nym network.
+
+- `vesting_tokens`- The number of NYM tokens that are subject to vesting, meaning they are gradually released over time to certain stakeholders such as the team, advisors, and early investors.
+
+- `circulating_supply`- The number of NYM tokens that are currently in circulation and available to be traded on the open market, which is calculated by subtracting the `mixmining_reserved` and `vesting_tokens` from the `total_supply`.
+
+Using this API endpoint returns the current value of the total supply of NYM tokens:
+
+```
+/circulating-supply/total-supply-value
+```
+Query Response:
+
+	1000000000.0 
+
+> The maximum number of `NYM` tokens that can ever be created is 1 billion.
+
+Using this API endpoint returns the current value of the circulating supply of NYM tokens:
+
+```
+/circulating-supply/circulating-supply-value
+```
+Query Response:
+
+	368639460.187887
+
+> This refers to the present quantity of `NYM` tokens that are actively in circulation.
+
 
 ## Sending traffic through the Nym mixnet  
 ### Is the mixnet free to use? 
