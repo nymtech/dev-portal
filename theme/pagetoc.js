@@ -62,6 +62,17 @@ window.addEventListener('load', function() {
     updateFunction.call();
 });
 
+function addSocialIcons() {
+  var socialIcons = document.createElement("div");
+  socialIcons.className = "social-icons";
+  socialIcons.innerHTML = "<a href='https://www.facebook.com/'><img src='facebook-icon.png'></a><a href='https://twitter.com/'><img src='/assets/twitter-icon.png'></a><a href='https://www.instagram.com/'><img src='/assets/instagram-icon.png'></a>";
+  var body = document.getElementsByTagName("body")[0];
+  body.appendChild(socialIcons);
+}
+
+window.addEventListener("DOMContentLoaded", addSocialIcons);
+
+
 
 
 // Handle active elements on scroll
