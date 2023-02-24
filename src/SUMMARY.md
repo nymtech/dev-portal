@@ -3,16 +3,10 @@
 [Introduction](introduction.md)
 
 # Infrastructure
-- [What is Nym?](infrastructure/what-is-Nym.md)
+
+- [What is Nym?](infrastructure/nym.md)
 - [Nym vs Other Systems](infrastructure/nym-vs-others.md)
-- [Mixnet Traffic Flow](infrastructure/mixnet-traffic-flow.md)
-- [Different Types of Nodes](infrastructure/different-nodes.md)
-- [Implementing Nym](infrastructure/implementing-nym.md)
-
-# Tutorials
-
-- [Simple Service Provider](tutorials/simple-service-provider.md)
-- [IPFS Service Provider (coming soon)](tutorials/ipfs-service-provider.md)
+- [Node Types](infrastructure/node-types.md)
 
 # Quickstart
 
@@ -23,14 +17,18 @@
 # Integrations
 
 - [Integration Options](integrations/integration-options.md)
+- [Integration FAQ](integrations/faq.md)
 - [Mixnet Integration](integrations/mixnet-integration.md)
 - [Payment Integration](integrations/payment-integration.md)
-- [Integration FAQ](integrations/faq.md)
+
+# Tutorials
+
+- [Simple Service Provider](tutorials/simple-service-provider.md)
+- [IPFS Service Provider (coming soon)](tutorials/ipfs-service-provider.md)
 
 # Community Resources
 
-- [AMAs with Nym Developer Relations](community-resources/ama.md)
-- [Forums (TBC)](community-resources/forums.md)
+- [Nym DevRel AMAs](community-resources/ama.md)
 - [Community Applications](community-resources/community-applications.md)
 - [Community Guides](community-resources/community-guides.md)
 - [Change Service Grantee Information](info-request.md)
@@ -38,6 +36,7 @@
 --- 
 
 # Misc.
+- [Glossary](glossary.md)
 - [Code of Conduct](coc.md)
 - [Licensing](licensing.md)
 

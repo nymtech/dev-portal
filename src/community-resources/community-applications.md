@@ -4,7 +4,7 @@ We love seeing our developer community create applications using Nym. If you wou
 
 <!--Pastenym *start-->
 
-## <img src='/images/profile_picture/pastenym_ntv_pp.png' style="float: right; width: 75px; height: 75px;">Pastenym
+## <img src='../images/profile_picture/pastenym_ntv_pp.png' style="float: right; width: 75px; height: 75px;">Pastenym
 
 >A [pastebin](https://pastebin.com) inspired project, offer a solution for sharing text with Nym products to offer full anonymity, even on metadata level.
 
@@ -15,7 +15,7 @@ We love seeing our developer community create applications using Nym. If you wou
 
 <!--Ethereum RPC Provider *start-->
 
-## <img src='/images/profile_picture/ethereum_rpc_spook_pp.png' style="float: right; width: 75px; height: 75px;"> Spook
+## <img src='../images/profile_picture/ethereum_rpc_spook_pp.png' style="float: right; width: 75px; height: 75px;"> Spook
 
 > Ethereum RPC request mixer uses the Nym network mixing service to anonymize RPC requests to the Ethereum network without revealing sensitive data and metadata.
 * [Github](https://github.com/EdenBlockVC/spook)
@@ -24,7 +24,7 @@ We love seeing our developer community create applications using Nym. If you wou
 
 <!--Ethereum Transaction Broadcaster *start-->
 
-## <img src='/images/profile_picture/ethereum_transaction_broadcaster_root_pp.png' style="float: right; width: 75px; height: 75px;"> Ethereum Transaction Broadcaster
+## <img src='../images/profile_picture/ethereum_transaction_broadcaster_root_pp.png' style="float: right; width: 75px; height: 75px;"> Ethereum Transaction Broadcaster
 
 > Ethereum Transaction Broadcaster that uses the Nym Mixnet to provide privacy and anonymity for transactions on the Ethereum network command-line interface.
 
@@ -34,7 +34,7 @@ We love seeing our developer community create applications using Nym. If you wou
 
 <!--NymDrive *start-->
 
-## <img src='/images/profile_picture/nymdrive_saleel_pp.png' style="float: right; width: 75px; height: 75px;">NymDrive
+## <img src='../images/profile_picture/nymdrive_saleel_pp.png' style="float: right; width: 75px; height: 75px;">NymDrive
 
 > An open-source, decentralized, E2E encrypted, privacy friendly alternative to Google Drive/Dropbox, allowing for file encryption and decryption using the Nym Mixnet.
 * [Github](https://github.com/saleel/nymdrive)

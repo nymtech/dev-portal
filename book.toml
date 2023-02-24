@@ -1,4 +1,5 @@
 [book]
+title = "Nym Developer Portal"
 authors = ["Oliver Anyanwu", "Max Hampshire"]
 language = "en"
 multilingual = false
@@ -83,11 +84,11 @@ copy-fonts = true
 no-section-label = false
 additional-css = ["theme/pagetoc.css", "././mdbook-admonish.css", "last-changed.css"]
 additional-js  = ["theme/pagetoc.js"]
-git-repository-url = "https://github.com/nymtech/docs"
+git-repository-url = "https://github.com/nymtech/dev-portal"
 git-repository-icon = "fa-github"
 # edit-url-template = "https://github.com/rust-lang/mdBook/edit/master/guide/{path}"
-# site-url = "/example-book/"
-# cname = "myproject.rs"
+site-url = "/developers/"
+# cname = "nymtech.net"
 # input-404 = "not-found.md" # todo make custom 404 page
 
 [output.html.fold]
@@ -115,8 +116,13 @@ expand = true            # partial words will match longer terms
 heading-split-level = 3  # link results to heading levels
 copy-js = true           # include Javascript code for search
 
+
 [output.html.header]
 extra_js = ["social-icons.js"]
 
 [output.html.footer]
 extra_js = ["https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"]
+
+[output.linkcheck]
+warning-policy = "warn"
+
