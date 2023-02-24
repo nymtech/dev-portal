@@ -65,7 +65,7 @@ window.addEventListener('load', function() {
 function addSocialIcons() {
   var socialIcons = document.createElement("div");
   socialIcons.className = "social-icons";
-  socialIcons.innerHTML = "<a href='https://www.facebook.com/'><img src='facebook-icon.png'></a><a href='https://twitter.com/'><img src='/assets/twitter-icon.png'></a><a href='https://www.instagram.com/'><img src='/assets/instagram-icon.png'></a>";
+  socialIcons.innerHTML = "<a href='https://t.me/nymchan'><img src='/images/icons/telegram_icon.png'></a><a href='https://twitter.com/nymproject'><img src='/images/icons/twitter_icon.png'><a href='need a link'><img src='/images/icons/element_icon.png'></a><a href='https://www.reddit.com/r/nym/'><img src='/images/icons/reddit_icon.png'><a href='https://discord.com/invite/nym'><img src='/images/icons/discord_icon.png'></a><a href='https://www.youtube.com/@Nymtech'><img src='/images/icons/youtube_icon.png'></a>";
   var body = document.getElementsByTagName("body")[0];
   body.appendChild(socialIcons);
 }
