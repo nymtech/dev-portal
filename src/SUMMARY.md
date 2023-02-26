@@ -4,7 +4,7 @@
 
 # Infrastructure
 
-- [What is Nym?](infrastructure/what-is-nym.md)
+- [What is Nym?](infrastructure/nym.md)
 - [Nym vs Other Systems](infrastructure/nym-vs-others.md)
 - [Node Types](infrastructure/node-types.md)
 
