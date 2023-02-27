@@ -62,5 +62,17 @@ window.addEventListener('load', function() {
     updateFunction.call();
 });
 
+// Social media footer links
+function addSocialIcons() {
+  var socialIcons = document.createElement("div");
+  socialIcons.className = "social-icons";
+  socialIcons.innerHTML = "<a href='https://t.me/nymchan'><img src='/images/icons/telegram_icon.png'></a><a href='https://twitter.com/nymproject'><img src='/images/icons/twitter_icon.png'><a href='https://matrix.to/#/#general:nymtech.chat'><img src='/images/icons/element_icon.png'></a><a href='https://www.reddit.com/r/nym/'><img src='/images/icons/reddit_icon.png'><a href='https://discord.com/invite/nym'><img src='/images/icons/discord_icon.png'></a><a href='https://www.youtube.com/@Nymtech'><img src='/images/icons/youtube_icon.png'></a>";
+  var body = document.getElementsByTagName("body")[0];
+  body.appendChild(socialIcons);
+}
+
+window.addEventListener("DOMContentLoaded", addSocialIcons);
+
+
 // Handle active elements on scroll
 window.addEventListener("scroll", updateFunction);
