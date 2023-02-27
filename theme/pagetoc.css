@@ -44,19 +44,4 @@
         font-weight: bold;
         font-size: var(--pagetoc-fontsize);
     }
-
-    .social-icons {
-      display: flex;
-      justify-content: center;
-    }
-
-    .social-icons a {
-      display: inline-block;
-      margin: 0 10px;
-    }
-
-    .social-icons a img {
-      max-height: 25px;
-      max-width: 25px;
-    }
 }
