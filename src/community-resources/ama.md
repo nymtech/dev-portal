@@ -6,8 +6,6 @@ The Nym Technology Developer Relations AMA (Ask Me Anything) is an event organis
 
 Checkout out our playlist below:
 
-<!--HTML-->
-
 ## 2023
 <div class="video-slider">
   <div class="video-container">
@@ -45,56 +43,6 @@ Checkout out our playlist below:
     </div>
   </div>
 </div>
-
-
-<!--CSS-->
-
-<style>
-  .video-slider {
-    display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-  }
-
-  .video-container {
-    flex: 0 0 auto;
-    margin-right: 10px;
-    width: 320px;
-    height: 180px;
-    border: 2px solid #000;
-    scroll-snap-align: start;
-  }
-
-  .video {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-  }
-
-  .video iframe {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-
-.video-title {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin: 0;
-  padding: 5px;
-  font-size: 14px;
-  text-align: center;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
-</style>
 
 
 
