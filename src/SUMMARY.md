@@ -32,12 +32,11 @@
 - [Community Applications](community-resources/community-applications.md)
 - [Community Guides](community-resources/community-guides.md)
 - [Change Service Grantee Information](info-request.md)
-
+- [Kyc FAQ](community-resources/kyc-faq.md)
 --- 
 
 # Misc.
 - [Glossary](glossary.md)
 - [Code of Conduct](coc.md)
 - [Licensing](licensing.md)
-
 --- 
