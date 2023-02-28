@@ -118,4 +118,3 @@ copy-js = true           # include Javascript code for search
 
 [output.linkcheck]
 warning-policy = "warn"
-

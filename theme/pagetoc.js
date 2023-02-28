@@ -62,7 +62,5 @@ window.addEventListener('load', function() {
     updateFunction.call();
 });
 
-window.addEventListener("DOMContentLoaded", addSocialIcons);
-
 // Handle active elements on scroll
 window.addEventListener("scroll", updateFunction);
