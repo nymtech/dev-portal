@@ -10,13 +10,13 @@ In this tutorial, you will learn how to build two essential components for sendi
 
 - A __User Client__ written in TypeScript, which allows for accessing the mixnet through a browser on a local machine.
 - A __Service Provider__ also written in TypeScript, which can receive messages from the mixnet.
-- Additionally, you will be guided on how to configure a pair of Nym Websocket Clients, which are necessary for connecting to the mixnet with your application.
+- Additionally, you will be guided on how to configure a pair of __Nym Websocket Clients__ (__nym-client's__), which are necessary for connecting to the mixnet with your application.
 
-> ⚠️ Service providers are usually run on remote servers to keep metadata private, but for demonstration purposes, this tutorial will show how to run it on a local machine using looped messages through the mixnet.
+> ⚠️ Service providers are usually run on remote servers to keep metadata private, but for demonstration purposes, this tutorial will show how to run it on a local machine, effectively sending messages back to ourselves via two different __nym-client's__. .
 
 <img src="../images/ssp_image.png"/>
 
-We'll dive into the process of creating a Typescript application from the ground up. We'll cover how to set up a Nym Websocket Client and connect it to the mixnet, as well as the necessary steps to send a properly formatted message through the mixnet to the Service Provider. Don't fret if your skills in Javascript or Typescript are a bit rusty, there will be plenty of code snippets to copy and paste along the way.
+We'll dive into the process of creating a Typescript application from the ground up. We'll cover how to set up a __nym-client__ and connect it to the mixnet, as well as the necessary steps to send a properly formatted message through the mixnet to the Service Provider. Don't fret if your skills in Javascript or Typescript are a bit rusty, there will be plenty of code snippets to copy and paste along the way.
 
 To assist in your learning, the complete code for this tutorial is available on [Github](https://github.com/nymtech/developer-tutorials). You can use it as a reference while building or simply download it and follow along as you progress through the tutorial."
 
@@ -25,7 +25,7 @@ To assist in your learning, the complete code for this tutorial is available on 
 We aim to create a user-friendly experience for sending data through the mixnet. The User Client will present a simple form accessible through a web browser, where users can enter their data. Once the form is completed, users can press a 'Send' button which will transmit the data straight to the Service Provider via the mixnet. The sent data will be visible within the user interface of the Service Provider, which can also be accessed through a web browser.
 
 #### What is a Service Provider
-'Service Providers' are the name given to any type of app that can communicate with the mixnet via a Nym Client. The [Network Requester](https://nymtech.net/docs/nodes/network-requester-setup.html) is an app that takes an outbound network request from the mixnet, performs that request (e.g. authenticating with a message server and recieving new messages) and then passes the response back to the user who requested it, sheilding their metadata from the message server. 
+'Service Providers' are the name given to any type of app that can communicate with the mixnet via a Nym Client. The [Network Requester](https://nymtech.net/docs/nodes/network-requester-setup.html) is an app that takes an outbound network request from the mixnet, performs that request (e.g. authenticating with a message server and receiving new messages) and then passes the response back to the user who requested it, shielding their metadata from the message server. 
 
 The Service Provider covered in this tutorial is far more simple than this, as it just aims to show developers how to approach building something that can:
 * connect to the mixnet, 
@@ -143,10 +143,11 @@ Continue to then do the following:
 
 To build and run our application locally, we require a tool that allows us to work on it while it's running and instantly reflects saved changes on the browser.
 
-1.  This can be achieved through the installation of Parcel bundler using the following command in your terminal window:
+1.  This can be achieved through the installation of the [Parcel](https://parceljs.org/getting-started/webapp/) bundler 
+    using the following command in your terminal window:
 
     ```
-    npm install --global parcel-bundler
+    npm install parcel-bundler
     ```
 
     After completing the installation process, start by creating a `src` folder within the `user-client` folder. Within this `src` folder, create two new files:
@@ -199,9 +200,9 @@ To build and run our application locally, we require a tool that allows us to wo
     
 ### Building the User Client
 
-Building our __User Client__ focuses mainly on configuring and adding functions to `index.ts` file, in the `user-client` folder. It's where we establish the connection between our application and the mixnet, create the messages we want to send, and then send them to a service provider through the mixnet. 
+Building our __User Client__ focuses mainly on configuring and adding functions to `index.ts` file, in the `user-client` folder. It's where we establish the connection between our application and the mixnet, create the messages we want to send, and then send them to our service provider through the mixnet. 
 
-Therefore we must implement the functions that connects our Typescript __User Client__ to our Nym Websocket client.
+Therefore we must implement the functions that connects our Typescript __User Client__ to our first __nym-client__.
 
 1.  Replace the existing content of the `index.ts` file in the `user-client` folder with this function: 
     
@@ -225,18 +226,15 @@ Therefore we must implement the functions that connects our Typescript __User Cl
     
     main();
     ```
-    * `main()` - This first function will hold the majority of the logic and initiate the connection with the Nym Websocket Client. It's best to declare it at the start of the file and call it at the end to run when launching the application.
+    * `main()` - This first function will hold the majority of the logic and initiate the connection with the __nym-client__. It's best to declare it at the start of the file and call it at the end to run when launching the application.
 
-    * `connectWebsocket(url)` - In this function, we return a Promise that tries to set up a websocket connection to the url we provide as a parameter. If the connection is successful, we will get a notification in our application and websocket client. If it fails, we'll receive an error in our app. 
+    * `connectWebsocket(url)` - In this function, we return a Promise that tries to set up a websocket connection to the url we provide as a parameter. If the connection is successful, we will get a notification in our application and __nym-client__. If it fails, we'll receive an error in our app. 
 
 2.  Next, implement the functions that will handle DOM (Document Object Model) manipulation allowing the alteration of the UI depending on our interaction with the application.
     
     Before the `main()` declaration at the end of the file, add the following:
     
     ```typescript
-        function displayClientMessage(message) {
-            document.getElementById("output").innerHTML += "<p>" + message + "</p >";
-        }
         
         function handleResponse(resp) {
         try {
@@ -255,8 +253,8 @@ Therefore we must implement the functions that connects our Typescript __User Cl
         }
         
         function handleReceivedTextMessage(message) {
-            const text = message.message
-            displayJsonResponse(text)
+            const text = JSON.parse(message.message);
+            displayJsonResponse(text);
         }
         
         function displayJsonResponse(message) {
@@ -270,9 +268,21 @@ Therefore we must implement the functions that connects our Typescript __User Cl
             document.getElementById("output").appendChild(receivedDiv)
         }
 
+        function displayClientMessage(message) {
+            document.getElementById("output").innerHTML += "<p>" + message + "</p >";
+        }
+
     ```
 
-    The majority of this code is required for adjusting the elements of the `index.html`. 
+    This above functions are responsible for updating the UI when we either send or receive messages from our service provider.
+
+    * `handleResponse()` - This function will take in the response it receives from the mixnet and will pass it to the appropriate function depending on th responses `type` value. The four common `type`'s that a mixnet message will fall into are `recieved`, `send`, `selfAddress` and `error`.
+
+    * `handleReceivedTextMessage()` - We use this small function to ensure that our data is JSON format before we display the response on the UI. This is necessary since we receive our from the mixnet in a `stringified` format.
+
+    * `displayJsonResponse()` - This function is responsible for printing messages onto our UI. It simply creates new `<p>` HTML elements for each message that needs to be displayed on screen.
+
+    * `displayClientMessage()` - We use this function to display our own address upon starting the __User Client__ .
 
 3.  Above our `main()` function, add the following code:
 
@@ -286,9 +296,9 @@ Therefore we must implement the functions that connects our Typescript __User Cl
 
     These variables are the main global variables of our application.
 
-    * `ourAddress` - Automatically filled in upon receipt of a reply from the Nym Websocket client's initialization.
+    * `ourAddress` - Automatically filled in upon receipt of a reply from the __nym-client's__ initialization.
 
-    * `targetAddress` - A manually set parameter for the Service Provider's Nym client.
+    * `targetAddress` - A manually set parameter that points to the Service Provider's __nym-client__.
 
     * `websocketConnection` - Populated upon a successful response from our Promise within the `connectWebsocket()` function.
 
@@ -337,10 +347,10 @@ Therefore we must implement the functions that connects our Typescript __User Cl
 
     Recap: So far, our added logic into our `main()` function will do the following:
 
-    * State the port (set to `1977`, which our Websocket Client listens to by default) and local client url (which we point to `localhost` (`127.0.0.1`)).
+    * State the port (set to `1977`, which our __nym-client__ listens to by default) and local client url (which we point to `localhost` (`127.0.0.1`)).
     * Called our `connectWebsocket()` function and assign the value it returns to `websocketConnection`.
     * Implemented the handling of any responses retrieved from the websocket, dependent of the value in the type attribute within the `handleResponse()` function.
-    * Added the `sendSelfAddressRequest()` function which sends a object with an attribute type of `selfAddress` that retrieves the address of the Websocket Client.
+    * Added the `sendSelfAddressRequest()` function which sends a object with an attribute type of `selfAddress` that retrieves the address of the __nym-client__.
     * Initially built `Send` button function which will purposely grab the sent data.
 
 6. Underneath the `sendSelfAddressRequest()` function, add the following:
@@ -375,7 +385,7 @@ Therefore we must implement the functions that connects our Typescript __User Cl
 
     * `sendMessageToMixnet()` - The key function that will allow our __Service Provider__ messages to receive messages. Firstly, it will gets the values from a form in the `index.html` and assign them to local variables within the function, inserting the local variables into one object to be sent to the mixnet. Secondly, calling the `displayJsonSend()` function to render the sent message on to the UI. Lastly, the `websocketConnection` global variable will send our message to the websocket. 
 
-    The JSON.stringify our the data when passing to the `send()` function, because the Nym Websocket client only accepts messages in string format and will throw an error if it receives a non-string value.
+    The JSON.stringify our the data when passing to the `send()` function, because the __nym-client__ only accepts messages in string format and will throw an error if it receives a non-string value.
 
 7. Below our `sendMessageToMixnet()` function, add the following:
 
@@ -434,8 +444,8 @@ Therefore we must implement the functions that connects our Typescript __User Cl
             <div class="" style="margin-left:20px;max-width: fit-content;">
                 <div style="color: white;margin-bottom: 2rem;">
                         <h4>How it works</h4>
-                        <p>Once you have started your Nym Websocket client(s), you can fill out the form and send data to the mixnet using the <b>"Send"</b> button.</p>
-                        <p>Your message will then be relayed through your Nym Websocket client running on the port (specified using --port in the command line) which is set to 1977 by default.</p>
+                        <p>Once you have started your nym-client(s), you can fill out the form and send data to the mixnet using the <b>"Send"</b> button.</p>
+                        <p>Your message will then be relayed through your nym-client running on the port (specified using --port in the command line) which is set to 1977 by default.</p>
                         <p>Below, you can see the activity log. <b style='color: #36d481;'>Sent</b> messages will display in <b style='color: #36d481;'>green</b> while <b style='color: orange;'>received</b> messages will display in <b style='color: orange;'>orange</b>.</p>
                 </div>
             </div>
@@ -465,9 +475,9 @@ Therefore we must implement the functions that connects our Typescript __User Cl
 
     <img src="../images/tutorial_image_2.png"/>
 
-### Connecting the Nym Websocket Client
+### Connecting the nym-client
 
-This far into the tutorial, we should have functioning __User Client__ to make the initial websocket connection that we're looking for. To connect our Nym Websocket client, go to [releases page](https://github.com/nymtech/nym/releases) to download the latest binaries release of the `nym-client`. Alternatively, download [here](https://nymtech.net/docs/stable/run-nym-nodes/build-nym/) and follow instructions to build the binaries from the monorepo. Once the `nym-client` latest binaries has been downloaded, we can begin connecting and executing of our websocket functionality.  
+This far into the tutorial, we should have functioning __User Client__ to make the initial websocket connection that we're looking for. To connect our __nym-client__, go to [releases page](https://github.com/nymtech/nym/releases) to download the latest binaries release of the `nym-client`. Alternatively, download [here](https://nymtech.net/docs/stable/run-nym-nodes/build-nym/) and follow instructions to build the binaries from the monorepo. Once the `nym-client` latest binaries has been downloaded, we can begin connecting and executing of our websocket functionality.  
 
 1.  Open a new terminal window, and `path/to/the/release` folder, and run the following to initialize your first `nym-client`:
 
@@ -539,7 +549,7 @@ This far into the tutorial, we should have functioning __User Client__ to make t
         2023-01-30T09:28:54.077Z INFO  nym_client::client                                                        > The address of this client is: 5hjx1NGdGfd4rGDPfB2r8E85dEVZ6vgy135fP3nMuWWM.LwnvsnVzwUCMxxLM8e6HZ395pSPc9NDdmCXtHHVMfCG@5Ao1J38frnU9Rx5YVeF5BWExcnDTcW8etNe9W2sRASXD
     </details>
 
-    The Websocket Client for our Typescript Script is now up and running, and we can refresh the browser application to see the changes. In the 'Activity Log' of the UI, there's a successful response from our websocket, thus we're able to see the same address from our terminal. If we were to terminate our `nym-client`, we can an error on the browser UI stating a missing websocket connection. This is a good sign of error handling.
+    The __nym-client__ for our Typescript Script is now up and running, and we can refresh the browser application to see the changes. In the 'Activity Log' of the UI, there's a successful response from our websocket, thus we're able to see the same address from our terminal. If we were to terminate our `nym-client`, we can an error on the browser UI stating a missing websocket connection. This is a good sign of error handling.
 
     We can now rerun the same `nym-client`.
 
@@ -723,7 +733,7 @@ Create a folder names `/src` the same level as our previous three files we creat
 
 > You may observe that we possess similar functions to the __User Client__ code, with only a few differences in the objectives of a few functions, mainly our `handleResponse()` function.
 
-* `main()` - Just like our __User Client__, our `main()` function will still be the function in charge of our initializing and executing our application. We connect to our websocket in the exact same way as we do in our __User Client__ code except we want to set our `port` local variable to '1978'. This is so we don't have a conflict with the other Nym Websocket Client (the one that we are running for our __User Client__ on `port` 1977). So when we launch our second Nym Websocket Client, we will set the `--port` to 1978 when we get to initializing it (coming up further in the tutorial).
+* `main()` - Just like our __User Client__, our `main()` function will still be the function in charge of our initializing and executing our application. We connect to our websocket in the exact same way as we do in our __User Client__ code except we want to set our `port` local variable to '1978'. This is so we don't have a conflict with the other __nym-client__ (the one that we are running for our __User Client__ on `port` 1977). So when we launch our second __nym-client__, we will set the `--port` to 1978 when we get to initializing it (coming up further in the tutorial).
 
 * `handleResponse()` - When it comes to the sorting between types of incoming messages, its works relatively the same as the function with the same name defined in our __User Client__. The main difference is within how we are logging our data (which will be displayed in our terminal once the application is up and running).
 
@@ -731,55 +741,56 @@ The '\x1b' orefix you see in our console.log enables the ability for us to color
 
 * `sendMessageToMixnet()` - When we receive a message from the __User Client__, we want to send a response back to notify the the user that the __Service Provider__ recieved their request successfully. We dont need to define use any DOM elements to populate our message since its a console application. We can simply send a single message back and send it to the address that we receive in the payload from the __User Client__.  
 
-We'll be connecting to the Nym Websocket Client in the same way as the __User Client__, so we can reuse the following functions for the __Service Provider__: 
+We'll be connecting to the __nym-client__ in the same way as the __User Client__, so we can reuse the following functions for the __Service Provider__: 
 * `sendSelfAddressRequest()`
 * `connectWebsocket(url)`
 
-Before we get our __Service Provider__ up and running, lets get our second NYm WEbsocket Client up and running
+Before we get our __Service Provider__ up and running, lets get our second __nym-client__ up and running
 
 #### Getting the Service Provider connected.
 
-Lets get get our __Service Provider's__ Websocket Client running.
+Lets get get our __Service Provider's__ __nym-client__ running.
 
-1.  To get the __Service Provider's__ Websocket Client running, navigate to `path/to/the/release` folder (like we did with our __User Client__ instance) and run the following to initialize 
+1.  To get the __Service Provider's__ __nym-client__ running, navigate to `path/to/the/release` folder (like we did with our __User Client__ 
+    instance) and run the following to initialize 
     your second `nym-client`: 
-
+         
     ```
     ./nym-client init --id service-provider --port 1978
     ```
 
     We want to specify port `1978` since thats the port specified in our `index.ts`. Different `nym-client`'s must run on different ports in order to avoid conflicts.
 
-3.  Then run:
+2.  Then run:
 
     ```
     ./nym-client run --id service-provider
     ```
 
-    The second Nym Websocket Client is now running!
+    The second __nym-client__ is now running!
 
     <img src="../images/tutorial_image_4.png"/>
 
-    We can see that we get our Nym Websocket Address successfully.
+    We can see that we get our __nym-client__ Address successfully.
 
-4.  The final step of this tutorial is to update the `targetAddress` in the __User Client__'s `index.ts`. Assign the global variable `targetAddress` we initialized, with the address of the
-    __Service Provider's__ Nym Websocket client. Feel free to copy and paste the resulting address that you see in your terminal (purple text).
+3.  The final step of this tutorial is to update the `targetAddress` in the __User Client__'s `index.ts`. Assign the global variable
+    `targetAddress` we initialized, with the address of the __Service Provider's__ __nym-client__. Feel free to copy and paste the resulting address that you see in your terminal (purple text).
 
     ```
     var targetAddress = '<service-provider-websocket-client-addresss>';
     ```
 
-    > ⚠️ Reminder that the client address produced from running this command in your terminal will always be different to the one you have when you execute this command. Each address generated by each client will be different.
-
 We should have the following set up:
 
-* A Single __User Client__  Web App running in the terminal and its UI on the Web Browser
+* A Single __User Client__  Web App running in the terminal and its UI in the Web Browser
 * A Single __Service Provider__ Nodemon App running in the terminal 
-* Two Nym Websocket Clients for each App in the terminal
+* Two Websocket Clients (__nym-client's__) for each App in the terminal
 
 We can now attempt to send a message by completing the fields on the __User Client__ browser app and pressing __'Send'__.
 
-After clicking __'Send'__, you can observe a message sent from the __User Client__ to the __Service Provider__ via the mixnet in the browser app, thus creating a basic web application solution in the process.
+After clicking __'Send'__, you can observe a message sent from the __User Client__ to the __Service Provider__ via the mixnet in the browser app, thus creating a basic web application in the process.
+
+We encourage developers to use this small project as a template to start conceptualizing and developing their own privacy based applications. The application is in a state where it can be easily restructured, refactored and integrated into existing solutions for limitless categories of Web Applications.
 
 <img src="../images/tutorial_image_5.png"/>
 
