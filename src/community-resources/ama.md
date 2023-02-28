@@ -6,15 +6,43 @@ The Nym Technology Developer Relations AMA (Ask Me Anything) is an event organis
 
 Checkout out our playlist below:
 
-#### Episode 3: 25/01/23
+## 2023
+<div class="video-slider">
+  <div class="video-container">
+    <div class="video">
+      <iframe src="https://www.youtube.com/embed/smPPle_I8T8" frameborder="0" allowfullscreen></iframe>
+      <div class="video-title">22th February</div>
+    </div>
+  </div>
+  <div class="video-container">
+    <div class="video">
+      <iframe src="https://www.youtube.com/embed/Uytu2a8mNEw" frameborder="0" allowfullscreen></iframe>
+      <div class="video-title">8th February</div>
+    </div>
+  </div>
+  <div class="video-container">
+    <div class="video">
+      <iframe src="https://www.youtube.com/embed/2mSqInSgj6c" frameborder="0" allowfullscreen></iframe>
+      <div class="video-title">25th January</div>
+    </div>
+  </div>
+  <div class="video-container">
+    <div class="video">
+      <iframe src="https://www.youtube.com/embed/_Udy7wzwPts" frameborder="0" allowfullscreen></iframe>
+      <div class="video-title">11th January</div>
+    </div>
+  </div>
+</div>
 
-<iframe width="700" height="400" src="https://www.youtube.com/embed/Uytu2a8mNEw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+## 2022
+<div class="video-slider">
+  <div class="video-container">
+    <div class="video">
+      <iframe src="https://www.youtube.com/embed/0kVXR7aNOyg" frameborder="0" allowfullscreen></iframe>
+      <div class="video-title">20th December</div>
+    </div>
+  </div>
+</div>
 
-#### Episode 2: 11/01/23
 
-<iframe width="700" height="400" src="https://www.youtube.com/embed/smPPle_I8T8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-#### Episode 1: 20/12/22
-
-<iframe width="700" height="400" src="https://www.youtube.com/embed/0kVXR7aNOyg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
