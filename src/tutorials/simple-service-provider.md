@@ -557,13 +557,13 @@ This far into the tutorial, we should have functioning __User Client__ to make t
 
 To completing the full cycle of the websocket functionality, we must create the __Service Provider__. 
 
-From the [Preparing your Typescript environment](#preparing-your-typescript-environment) section of tutorial guide, repeat the steps `1` and `2` for adding the __Service Provider__.
+Begin by creating a `service-provider` folder in the `simple-service-provider-tutorial` root directory.
+
+From the [Preparing your Typescript environment](#preparing-your-typescript-environment) section of tutorial guide, repeat the step `1`.
 
 > ⚠️ Remember to reference this section of the tutorial to the `service-provider`, instead of `user-client`. 
 
-Begin by creating a `service-provider` folder in the `simple-service-provider-tutorial` root directory.
-
-1.  Create a new `package.json` like we did for our `user-client` in the `service-provider` folder and paste in the following code:
+1.  Inside your newly generated `package.json`, paste in the following code:
 
     ```json
     {
@@ -777,7 +777,7 @@ Lets get get our __Service Provider's__ __nym-client__ running.
     `targetAddress` we initialized, with the address of the __Service Provider's__ __nym-client__. Feel free to copy and paste the resulting address that you see in your terminal (purple text).
 
     ```
-    var targetAddress = '<service-provider-websocket-client-addresss>';
+    var targetAddress = '<service-provider-websocket-client-address>';
     ```
 
 We should have the following set up:
