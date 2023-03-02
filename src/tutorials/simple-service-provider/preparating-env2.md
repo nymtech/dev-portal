@@ -86,7 +86,8 @@ npm install
 * Finally, create a typescript file for our app logic: 
 
 ```
-mkdir -p src/index.ts
+mkdir src
+touch src/index.ts
 ```
 
 ~~~admonish note title=""
