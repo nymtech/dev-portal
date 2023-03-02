@@ -119,6 +119,6 @@ The final step of this tutorial is to update the `targetAddress` in `simple-serv
 Copy the Nym address from your console and set it as the value of the `targetAddress` variable on line 2. 
 
 ```
-var targetAddress = 'address from your console;
+var targetAddress = 'address from your console';
 ```
 
