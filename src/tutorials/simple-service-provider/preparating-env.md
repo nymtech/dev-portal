@@ -1,4 +1,4 @@
-# Preparing Your Environment
+# Preparing Your User Client Environment 
 
 ## Prerequisites
 * `NodeJS` & `npm` 
