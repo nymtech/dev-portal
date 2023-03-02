@@ -1,147 +1,90 @@
 # Building a Simple Service Provider
 
-In this guide, developers will learn how to build the foundation of a privacy-enabled application (PEApp) that can send and receive traffic from the mixnet.  
+_This tutorial is the best place to start for developers new to Nym. You will learn how to build a minimum viable privacy-enabled application (PEApp) able to send and receive traffic via the mixnet._ 
 
-<!-- You can watch the step-by-step guide on creating your own Simple Service Provider [here](): -->
+## Tutorial Overview 
 
-#### What are we building?
+### Components Used in this Tutorial
+This tutorial involves writing two pieces of code in Typescript:
 
-In this tutorial, you will learn how to build two essential components for sending messages through the mixnet:
+- A __User Client__ (UC) with which you can access the mixnet through a browser on your local machine. You will use this to communicate with the second component outlined below.  
+- A __Service Provider__ (SP) which can communicate with the UC via the mixnet.
 
-- A __User Client__ written in TypeScript, which allows for accessing the mixnet through a browser on a local machine.
-- A __Service Provider__ also written in TypeScript, which can receive messages from the mixnet.
-- Additionally, you will be guided on how to configure a pair of __Nym Websocket Clients__ (__nym-client's__), which are necessary for connecting to the mixnet with your application.
+Additionally you will learn how to configure a pair of __Nym Websocket Clients__ which both components use to connect to and communicate with the mixnet.
 
-> ⚠️ Service providers are usually run on remote servers to keep metadata private, but for demonstration purposes, this tutorial will show how to run it on a local machine, effectively sending messages back to ourselves via two different __nym-client's__. .
+> SPs usually run on remote servers to assure reliable uptime and to unlink sender and receiver metadata. For demonstration purposes however, you will run both components on your local machine, looping messages through the mixnet to yourself.  
 
 <img src="../images/ssp_image.png"/>
 
-We'll dive into the process of creating a Typescript application from the ground up. We'll cover how to set up a __nym-client__ and connect it to the mixnet, as well as the necessary steps to send a properly formatted message through the mixnet to the Service Provider. Don't fret if your skills in Javascript or Typescript are a bit rusty, there will be plenty of code snippets to copy and paste along the way.
+**todo replace with ascii diagram** 
 
-To assist in your learning, the complete code for this tutorial is available on [Github](https://github.com/nymtech/developer-tutorials). You can use it as a reference while building or simply download it and follow along as you progress through the tutorial."
+### Aims of this Tutorial 
+* Create a user-friendly experience for sending data through the mixnet via a simple form accessible through a web browser. 
+* Configure and use a pair of Nym Websocket Clients. 
+* Send a properly formatted message through the mixnet to the SP from a browser-based GUI. 
 
-#### What do we want to achieve?
+> Don't fret if your Typescript is a little rusty, there will be plenty of code snippets to copy and paste along the way.
 
-We aim to create a user-friendly experience for sending data through the mixnet. The User Client will present a simple form accessible through a web browser, where users can enter their data. Once the form is completed, users can press a 'Send' button which will transmit the data straight to the Service Provider via the mixnet. The sent data will be visible within the user interface of the Service Provider, which can also be accessed through a web browser.
+You can find the code for these components [here](https://github.com/nymtech/developer-tutorials). You can use it as a reference while building or simply download it and follow along as you progress through the tutorial.
 
-#### What is a Service Provider
-'Service Providers' are the name given to any type of app that can communicate with the mixnet via a Nym Client. The [Network Requester](https://nymtech.net/docs/nodes/network-requester-setup.html) is an app that takes an outbound network request from the mixnet, performs that request (e.g. authenticating with a message server and receiving new messages) and then passes the response back to the user who requested it, shielding their metadata from the message server. 
+```admonish note title="Sidenote: What is a Service Provider?" 
+'Service Provider' is a catchall name used to refer to any type of app that can communicate with the mixnet via a Nym client. 
 
-The Service Provider covered in this tutorial is far more simple than this, as it just aims to show developers how to approach building something that can:
+The first SP to have been released is the [Network Requester](https://nymtech.net/docs/nodes/network-requester-setup.html) - a binary that receives a network request from the mixnet, performs that request (e.g. authenticating with a message server and receiving new messages for a user) and then passes the response back to the user who requested it anonymously, shielding their metadata from the message server. 
+
+The SP you will build in this tutorial is far more simple than this. It is just to show you how to approach building something that can:
 * connect to the mixnet, 
 * listen for messages, and 
-* perform some action with them (in this case, show them on a UI). 
+* perform some action with them (in this case, log them in a console and reply to the original sender). 
+
+However, once you see how easy it is to integrate with the mixnet for traffic transport, you will be able to build apps with real-world uses easily. 
+```
+ 
+## Getting Started 
 
 ### Prerequisites
-* `node` & `npm` 
-* `Typescript` 
+* `NodeJS` & `npm` 
+* `typescript` 
 
 #### Preparing your TypeScript environment  
 
-Make a new directory called `simple-service-provider-tutorial` and inside it create another folder named `user-client`.
+* Make a new directory called `simple-service-provider-tutorial` containing a directory named `user-client`:
 
-Continue to then do the following:
+```
+mkdir -p simple-service-provider/user-client
+```
 
-1.  In your terminal, navigate to `path/to/the/user-client` folder you created, and run:
+* Create a `package.json` and install dependencies: 
 
-    ```
-    npm init
-    ```
-    Continue just press enter after each prompt to confirm the configuration.
+```
+cd simple-service-provider/user-client 
+npm init  
+npm install typescript 
+npm install ts-node --save-dev   
+```
 
-    <details>
-        <summary>Console Output</summary>
-        
-            This utility will walk you through creating a `package.json` file.
-            It only covers the most common items, and tries to guess sensible defaults.
+`typescript` allows you to write and use typescript 
+`ts-node` allows you to build a typescript application in a NodeJS environment 
 
-            See `npm help init` for definitive documentation on these fields
-            and exactly what they do.
+* Create a `tsconfig.json` containing the following:
 
-            Use `npm install <pkg>` afterwards to install a package and
-            save it as a dependency in the package.json file.
+```json
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "target": "es6",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist"
+    },
+    "lib": ["es2015"]
+}
+```
 
-            Press ^C at any time to quit.
-            package name: (user-client)
-            version: (1.0.0)
-            description:
-            entry point: (index.js)
-            test command:
-            git repository: 
-            keywords:
-            author: 
-            license: (ISC) 
-            About to write to path/to/directory/user-client/package.json:
+#### Bundling your Application
 
-            {
-                "name": "user-client",
-                "version": "1.0.0",
-                "description": "",
-                "main": "index.js",
-                "scripts": {
-                    "test": "echo \"Error: no test specified\" && exit 1"
-                },
-                "author": "",
-                "license": "ISC"
-            }
-
-            Is this OK? (yes)
-    </details>
-
-    A `package.json` file has been created in the folder.
-
-2.  Then in the same terminal, run:
-    
-    ```
-    npm install typescript
-
-    ```
-
-    After the installation has been completed, check to see that the typescript dependencies have been added. The `package.json` file should look like this:
-    ```json
-    {
-        "name": "user-client",
-        "version": "1.0.0",
-        "description": "",
-        "main": "index.js",
-        "scripts": {
-            "test": "echo \"Error: no test specified\" && exit 1"
-        },
-        "author": "",
-        "license": "ISC",
-        "dependencies": {
-            "typescript": "^4.9.3"
-        }
-    }
-    ```    
-
-3.  Now run in your terminal:
-    
-    ```
-    npm install ts-node --save-dev
-    ```
-
-    The package (`ts-node`) allows us to build a typescript application in a node environment.
-
-4.  Create a new file in the `user-client` folder called `tsconfig.json`. Paste the following code into the file:
-
-    ```json
-    {
-        "compilerOptions": {
-            "module": "commonjs",
-            "esModuleInterop": true,
-            "target": "es6",
-            "moduleResolution": "node",
-            "sourceMap": true,
-            "outDir": "dist"
-        },
-        "lib": ["es2015"]
-    }
-    ```
-
-#### Bundling the Application
-
-To build and run our application locally, we require a tool that allows us to work on it while it's running and instantly reflects saved changes on the browser.
+To build and run our application locally, we require a tool that allows us to work on it while it's running and instantly reflect changes in the browser.
 
 1.  This can be achieved through the installation of the [Parcel](https://parceljs.org/getting-started/webapp/) bundler 
     using the following command in your terminal window:
@@ -463,7 +406,7 @@ Therefore we must implement the functions that connects our Typescript __User Cl
 
     Lets add the finishing touches to the UI by adding in the stylesheet which we specified at the top our our `index.html` above. Back in our project root folder (same folder level as `/src`), create an `/assets` folder and create a new file within it called `styles.css`. 
 
-    We have made a stylesheet for this tutorial which can be accessed [here](Link to be added when merged). Copy and paste the contents into your newly created `styles.css` file, or simply paste in your own stylesheet! Once we've checked our browser to confirm our styles are working, lets move onto getting our application running.
+    We have made a stylesheet for this tutorial which can be accessed here **TODO ADD LINK** . Copy and paste the contents into your newly created `styles.css` file, or simply paste in your own stylesheet! Once we've checked our browser to confirm our styles are working, lets move onto getting our application running.
 
 9. Return back to your terminal and run:
 
