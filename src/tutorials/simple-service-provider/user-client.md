@@ -1,6 +1,6 @@
 # Building Your User Client
 
-## Building your User Client 
+## Adding Core Functionality 
 Most of the work here will be configuring and adding functionality to `src/index.ts` file, allowing you to establish and handle the websocket connection to your local Nym client, and create and send messages to the SP. 
 
 * Replace the existing content of `src/index.ts` with: 

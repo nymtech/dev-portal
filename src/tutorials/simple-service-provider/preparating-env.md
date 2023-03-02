@@ -4,7 +4,7 @@
 * `NodeJS` & `npm` 
 * `typescript` 
 
-### Preparing your TypeScript environment  
+## Preparing your TypeScript environment  
 
 * Make a new directory called `simple-service-provider-tutorial` containing a directory named `user-client`:
 
@@ -37,7 +37,7 @@ npm install ts-node --save-dev # allows you to build a typescript application in
 }
 ```
 
-### Preparing your Bundler 
+## Preparing your Bundler 
 * We will use the [`Parcel`](https://parceljs.org/getting-started/webapp/) bundler to build and run our app locally. `Parcel` also supports hot reloading, making for a nicer developer experience when working on our app. Install it with:
 
 ```
