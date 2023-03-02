@@ -8,7 +8,7 @@ You should have the following set up:
 * A __Service Provider__ backend service 
 * 2 Nym websocket clients, one for each component above
 
-Simply fill in the fields in your browser and click `Send`. In your browser you will see the message sent to the SP, followed by the response from the SP. In your console you will see the logged incoming and outgoing messages from the SP.  
+Simply fill in the fields in your browser and click `Send`. In your browser you will see the message sent to the SP, followed by the response from the SP. In your console you will see the logged incoming message from the UC, and the reply message to itfrom the SP.  
 
 <img src="../../images/tutorial_image_5.png"/>
 
