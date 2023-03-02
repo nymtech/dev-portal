@@ -24,6 +24,10 @@
 # Tutorials
 
 - [Simple Service Provider](tutorials/simple-service-provider.md)
+    - [Tutorial Overview](tutorials/simple-service-provider/overview.md)
+    - [Preparing Your Environment](tutorials/simple-service-provider/preparating-env.md)
+    - [Building Your User Client](tutorials/simple-service-provider/user-client.md)
+    - [Building Your Service Provider](tutorials/simple-service-provider/service-provider.md)
 - [IPFS Service Provider (coming soon)](tutorials/ipfs-service-provider.md)
 
 # Community Resources
