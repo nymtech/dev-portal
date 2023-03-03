@@ -235,9 +235,10 @@ Lets add the finishing touches to the UI by adding in the stylesheet which we sp
 ```
 mkdir -p src/assets
 touch src/assets/styles.css
-```
 
-**todo grab this with curl from github and add contents to styles** 
+# grab the stylesheet from the remote repo and save it to the newly created css file
+curl https://raw.githubusercontent.com/nymtech/developer-tutorials/main/simple-service-provider-tutorial/user-client/assets/styles.css -o assets/styles.css
+```
 
 * Return back to your terminal and run:
 
