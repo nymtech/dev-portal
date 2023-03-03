@@ -10,9 +10,41 @@ Additionally you will learn how to configure a pair of **Nym Websocket Clients**
 
 > SPs usually run on remote servers to assure reliable uptime and to unlink sender and receiver metadata. For demonstration purposes however, you will run both components on your local machine, looping messages through the mixnet to yourself.  
 
-<img src="../../images/ssp_image.png"/>
 
-**todo replace with ascii diagram!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!** 
+
+```
+       +----------+              +----------+             +----------+ 
+       | Mix Node |<-----------> | Mix Node |<----------->| Mix Node |
+       | Layer 1  |              | Layer 2  |             | Layer 3  |
+       +----------+              +----------+             +----------+  
+            ^                                                   ^      
+            |                                                   |      
+            |<--------------------------------------------------+
+            |                                                          
+            v                                                        
+    +--------------+                                
+    | Your gateway |                               
+    +--------------+                               
+            ^                                       
+            |                                                                      
+            |                                                                         
+            v                                                        
++-------------------------------------------+                         
+|                                           |                        
+|  +------------+     +------------+        |                      
+|  | Nym Client |     | Nym Client |        |                     
+|  +------------+     +------------+        |                    
+|        ^                  ^               |                   
+|        |                  |               |                  
+|        |                  |               |                 
+|        v                  v               |                
+|  +-------------+    +------------------+  |               
+|  | User Client |    | Service Provider |  |              
+|  +-------------+    +------------------+  |             
+|                                           |            
++-------------------------------------------+           
+            Your Local Machine          
+```       
 
 ## Aims of this Tutorial 
 * Create a user-friendly experience for sending data through the mixnet via a simple form accessible through a web browser. 
