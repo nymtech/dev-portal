@@ -1,6 +1,6 @@
 # Preparing Your Service Provider Environment
 
-* Now we need to prepare our Service Provider environment. Create a directory for it:
+* Now to move on to prepare our development environment for the Service Provider code. Create a directory for it:
 
 ```
 # run this from the root of `simple-service-provider/`
@@ -109,5 +109,13 @@ simple-service-provider
     └── tsconfig.json
 
 7 directories, 7 files
+```
+
+And `service-provider/src/` should look like this: 
+```
+service-provider/src
+└── index.ts
+
+1 directory, 1 file
 ```
 ~~~

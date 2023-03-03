@@ -53,13 +53,14 @@ function handleReceivedTextMessage(message) {
     displayJsonResponse(text);
 }
         
+// Display websocket responses in the Activity Log.
 function displayJsonResponse(message) {
     let receivedDiv = document.createElement("div")
     let paragraph = document.createElement("p")
     paragraph.setAttribute('style', 'color: orange')
-    let textNode = document.createTextNode(message.text + " From - " + message.fromAddress)
+    let textNode = document.createTextNode("received >>> " + message.text)
     paragraph.appendChild(textNode)
-            
+    
     receivedDiv.appendChild(paragraph)
     document.getElementById("output").appendChild(receivedDiv)
 }
@@ -95,9 +96,10 @@ var websocketConnection: any;
   
 ```typescript
 async function main() {
-    var port = '1977' // client websocket listens on 1977 by default.
+    var port = '1977' // Nym Websocket Client listens on 1977 by default.
     var localClientUrl = "ws://127.0.0.1:" + port;
-            
+    
+    // Set up and handle websocket connection to our desktop client.
     websocketConnection = await connectWebsocket(localClientUrl).then(function (c) {
         return c;
     }).catch(function (err) {
@@ -107,15 +109,15 @@ async function main() {
     websocketConnection.onmessage = function (e) {
         handleResponse(e);
     };
-            
+    
     sendSelfAddressRequest();
-            
+    
+    // Set up the send button
     const sendButton = document.querySelector('#send-button');
-            
+    
     sendButton?.addEventListener('click', function handleClick(event) {
         sendMessageToMixnet(); 
     });
-}
 ```
 
 And between `main()` and `displayClientMessage()`:
@@ -140,30 +142,28 @@ function sendSelfAddressRequest() {
 function sendMessageToMixnet() {
 
     var nameInput = (<HTMLInputElement>document.getElementById("nameInput")).value;
-    var serviceSelect = (<HTMLInputElement>document.getElementById("serviceSelect")).value;
     var textInput = (<HTMLInputElement>document.getElementById("textInput")).value;
-            
+   
     const messageContentToSend = {
         name : nameInput,
-        service : serviceSelect,
         comment : textInput,
-        fromAddress : ourAddress
     }
-           
+    
     const message = {
-        type: "send",
+        type: "sendAnonymous",
         message: JSON.stringify(messageContentToSend),
         recipient: targetAddress,
-        withReplySurb: false,
+        replySurbs: 5
     }
-          
+    
     displayJsonSend(message);
-            
     websocketConnection.send(JSON.stringify(message));
 }
 ```
 
-Nym clients accept messages in either binary or JSON formats. Since you are sending JSON data, you need to `stringify` any `message`s you wish to send through the mixnet 
+Nym clients accept messages in either binary or JSON formats. Since you are sending JSON data, you need to `stringify` any `message`s you wish to send through the mixnet. 
+
+You are sending [replySURBs]() along with the message to the SP. This allows the SP to reply to you without you having to doxx yourself and supply a 'return address' in a readable form to it. TLDR; SURBs allow for anonymous replies from mixnet services! 
 
 * Below `sendMessageToMixnet()`, add the following:
 
@@ -197,39 +197,31 @@ function displayJsonSend(message) {
             <div class="toolbar">
                 <h3>Mixnet Websocket Starter User Client</h3>
             </div>
-                
+            
             <div class="section-container">
-              
-                <label for="nameInput" class="form-field-label">Name</label>
-                <input id="nameInput" type="text" value="Freddy" name="nameInput">
-
-                <label class="form-field-label">Service</label>
-                <select class="" id="serviceSelect" name="serviceSelect">
-                    <option value="service_1">Service 1</option>
-                    <option value="service_2">Service 2</option>
-                    <option value="service_3">Service 3</option>
-                </select>
+               
+                <label for="nameInput" class="form-field-label">Moniker</label>
+                <input id="nameInput" type="text" value="An0n" name="nameInput">
 
                 <label for="textInput" class="form-field-label">Comment</label>
-                <input id="textInput" type="text" value="Hello, Service Provider. I would like to use a service!" name="textInput">
-            
+                <input id="textInput" type="text" value="I would like to use your private service" name="textInput">
+         
                 <div id="send-button">
                     <label for="send-button" class="submit-button">Send</label>
                 </div>
             </div>
         </div>
-            
+        
         <div class="" style="margin-left:20px;max-width: fit-content;">
             <div style="color: white;margin-bottom: 2rem;">
                 <h4>How it works</h4>
-                    <p>Once you have started your nym-client(s), you can fill out the form and send data to the mixnet using the <b>"Send"</b> button.</p>
-                    <p>Your message will then be relayed through your nym-client running on the port (specified using --port in the command line) which is set to 1977 by default.</p>
-                    <p>Below, you can see the activity log. <b style='color: #36d481;'>Sent</b> messages will display in <b style='color: #36d481;'>green</b> while <b style='color: orange;'>received</b> messages will display in <b style='color: orange;'>orange</b>.</p>
+                <p>Once you have started your Nym Websocket client, you can fill out the form and send data to the Service Provider via mixnet using the <b>"Send"</b> button.</p>
+                <p>Below, you can see the activity log. <b style='color: #36d481;'>Sent</b> messages will display in <b style='color: #36d481;'>green</b> while <b style='color: orange;'>received</b> messages will display in <b style='color: orange;'>orange</b>.</p>
             </div>
         </div>
-            
+        
         <h3 style="margin-left:10px">Activity Log</h3>
-            
+        
         <p class="output-container">
             <span id="output"></div>
         </p>
@@ -259,10 +251,11 @@ Return to [localhost:1234](http://localhost:1234/)) and you should see an update
 
 ## Connecting to your Nym Client
 
-* Follow instructions in the [Nym websocket client documentation](https://nymtech.net/docs/clients/websocket-client.html#initialising-your-client)to `init` and `run` a client. 
+Follow instructions in the [Nym websocket client documentation](https://nymtech.net/docs/clients/websocket-client.html#initialising-your-client)to `init` and `run` a client then refresh your browser window. You should see a successful response, including a Nym address, in the 'Activity Log' of the UI
 
-* Refresh your browser window. You should see a successful response, including a Nym address, in the 'Activity Log' of the UI
+Your User Client application code is connected to a Nym websocket client, and ready to send messages through the mixnet! 
 
-Your User Client application code is connected to a websocket client, and ready to send messages through the mixnet! 
+<img src="../../images/tutorial_image_1.png"/>
 
 In the next section, you will build the Service application you will send these messages to. 
+ 

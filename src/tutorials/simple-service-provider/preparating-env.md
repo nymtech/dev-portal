@@ -64,6 +64,15 @@ simple-service-provider/
 
 4 directories, 3 files
 ```
+
+And `user-client/src/` should look like this: 
+```
+user-client/src
+├── index.html
+└── index.ts
+
+1 directory, 2 files
+```
 ~~~
 
 * Time to check everything is working. Paste the following into `src/index.html`:
@@ -95,9 +104,15 @@ console.log('test log')
 "start": "parcel src/index.html"
 ```
 
-* Check everything is working properly by running `npm start`.
+* `npm start` should return: 
 
-<img src="../../images/tutorial_image_1.png"/>
+```
+> user-client@1.0.0 start
+> parcel src/index.html
+
+Server running at http://localhost:1234
+✨  Built in 1.57s.
+```
 
 Open [localhost:1234](http://localhost:1234/) in your browser. Your web application should be up and running, with `Test` displayed in the browser window. Checking the `console.log` output is done by right-clicking on the browser and selecting _Inspect_, then navigating to the _Console_ section of the resulting panel. You should see the message `test log` displayed there.
  

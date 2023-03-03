@@ -21,6 +21,8 @@ Additionally you will learn how to configure a pair of **Nym Websocket Clients**
 
 You can find the code for these components [here](https://github.com/nymtech/developer-tutorials). You can use it as a reference while building or simply download it and follow along as you progress through the tutorial.
 
+Notice that this tutorial attempts to use very few external libraries (the User Client codebase is basically vanilla Typescript!). This tutorial is not showing you how to build production-grade code, but **to understand how to connect and send messages to, as well as recieve messages from, the mixnet.**
+
 ```admonish note title="Sidenote: What is a Service Provider?" 
 'Service Provider' is a catchall name used to refer to any type of app that can communicate with the mixnet via a Nym client. 
 
