@@ -163,7 +163,7 @@ function sendMessageToMixnet() {
 
 Nym clients accept messages in either binary or JSON formats. Since you are sending JSON data, you need to `stringify` any `message`s you wish to send through the mixnet. 
 
-You are sending [replySURBs]() along with the message to the SP. This allows the SP to reply to you without you having to doxx yourself and supply a 'return address' in a readable form to it. TLDR; SURBs allow for anonymous replies from mixnet services! 
+You are sending [replySURBs](https://nymtech.net/docs/architecture/traffic-flow.html#private-replies-using-surbs) along with the message to the SP. This allows the SP to reply to you without you having to doxx yourself and supply a 'return address' in a readable form to it. TLDR; SURBs allow for anonymous replies from mixnet services! 
 
 * Below `sendMessageToMixnet()`, add the following:
 
