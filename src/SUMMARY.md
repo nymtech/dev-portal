@@ -30,7 +30,13 @@
     - [Preparing Your Service Provider Environment](tutorials/simple-service-provider/preparating-env2.md)
     - [Building Your Service Provider](tutorials/simple-service-provider/service-provider.md)
     - [Sending a Message Through the Mixnet](tutorials/simple-service-provider/sending-message.md)
-- [IPFS Service Provider (coming soon)](tutorials/ipfs-service-provider.md)
+- [IPFS Service Provider](tutorials/ipfs-service-provider.md)
+    - [Preparing Your User Client Environment](tutorials/ipfs-service-provider/preparing-env-uc.md)
+    - [Modifying Your User Client Code](tutorials/ipfs-service-provider/writing-uc-functions.md)
+    - [Preparing Your Service Provider Environment](tutorials/ipfs-service-provider/preparing-sp-env.md)
+    - [Modifying Your Service Provider Code](tutorials/ipfs-service-provider/writing-sp-functions.md)
+    - [Sending Files Through the Mixnet](tutorials/ipfs-service-provider/send-files-over-mixnet.md)
+    - [Implementing Download Functionality](tutorials/ipfs-service-provider/download-implementation.md)
 
 # Community Resources
 
