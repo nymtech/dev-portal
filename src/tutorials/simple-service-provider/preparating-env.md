@@ -4,6 +4,8 @@
 * `NodeJS` & `npm` 
 * `typescript` 
 
+> We recommend that you use Node version 16.
+
 ## Preparing your TypeScript environment  
 
 * Make a new directory called `simple-service-provider-tutorial` containing a directory named `user-client`:
