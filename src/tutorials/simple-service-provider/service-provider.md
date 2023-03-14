@@ -108,15 +108,19 @@ The `\x1b` prefix you see in `console.log` adds colour to console ouput. The num
 
 When the SP receives a message from the mixnet, `sendMessageToMixnet()` sends a response back to notify the the user that the SP recieved their request successfully. 
 
-## Connecting to your Nym Client
+## Connecting to your Nym Client and Starting the application
 
 * Follow instructions in the [Nym websocket client documentation](https://nymtech.net/docs/clients/websocket-client.html#initialising-your-client)to `init` and `run` a client. 
 
 ```admonish caution title=""
 Remember to `init` and `run` this client using port `1978` to avoid port clashes. 
 ```
+Lets go ahead and start our application. In your terminal opened up in the `service-provider` directory , run the following command:
 
-* Refresh your browser window. You should see a successful response, including a Nym address, in your console: 
+```
+npm run start:dev
+```
+You should see a successful response, including a Nym address, in your console: 
 
 ```
 > service-provider@1.0.0 start:dev
@@ -136,7 +140,7 @@ The final step of this tutorial is to update our User Client code with the addre
 
 Copy the SP's Nym address from your console and set it as the value of the `targetAddress` variable on line 2 of `simple-service-provider/user-client/src/index.ts`. 
 
-```
+```typescript
 var targetAddress: string = '6V5eEguz4rUsfntVLKQuD2ymgdY5iDKCV2GY2EH3CxG4.AKdk22atwRaVkN2PLEDsWUKKDc3ieNm1avKqVGgmJx8s@FQon7UwF5knbUr2jf6jHhmNLbJnMreck1eUcVH59kxYE';
 ```
 

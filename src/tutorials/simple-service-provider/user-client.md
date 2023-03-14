@@ -246,7 +246,7 @@ curl https://raw.githubusercontent.com/nymtech/developer-tutorials/main/simple-s
 npm start
 ```
 
-Return to [localhost:1234](http://localhost:1234/)) and you should see an updated UI.  
+Return to [localhost:1234](http://localhost:1234/) and you should see an updated UI.  
 
 <img src="../../images/tutorial_image_2.png"/>
 

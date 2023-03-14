@@ -231,7 +231,8 @@ Replace the contents of our  `displayJsonResponse()` function with the following
 
 function displayJsonResponse(message) {
 
-    /*
+    /* Remove this code.
+    
         let receivedDiv = document.createElement("div")
         let paragraph = document.createElement("p")
         paragraph.setAttribute('style', 'color: orange')
@@ -240,6 +241,7 @@ function displayJsonResponse(message) {
         
         receivedDiv.appendChild(paragraph)
         document.getElementById("output").appendChild(receivedDiv)
+
     */
 
 
@@ -335,4 +337,86 @@ function sendDownloadRequest(cid : string, path : string,type : string){
    
 }
 ```
-We will re-visit the download file functionality of User Client in a later section of the tutorial.    
+We will re-visit the download file functionality of User Client in a later section of the tutorial.  
+
+## Modifying our `index.html` file.
+
+In your `index.html` file of our `user-client` , were just going to make some small changes. The main change here is adding our file upload input , with the ID of `fileInput` element,  which we have already referenced in our `index.ts` at the top of this tutorial page.
+
+```html
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!-- <title>Mixnet Websocket Starter Client</title>  // Remove this line -->
+        <title>Mixnet Websocket IPFS Uploader Client</title>
+        <link rel="stylesheet" href="../assets/styles.css"/>
+    </head>
+    <body>
+        <div class="content" role="main">
+            <div class="toolbar">
+                <!-- <title>Mixnet Websocket Starter Client</title>  // Remove this line -->
+                <h3>Mixnet Websocket IPFS Uploader Client</h3>
+            </div>
+            
+            <div class="section-container">
+
+                <!-- Remove this code.
+                
+                <label for="nameInput" class="form-field-label">Moniker</label>
+                <input id="nameInput" type="text" value="An0n" name="nameInput">
+
+                <label for="textInput" class="form-field-label">Comment</label>
+                <input id="textInput" type="text" value="I would like to use your private service" name="textInput">
+         
+                <div id="send-button">
+                    <label for="send-button" class="submit-button">Send</label>
+                </div> 
+                
+                -->
+                
+                <div class="file-upload">
+                    <label for="fileInput" class="file-upload-label">UPLOAD FILE</label>
+                    <input id="fileInput" class="file-upload-input" type="file"/>
+                </div>
+         
+            </div>
+        </div>
+        
+        <div class="" style="margin-left:20px;max-width: fit-content;">
+            <div style="color: white;margin-bottom: 2rem;">
+                <h4>How it works</h4>
+                <p>Once you have started your Nym Websocket client, you can fill out the form and send data to the Service Provider via mixnet using the <b>"Send"</b> button.</p>
+                <p>Below, you can see the activity log. <b style='color: #36d481;'>Sent</b> messages will display in <b style='color: #36d481;'>green</b> while <b style='color: orange;'>received</b> messages will display in <b style='color: orange;'>orange</b>.</p>
+            </div>
+        </div>
+        
+        <h3 style="margin-left:10px">Activity Log</h3>
+        
+        <p class="output-container">
+            <span id="output"></div>
+        </p>
+
+        <script src="index.ts"></script>
+    </body>
+</html>
+```
+## Running our application and connecting our Nym Client.
+
+Ensure that you have a terminal open in the `user-client` directory , lets go ahead and start the application:
+
+```
+npm start
+```
+
+Open your browser and navigate to [localhost:1234](http://localhost:1234/) and you should see an updated UI.  
+
+<img src="../../images/ipfs_tutorial_image_1.png"/>
+
+Just as another reminder , you can follow instructions in the [Nym websocket client documentation](https://nymtech.net/docs/clients/websocket-client.html#initialising-your-client) to `init` and `run` a `nym-client`.
+
+Once again, you can refresh your browser window to see your websocket connect to it: 
+
+<img src="../../images/ipfs_tutorial_image_2.png"/>
+
+At this point , were ready to modify the code of our Service Provider in order to reflect the changes we have made to our User Client.
