@@ -1,5 +1,7 @@
 # Building a Simple Service Provider
 
+>This tutorial was built and tested using Node version `v16.14.0`. We recommend using this version as a minimum.
+
 This tutorial is the best place to start for developers new to Nym. You will learn how to build a minimum viable privacy-enabled application (PEApp) able to send and receive traffic via the mixnet.
 
 This tutorial is less about building an immediately useful application, and more about beginning to understand:
