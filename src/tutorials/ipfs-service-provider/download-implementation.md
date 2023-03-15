@@ -4,7 +4,7 @@ With both the `user-client` and the `service-provider` set up to use IPFS. We'll
 
 ## Modifying our User Client
 
-Back in out `index.ts` of our `user-client` code, navigate to your `handleResponse
+Back in our `index.ts` of our `user-client` code, navigate to your `displayJsonResponse()` function and make the following code changes:
 ```typescript
 function displayJsonResponse(message) {
 
@@ -67,9 +67,9 @@ function displayJsonResponse(message) {
 }
 
 ```
-We added the in the new if statement that will be invoked whenever a message that contains a `type` of `"received"` contains a `downloadableFileData` property within the received object. This indicates that we have received back downloadable data from our Service Provider.
+We added the in the new `if` statement that will be invoked whenever a message that contains a `type` of `"received"` contains a `downloadableFileData` property within the received object. This indicates that we have received back downloadable data from our Service Provider.
 
-To turn that data into something we can download, we'll need to implement the new function that we can see in our added code, `executeFileDownload()`.
+To turn that data into something we can download, we'll need to implement the new function that we can see in our above code modifications, `executeFileDownload()`.
 
 At the bottom of our `index.ts`, lets implement this as our last new function for our User Client.
 
@@ -105,7 +105,7 @@ async function executeFileDownload(data : any,path : string,type : string){
 
 The purpose of this function is to download a file to the user's device. It encodes the data using a `TextEncoder` and creates a blob using that encoded data. After creating the file blob, the function creates a URL object using the `createObjectURL` method, which creates a temporary URL that points to the file blob.
 
-To get the download part working, we create a HTML anchor element with that temporary URL as the href attribute, simulating a click on the anchor element to open the file download dialog box, and then removing the anchor element from the body of the document.
+To get the download functionality working, we create a HTML anchor element with that temporary URL as the href attribute, simulating a click on the anchor element to open the file download dialog box, and then removing the anchor element from the body of the document.
 
 ## Modifying our Service Provider
 
@@ -148,7 +148,7 @@ function handleResponse(responseMessageEvent : MessageEvent) {
 
 ```
 
-If our incoming message has type `"received"` and its content holds the `fileCid`, the our logic identifies it as a download request. We can pass the files hash (`fileCid`), `fileName` and `fileType` into a new function we are going to implement in this file, `getAndSendBackDownloadableFile()`.
+If our incoming message has type `"received"` and its content holds the `fileCid` property, the our logic identifies it as a download request. We can pass the files hash (`fileCid`), `fileName` and `fileType` into a new function we are going to implement in this file, `getAndSendBackDownloadableFile()`.
 
 ```typescript
 async function getAndSendBackDownloadableFile(cid : string,name : string,type : string,senderTag: string){
@@ -193,9 +193,9 @@ async function getAndSendBackDownloadableFile(cid : string,name : string,type : 
 
 * `chunks` - We loop through the data within `stream`. For each chunk of data, it pushes it onto the `chunks` array.
 
-The logic checks whether the `type` of the file starts with 'text'. If it does, it concatenates all the chunks of data in the `chunks` array using the `Buffer.concat()` method and converts the resulting buffer data to a string using the `toString()` method. If it doesn't start with "text", it concatenates all the chunks of data and stores the resulting buffer in the `data` variable.
+The logic checks whether the `type` of the file starts with 'text'. If it does, it concatenates all the chunks of data in the `chunks` array using the `Buffer.concat()` method and converts the resulting buffer data to a string using the `toString()` method. If it doesn't start with 'text', it concatenates the chunks of data in the same way without stringify'ing it. Both paths will assign the result to the `data` variable. 
 
-Once the logic completes this process, we repeat our usual process of sending the data back to the websocket by constructing a our message data, along with its parent message object that we can send back through the mixnet.
+Once the above logic is completed, we repeat our usual process of sending the data back to the websocket by constructing a our message data, along with its parent message object that we can send back through the mixnet.
 
 ## Downloading our File
 
@@ -205,7 +205,7 @@ Repeat the process of sending a file to the service provider once again. This ti
 
 <img src="../../images/ipfs_tutorial_image_4.png"/>
 
-Here, we can see that a message appears on the `user-clients` UI notifying us that we have sent the request to the Service Provider. The `service-provider` then acknowledges that request and subsequently confirms the files hash (`cid`) before sending the data back to us. If everything has gone according to plan, you'll soon receive a new file download in your browsers download queue/history!
+Here, we can see that a message appears on the User Clients UI in the browser notifying us that we have sent the request to the Service Provider. The Service Provider then acknowledges that request and subsequently confirms the files hash (`cid`) before sending the data back to us. If everything has gone according to plan, you'll soon receive a new file download in your browsers download queue/history!
 
 
 

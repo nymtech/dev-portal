@@ -1,8 +1,10 @@
 # Building a IPFS Service Provider 
 
-This tutorial will focus on building an example Service Provider that utilizes IPFS for file uploads and downloads.We will then integrate Nym Websocket's into the solution in order to anonymize the packets we can send to and receive from it.Whether you're interested in building a IPFS Typescript application, or simply want to have more hands on experience with using Nym Websocket's as a developer, this tutorial will provide you with step-by-step instructions on to how to achieve just that.
+>This tutorial was built and tested using Node version `v16.14.0`. We recommend using this version as a minimum.
 
-> ⚠️ This tutorial will be a sequel to the previous tutorial ([Simple Service Provider](./simple-service-provider.md)) and will build upon the code that you'll end up with as a result of completing that tutorial. It is recommended that if you haven't checked out that tutorial, you should complete it before attempting this one. <br><br>Alternatively , you can visit the [repository](https://github.com/nymtech/developer-tutorials/tree/main/simple-service-provider-tutorial) of the Simple Service Provider and grab the code from there.
+This tutorial will focus on building an example service provider that utilizes IPFS for file uploads and downloads. We will then integrate Nym Websockets into the solution to anonymize the packets we send and receive from it. Whether you're interested in building an IPFS Typescript application or simply want to have more hands-on experience using Nym Websockets as a developer, this tutorial will provide you with step-by-step instructions on how to achieve that.
+
+> ⚠️ This tutorial will be a sequel to the previous tutorial ([Simple Service Provider](./simple-service-provider.md)) and will build upon the code that you'll end up with as a result of completing that tutorial. It is recommended that if you haven't checked out that tutorial, you should complete it before attempting this one. <br><br>Alternatively , you can visit the [repository](https://github.com/nymtech/developer-tutorials/tree/main/simple-service-provider-tutorial) of the Simple Service Provider and grab the completed code from there.
 
 ### What is IPFS?
 

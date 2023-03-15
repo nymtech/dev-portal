@@ -1,10 +1,10 @@
 # Modifying Your Service Provider Code
 
-Ensure that you're viewing your `index.ts` file within your `service-provider` folder. Like our `user-client`, our code modifications will be made here.
+Open your `index.ts` file within your `service-provider` folder. Just like our `user-client`, our code modifications will be made here.
 
 ## Adding our new imports and variables.
 
-At the top of our file, add in the following code
+At the top of our `index.ts` file, add in the following code
 
 ```typescript
 import WebSocket, { MessageEvent } from "ws"; 
@@ -24,11 +24,11 @@ var ipfsVersion: any; <--- Add Line
 
 * `ipfsNode` - This global variable will store the data returned by the `create()` function of the `ipfs-core` library. It returns a Promise that resolves to an IPFS node object, the key component needed in order to interact with the IPFS Network.
 
-* `ipfsVersion` - This value will hold the string value of the IPFS version that we are currently on. We will display this within our `service-providers` console output.
+* `ipfsVersion` - This value will hold the string value of the IPFS version that we are currently on. We will display this within our `service-providers` terminal output.
 
 ## Modifying our `main()` function.
 
-Subsequently , we will be initializing our `ipfsNode` & `ipfsVersion` variables on starting up the application. Add the following lines at the bottom of your main function below.
+Subsequently , we will be initializing our `ipfsNode` & `ipfsVersion` variables on starting up the application. Add the following lines at the bottom of your `main()` function below.
 
 ```typescript
 async function main() {
@@ -70,12 +70,7 @@ function handleResponse(responseMessageEvent : MessageEvent) {
       } else if (response.type == "received") {
         let messageContent = JSON.parse(response.message)
 
-        //Insert this if statement in the download implementation of the tutorial
-        if(messageContent.fileCid){
-            console.log('\x1b[93mRecieved download request: \x1b[0m');
-            console.log('\x1b[92mFile hash : ' + messageContent.fileCid + '\x1b[0m');
-            getAndSendBackDownloadableFile(messageContent.fileCid,messageContent.fileName,messageContent.fileType,response.senderTag);
-        } else {
+  
             console.log('\x1b[93mRecieved : \x1b[0m');
             console.log('\x1b[92mName : ' + messageContent.name + '\x1b[0m');
 
@@ -83,7 +78,7 @@ function handleResponse(responseMessageEvent : MessageEvent) {
 
             console.log('\x1b[92mComment : ' + messageContent.comment + '\x1b[0m');
             console.log('\x1b[93mSending response back to client... \x1b[0m')
-	        sendMessageToMixnet(response.senderTag)
+	          sendMessageToMixnet(response.senderTag)
 
             */
 
@@ -92,7 +87,7 @@ function handleResponse(responseMessageEvent : MessageEvent) {
             console.log('\x1b[92mSize : ' + readFileSize(messageContent.size) + '\x1b[0m');
             console.log('\x1b[93mUploading file to IPFS... \x1b[0m');
             uploadToIPFS(messageContent,response.senderTag);
-        }
+        
       }
   } catch (_) {
         console.log('something went wrong in handleResponse');
@@ -100,7 +95,7 @@ function handleResponse(responseMessageEvent : MessageEvent) {
 }
 
 ```
-Above , we have modified our `console.log` statements in order to fit the incoming file data that we want to try and upload. We then want to call our new function `uploadToIPFS` which we will implement in a following section on this page. Before we do that, we should implement a helper function, `readFileSize()` that can translate the `size` value our `messageContent` object holds.
+Above, we modified our `console.log` statements to display the incoming file data that we want to upload. Next, we want to call our new function, `uploadToIPFS()`, which we'll implement in a following section on this page. Before that, we need to implement a helper function, `readFileSize()`, that can translate the size value into a 'human-readable' format for our `messageContent` object.
 
 ## Modifying our `readFileSize()` function.
 
@@ -153,15 +148,15 @@ async function uploadToIPFS(dataToUpload : any,senderTag : string){
 ```
 * `fileContent` - A variable to store our file data which we will upload to the IPFS network.
 
-* `blob` - As we mentioned earlier, we want to convert our received base64-encoded representation of the file data from our `user-client` to a Blob. We then use the Blobs member function, `arrayBuffer()` to get the files contents which we then store inside our `fileContent`variable.
+* `blob` - As we mentioned earlier, we want to convert our received base64-encoded representation of the file data from our `user-client` to a Blob. We then use the Blob's member function, `arrayBuffer()` to get the files contents which we then store inside our `fileContent`variable.
 
 * `ipfsNode.add()` - The simple, quick and easy function we utilize from the `ipfs-core` library. We pass an object that includes our `fileContent` straight into the functions parameters, along with specifying a path which we can get directly from our `dataToUpload` object we passed into the our `uploadToIPFS()` in the first place.
 
-We then log the output uploaded files information in our Service Providers console, which includes the files hash (`cid`) that IPFS assigns to it. We then pass this hash into our `sendMessageToMixnet()` function, along with the uploaded files path and type. We will , of course , need to modify our `sendMessageToMixnet()` to process these parameters.
+After uploading the file, we log its information in our Service Provider's terminal output, which includes the hash (`cid`) that IPFS assigns to it. We then pass this hash into our `sendMessageToMixnet()` function along with the file's `path` and `type`. Of course, we'll need to modify our `sendMessageToMixnet()` function to process these new parameters.
 
 ## Modifying our `sendMessageToMixnet()` function.
 
-As we can see in our previous function, our `sendMessageToMixnet()` takes in new parameters. Add the `path`,`cid` and `type` parameters into the declaration as seen below.
+As we can see in our previous function's implementation, our `sendMessageToMixnet()` takes in new parameters. Add the `path`,`cid` and `type` parameters into the declaration as seen below.
 
 ```typescript
 function sendMessageToMixnet(path: string,cid: string,type : string,senderTag: string) { <--- Adjust parameters
@@ -195,7 +190,7 @@ function sendMessageToMixnet(path: string,cid: string,type : string,senderTag: s
 }
 ```
 
-All we are doing here is adding the uploaded files information into the `messageContentToSend` object which will then get passed to our websocket. Our `user-client` will receive this message as a [SURB](https://nymtech.net/docs/architecture/traffic-flow.html#private-replies-using-surbs) since we are still passing our senderTag into our `message` object.
+All we are doing here is adding the uploaded files information into the `messageContentToSend` object which will then get passed to our websocket. Our `user-client` will receive this message as a [SURB](https://nymtech.net/docs/architecture/traffic-flow.html#private-replies-using-surbs) since we are still passing `senderTag` into our `message` object.
 
 ## Connecting to your Nym Client and Starting the application
 
@@ -209,7 +204,7 @@ Lets go ahead and start our application. In your terminal opened up in the `serv
 ```
 npm run start:dev
 ```
-You should see a successful response, including a Nym address, in your console: 
+You should see a successful response, including a Nym Client address, in your console: 
 
 ```
 > service-provider@1.0.0 start:dev

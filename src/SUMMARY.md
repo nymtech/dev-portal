@@ -31,7 +31,6 @@
     - [Building Your Service Provider](tutorials/simple-service-provider/service-provider.md)
     - [Sending a Message Through the Mixnet](tutorials/simple-service-provider/sending-message.md)
 - [IPFS Service Provider](tutorials/ipfs-service-provider.md)
-    - [Preparing Your User Client Environment](tutorials/ipfs-service-provider/preparing-env-uc.md)
     - [Modifying Your User Client Code](tutorials/ipfs-service-provider/writing-uc-functions.md)
     - [Preparing Your Service Provider Environment](tutorials/ipfs-service-provider/preparing-sp-env.md)
     - [Modifying Your Service Provider Code](tutorials/ipfs-service-provider/writing-sp-functions.md)

@@ -1,5 +1,7 @@
 # Modifying Your User Client Code
-We already have functions from our already existing code that we can modify to implement the logic required to get our User Client to upload files to the mixnet. This will also include logic that sorts data that we receive back from the server.
+We already have functions in our existing code that we can modify to implement the logic required to enable our User Client to upload files to the mixnet. This will also involve sorting the data we receive back from the server.
+
+> ⚠️ If you starting this tutorial after pulling the `simple-service-provider-tutorial` code from our `developer-tutorials` GitHub repository, ensure that you run `npm install` to ensure that you install all necessary dependencies before starting.
 
 ## Adding our new global variables.
 
@@ -19,7 +21,7 @@ var selectedPayload: any;
 
 ## Modyfying our `main()` function.
 
-We will need to replace the references to the `sendButton` variable at the bottom of our `main()` function with a new `addEventListener` method, a member of our `fileInput` variable. This function will execute a new function we will soon create, `onFileChange`, whenever a file is selected via our button.
+We will need to replace the references to the `sendButton` variable at the bottom of our `main()` function with a new `addEventListener` method, a member of our `fileInput` variable. This method will execute a new function we will soon create, `onFileChange`, whenever a file is selected via our button.
 
 ```typescript
 
@@ -52,7 +54,7 @@ async function main() {
     */
     
     // Set up the file upload button
-    fileInput.addEventListener('change', onFileChange, false); // <--- Insert the following code.
+    fileInput.addEventListener('change', onFileChange, false); // <--- Insert code.
 }
 
 ```
@@ -71,7 +73,7 @@ function onFileChange(){
 }
 
 ```
-* `onFileChange()` - We instantiate a new instance of a [FileReader](https://developer.mozilla.org/en-US/docs/Web/API/FileReader) which reads the data from the uploaded file. The `addEventListener` function is used to register a callback function we will implement shortly, `readAndSendFile()` that will be invoked when the file is loaded.
+* `onFileChange()` - We instantiate a new instance of a [FileReader](https://developer.mozilla.org/en-US/docs/Web/API/FileReader) which reads the data from the uploaded file. The `addEventListener` function is used to register a callback function, `readAndSendFile()`, which we will implement shortly. It will be invoked when the file data is loaded by the `FileReader`.
 
 Below our `onFileChange()` function, paste in the following function:
 
@@ -131,7 +133,7 @@ function sendMessageToMixnet(payload) {
 }
 ```
 
-Since we've already assigned the file we want to send to our `selectedPayload` variable, we have no need to access data directly from any HTML elements from our DOM. Ensuring we insert `payload` as a function parameter, we then assign the `dataUrl` property of our `messageContentToSend` object that value.
+As we've already assigned the file we want to send to our `selectedPayload` variable, we don't need to access data directly from any HTML elements in our DOM. Make sure that `payload` is inserted as function parameter, then assign that value to the `dataUrl` property of our `messageContentToSend` object.
 
 ## Modifying our `displayJsonSend()` function.
 
@@ -167,7 +169,7 @@ function displayJsonSend(message){
 }
 ```
 
-Here , we modified our `displayJsonSend()` function to allow for a 'nicer' display message. The `paragraphContent` will be populated with the name of the file that we sent in our `sendMessageToMixnet()`function, which will then be displayed on the screen as a message just before the file is sent through the mixnet.  
+We've modified our `displayJsonSend()` function to display a 'nicer' message for our clients UI in the browser. The `paragraphContent` variable will be populated with the `name` of the file we sent in our `sendMessageToMixnet()` function.This message will be displayed on the screen just before the file is sent to our websocket, before entering the mixnet.
 
 ## Modifying our `handleResponse()` function.
 
@@ -203,7 +205,7 @@ function handleResponse(resp) {
 }
 ```
 
-At the top of our `handleResponse()` function, we have simplified it to a more cleaner series of if or else statements. With this block of code, we wont have to implement any error handling in the another function we are going to modify, `displayJsonResponse()`.
+At the top of our `handleResponse()` function, we have simplified it to a cleaner series of if-else statements. This block of code eliminates the need for error handling in the `displayJsonResponse()` function, which we're going to modify after we have made a small modification to our `handleReceivedTextMessage()` function.
 
 ## Modifying our `handleReceivedTextMessage()` function.
 
@@ -212,16 +214,16 @@ At the top of our `handleResponse()` function, we have simplified it to a more c
 function handleReceivedTextMessage(message) {
     const text = JSON.parse(message.message);
 
-    let sortedMessage = {
+    let sortedMessage = { // <--- Add new object 
         type : message.type,
         ...text
     }
 
-    displayJsonResponse(sortedMessage);
+    displayJsonResponse(sortedMessage); // <--- Replace parameter
 }
 ```
 
-Here, we modify the data that we receive so that were only passing the necessary data to the next function, `displayJsonResponse()`.
+Here, we modify the data that we receive (as type `"recieved"`) so that were only passing the necessary data to the next function, `displayJsonResponse()`.
 
 ## Modifying our `displayJsonResponse()` function.
 
@@ -308,9 +310,9 @@ function displayJsonResponse(message) {
 
 * `timeElapsed` & `today` - We assign `timeElapsed` to `Date.now()` (a large number representing milliseconds elapsed since epoch time) and use it to assign it to `today`, a new date value that we use to display a timestamp on the UI when the response is received back from the server.
 
-* `downloadFileButton` - To round off this User Client application, we will want to be able to download the file from the Service Provider if we get a successful response from it after sending the file through the mixnet. Inside our function,after creating a `dataLog` object, we will assign an `onclick` function to it. You can see we pass the file's hash (`fileCid`) along with its path and type as parameters.
+* `downloadFileButton` - To round off this User Client application, we will want to be able to download the file from the Service Provider if we get a successful response from it after sending the file through the mixnet. Inside our function,after creating a `dataLog` object, we will assign an `onclick` function to it. You can see we pass the file's hash (`fileCid`) along with its `path` and `type` as parameters.
 
-Below our `displayJsonResponse()` function , paste the following `sendDownloadRequest()` code below.
+Below our `displayJsonResponse()` function , paste the following code for our new function, `sendDownloadRequest()` below.
 
 ```typescript
 
@@ -341,7 +343,7 @@ We will re-visit the download file functionality of User Client in a later secti
 
 ## Modifying our `index.html` file.
 
-In your `index.html` file of our `user-client` , were just going to make some small changes. The main change here is adding our file upload input , with the ID of `fileInput` element,  which we have already referenced in our `index.ts` at the top of this tutorial page.
+In your `index.html` file of our `user-client` , were just going to make some small changes. The main change here is adding our file upload `input`, with the ID of `fileInput` element,  which we have already referenced in our `index.ts` at the top of this tutorial page. This will resemble the visual form of a button in our browser screen.
 
 ```html
 <!doctype html>
@@ -400,6 +402,52 @@ In your `index.html` file of our `user-client` , were just going to make some sm
         <script src="index.ts"></script>
     </body>
 </html>
+```
+
+For our new button , we also have some new styles that you can use if you wish to do so. At the bottom of your stylesheet file (found in `assets/styles.css`) paste the following code at the bottom of the file :
+
+```css
+/* Download Button Styles */
+
+.file-upload-label {
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+    background:linear-gradient(90deg, #f4731b 1.05%, #f12d50 100%);
+    border: 1px solid #F4511E;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    display: inline-block;
+    float: left;
+    letter-spacing:2px;
+    text-transform: uppercase;
+    padding:20px;
+    margin: auto;
+}
+    
+.file-upload-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 1px;
+    width: 0;
+    height: 100%;
+    opacity: 0;
+}
+
+.download-button {
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+    background:linear-gradient(90deg, #f4731b 1.05%, #f12d50 100%);
+    border: 1px solid #F4511E;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    display: inline-block;
+    padding:5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 ```
 ## Running our application and connecting our Nym Client.
 

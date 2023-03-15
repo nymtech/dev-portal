@@ -1,8 +1,11 @@
 # Preparing Your Service Provider Environment
 
-Before we get into modifying our Service Provider code, w'ell need to amend a few things in our applications configuration. Ensure you are now working in the `service-provider` directory of the project.
+Before we get into modifying our Service Provider code, we'll need to amend a few things in our applications configuration. Ensure you are now working in the `service-provider` directory of the project.
 
 ## Modifying our `package.json`.
+
+In the Service Provider's `package.json`, insert the new lines as shown below.
+
 ```json
 {
   "name": "service-provider",
@@ -35,7 +38,7 @@ Before we get into modifying our Service Provider code, w'ell need to amend a fe
 
 ## Modifying our `tsconfig.json`.
 
-Copy and paste the code below into your `tsconfig.json`. There are a number of line changes required inside this file to make it work with our `package.json` and it will be a-lot easier to just replace the file contents.
+Copy and paste the code below into your `tsconfig.json`. There are a number of line changes required inside this file to make it work with our `package.json` and it will be a-lot easier to just replace the file contents:
 
 ```json
 {
