@@ -38,7 +38,7 @@
 - [Community Applications](community-resources/community-applications.md)
 - [Community Guides](community-resources/community-guides.md)
 - [Change Service Grantee Information](info-request.md)
-- [KYC FAQ](community-resources/kyc-faq.md)
+- [Rewards FAQ](community-resources/rewards-faq.md)
 --- 
 
 # Misc.
