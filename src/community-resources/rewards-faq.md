@@ -28,7 +28,7 @@ To claim your rewards, you will be asked to provide your email address. If you h
 
 To receive your tokens, you will need a Nym wallet address. If you don't already have one, [download](https://nymtech.net/download/) the Nym wallet and create an account. You can copy your wallet address from the "receive" tab of the wallet. Make sure to keep your mnemonic safe, as losing that means losing your tokens. 
 
-**Tip: If you are not sure you have completed Nym KYC before, visit our KYC portal on [Synaps] (https://nym-kyc.synaps.me/signup) and try to log in with your email.**
+**Tip: If you are not sure you have completed Nym KYC before, visit our KYC portal on [Synaps](https://nym-kyc.synaps.me/signup) and try to log in with your email.**
 
 ### I have already passed KYC on Synaps. What do I need to do next?
 
