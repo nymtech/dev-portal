@@ -15,7 +15,7 @@ We love seeing our developer community create applications using Nym. If you wou
 
 <!--Pineapple *start-->
 
-## <img src='../images/profile_picture/pineapple_pp.png' style="float: right; width: 75px; height: 75px;">Nostr-Nym
+## <img src='../images/profile_picture/pineappleproxy_pp.png' style="float: right; width: 75px; height: 75px;">Nostr-Nym
 
 > [Nostr-nym](https://github.com/notrustverify/nostr-nym) offer a solution to use [Nostr](https://nostr.how/) protocol by giving the possibility to run a relay on mixnet. By using a  nostr client compatible with the mixnet, users can protect their privacy to be able to use Nostr has the want, without being observed.
 
