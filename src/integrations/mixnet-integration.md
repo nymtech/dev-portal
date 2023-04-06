@@ -1,5 +1,4 @@
 # Integrating with Nym for network privacy
-
 If you are wanting to integrate Nym by using the Mixnet as a transport layer for application traffic, you will have to run one of the three Nym clients in order to connect to the Mixnet. 
 
 ## Connecting applications to the mixnet
