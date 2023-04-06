@@ -20,7 +20,7 @@ If you’re working in JavaScript or Typescript in the browser, or building an e
 
 It’s packaged and available on the npm registry, so you can npm install it into your JavaScript or TypeScript application.
 
-The webassembly client is most easily used via the [typescript sdk](https://nymtech.net/docs/sdk/typescript.html) (Rust SDK coming soon). 
+The webassembly client is most easily used via the [typescript sdk](https://nymtech.net/docs/sdk/typescript.html).
 
 You can find example code in the [examples section](https://github.com/nymtech/nym/tree/release/{{platform_release_version}}/sdk/typescript/examples) of the codebase, and in the [typescript sdk docs](https://nymtech.net/docs/sdk/typescript.html).
 
