@@ -2,7 +2,42 @@
 
 If you are wanting to integrate Nym by using the Mixnet as a transport layer for application traffic, you will have to run one of the three Nym clients in order to connect to the Mixnet. 
 
-Before looking at the technical details of the various Nym clients avaliable to you, here's an overview of _how_ traffic would flow through the Mixnet if we connected a simple chat application to the Mixnet. 
+## Connecting applications to the mixnet
+### SDK support 
+If your app is written in Typescript or Rust, then you can use the [Typescript](https://nymtech.net/docs/sdk/typescript.html) or [Rust](https://nymtech.net/docs/sdk/rust.html) SDKs. These SDKs abstract away much of the messaging logic from your app, and allow you to run a Nym client as part of your application process, instead of having to run them seperately.
+
+### Choosing a client
+In order to connect your application to the mixnet, you need to select one of three clients to use. These clients do the majority of the heavy-lifting with regards to cryptographic operations and routing under the hood, and all do basically the same thing: create a connection to a gateway, encrypt and decrypt packets sent to and received from the mixnet, and send cover traffic to hide the flow of actual app traffic from observers. 
+
+As outlined in the [clients overview documentation](https://nymtech.net/docs/clients/overview.html) there are three clients availiable to developers to use when connecting applications to the mixnet: 
+
+#### Websocket client
+Your first option is the native websocket client. This is a compiled program that can run on Linux, Mac OS X, and Windows machines. It runs as a persistent process on a desktop or server machine. You can connect to it with any language that supports websockets. 
+
+You can see an example of how to connect to and manage interactions with this client in the [Simple Service Provider tutorial](../tutorials/simple-service-provider.md). 
+
+#### Webassembly client
+If you’re working in JavaScript or Typescript in the browser, or building an edge computing app, you’ll likely want to choose the webassembly client.
+
+It’s packaged and available on the npm registry, so you can npm install it into your JavaScript or TypeScript application.
+
+The webassembly client is most easily used via the [typescript sdk](https://nymtech.net/docs/sdk/typescript.html) (Rust SDK coming soon). 
+
+You can find example code in the [examples section](https://github.com/nymtech/nym/tree/release/{{platform_release_version}}/sdk/typescript/examples) of the codebase, and in the [typescript sdk docs](https://nymtech.net/docs/sdk/typescript.html).
+
+#### SOCKS client
+This client is useful for allowing existing applications to use the Nym mixnet without any code changes. All that’s necessary is that they can use one of the SOCKS5, SOCKS4a, or SOCKS4 proxy protocols (which many applications can - crypto wallets, browsers, chat applications etc).
+
+It’s less flexible as a way of writing custom applications than the other clients, but able to be used to proxy application traffic through the mixnet without having to make any code changes. 
+
+You can find examples of how to utilise this client in the [Quickstart](../quickstart/socks-proxy.md) section, and the [SOCKS5 documentation](https://nymtech.net/docs/clients/socks5-client.html). 
+
+## Recommended infrastructure setup  
+In order to ensure uptime and reliability, it is recommended that you run some pieces of mixnet infrastructure. What infrastructure is necessary to run depends on the architecture of your application, and the endpoints that it needs to hit! 
+
+* If you're running a purely P2P application, then just integrating clients and having some method of sharing addresses should be enough to route your traffic through the mixnet. 
+* If you're wanting to place the mixnet between your users' application instances and a server-based backend, you can use the [network requester](https://nymtech.net/docs/nodes/network-requester-setup.html) service provider binary to proxy these requests to your application backend, with the mixnet 'between' the user and your service, in order to prevent metadata leakage being broadcast to the internet. 
+* If you're wanting to route RPC requests through the mixnet to a blockchain, you will need to look into setting up some sort of service that does the transaction broadcasting for you. You can find examples of such projects on the [community applications](../community-resources/community-applications.md) page. 
 
 ## Example application traffic flow
 ### Initialization
@@ -140,40 +175,3 @@ The process for sending messages to other apps is exactly the same, you simply s
 be either a seperate process or embedded in the same process as the app code via one of our SDKs. 
 ```
 
-
-## Connecting applications to the mixnet 
-Now that we've got a mental model of how the traffic flow works with a mixnet-integrated application, you need to decide which nym client makes the most sense for you to use. 
-
-These clients do the majority of the heavy-lifting with regards to cryptographic operations and routing under the hood, and all do basically the same thing: create a connection to a gateway, encrypt and decrypt packets sent to and received from the mixnet, and send cover traffic to hide the flow of actual app traffic from observers. 
-
-As outlined in the [clients overview documentation](https://nymtech.net/docs/clients/overview.html) there are three clients availiable to developers to use when connecting applications to the mixnet: 
-
-### Websocket client
-Your first option is the native websocket client. This is a compiled program that can run on Linux, Mac OS X, and Windows machines. It runs as a persistent process on a desktop or server machine. You can connect to it with any language that supports websockets. 
-
-You can see an example of how to connect to and manage interactions with this client in the [Simple Service Provider tutorial](../tutorials/simple-service-provider.md). 
-
-### Webassembly client
-If you’re working in JavaScript or Typescript in the browser, or building an edge computing app, you’ll likely want to choose the webassembly client.
-
-It’s packaged and available on the npm registry, so you can npm install it into your JavaScript or TypeScript application.
-
-The webassembly client is most easily used via the [typescript sdk](https://nymtech.net/docs/sdk/typescript.html) (Rust SDK coming soon). 
-
-You can find example code in the [examples section](https://github.com/nymtech/nym/tree/release/{{platform_release_version}}/sdk/typescript/examples) of the codebase, and in the [typescript sdk docs](https://nymtech.net/docs/sdk/typescript.html).
-
-### SOCKS client
-This client is useful for allowing existing applications to use the Nym mixnet without any code changes. All that’s necessary is that they can use one of the SOCKS5, SOCKS4a, or SOCKS4 proxy protocols (which many applications can - crypto wallets, browsers, chat applications etc).
-
-It’s less flexible as a way of writing custom applications than the other clients, but able to be used to proxy application traffic through the mixnet without having to make any code changes. 
-
-You can find examples of how to utilise this client in the [Quickstart](../quickstart/socks-proxy.md) section, and the [SOCKS5 documentation](https://nymtech.net/docs/clients/socks5-client.html). 
-
-## Recommended infrastructure setup  
-In order to ensure uptime and reliability, it is recommended that you run some pieces of mixnet infrastructure. What infrastructure is necessary to run depends on the architecture of your application, and the endpoints that it needs to hit! 
-
-* If you're running a purely P2P application, then just integrating clients and having some method of sharing addresses should be enough to route your traffic through the mixnet. 
-* If you're wanting to place the mixnet between your users' application instances and a server-based backend, you can use the [network requester](https://nymtech.net/docs/nodes/network-requester-setup.html) service provider binary to proxy these requests to your application backend, with the mixnet 'between' the user and your service, in order to prevent metadata leakage being broadcast to the internet. 
-* If you're wanting to route RPC requests through the mixnet to a blockchain, you will need to look into setting up some sort of service that does the transaction broadcasting for you. You can find examples of such projects on the [community applications](../community-resources/community-applications.md) page. 
-
-> Alpha leak: we are working on tutorial for broadcasting blockchain transactions through the mixnet, as well as interacting with our smart contract infrastructure... keep your eyes peeled! 
