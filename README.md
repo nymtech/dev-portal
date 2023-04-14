@@ -1,4 +1,7 @@
-# Nym Developer Portal
+# Nym Developer Portal (⚠️ ARCHIVED ⚠️)
+
+> ⚠️ This repository has been archived. The developer portal docs have been moved to the `Documentation/` directory of the [Nym monorepo](https://github.com/nymtech/nym) ⚠️
+
 Developer Portal for the Nym privacy platform built using the [mdBook](https://rust-lang.github.io/mdBook/) docs framework.
 
 <!-- not deployed yet  -->
